@@ -9,12 +9,13 @@
 \usepackage{hhtensor} % Notação de vetores (seta em cima)
 \usepackage[pt-BR]{datetime2} % Para colocar a data apenas com o mês
 \usepackage{indentfirst} % Identa os primeiros parágrafos de uma seção
-%\usepackage[top=3cm,bottom=2cm,left=3cm,right=2cm]{geometry} % Seta as margens do documento
+\usepackage[top=3cm,bottom=2cm]{geometry} % Seta as margens do documento
 \usepackage{ragged2e} % Ambientes de alinhamento
 \usepackage{multicol} % Multi-colunas
 \usepackage[american, cute inductors]{circuitikz}
 
 \usetikzlibrary{matrix,decorations.pathreplacing,calc,arrows,decorations.markings,shapes.misc}
+\ctikzset{label/align= straight}
 \numberwithin{equation}{section}
 \newlength\Colsep
 \setlength\Colsep{10pt}
@@ -226,20 +227,44 @@
     \textbf{Definição:} A soma de todas as tensões que caem em uma malha é igual à soma de todas as tensões que sobem na mesma malha.
     \begin{center}
         $$e_{1}+e_{2}-e_{3}=0$$
-        \begin{circuitikz}
-            
+        \begin{circuitikz}\draw
+            (0, 0) to[V, l=$e_1$,*-] (0, 3)
+            (0, 3) to[V, l=$e_2$] (3, 3)
+            (3, 0) to[V, l_=$e_3$,*-] (3, 3)
         ;\end{circuitikz}
     \end{center}
 
     \subsection{Outros Conceitos Básicos}
     \label{subsec:def}
     \subsubsection{Associação em Série}
-    Dois componentes são ditos associados em série quando estão conectados de modo que a exata mesma corrente passa por ambos. É possível substituí-los por um componente equivalente, conforme a regra
+    Dois componentes são ditos associados em série quando estão conectados de modo que a exata mesma corrente passa por ambos. É possível substituí-los por um componente equivalente, conforme as relações
     \begin{itemize}
         \item \textbf{Resistores:} $R_{eq}= R_{1} + R_{2}$
         \item \textbf{Indutores:} $L_{eq}= L_{1} + L_{2}$
         \item \textbf{Capacitores:} $C_{eq}= \left(\displaystyle{\frac{1}{C_{1}}} + \displaystyle{\frac{1}{C_{2}}}\right)^{\displaystyle{-1}}$
     \end{itemize}
+
+    \noindent\begin{minipage}{\textwidth}
+    \begin{minipage}[c][2cm][c]{\dimexpr0.45\textwidth-0.5\Colsep\relax}
+        \begin{center}
+            \begin{circuitikz}\draw
+                (0,0) to[R, l=$R_1$,*-] (2,0)
+                (2,0) to[R, l=$R_2$,-*] (4,0)
+            ;\end{circuitikz}
+        \end{center}
+    \end{minipage} \hfill
+    \begin{minipage}[c][2cm][c]{\dimexpr0.1\textwidth-0.5\Colsep\relax}
+        $$\iff$$
+    \end{minipage} \hfill
+    \begin{minipage}[c][2cm][c]{\dimexpr0.45\textwidth-0.5\Colsep\relax}
+        \begin{center}
+            \begin{circuitikz}\draw
+                (0,0) to[R, l=$R_{eq}$,*-*] (4,0)
+            ;\end{circuitikz}
+        \end{center}
+    \end{minipage}
+    \end{minipage}
+
 
     \subsubsection{Associação em Paralelo}
     Dois componentes são ditos associados em paralelo quando estão conectados de modo que a exata mesma diferença de potencial (tensão) cai em ambos. Neste caso, a equivalência se dá do seguinte modo
@@ -249,10 +274,67 @@
         \item \textbf{Capacitores:} $C_{eq}= C_{1} + C_{2} $
     \end{itemize}
 
+    \noindent\begin{minipage}{\textwidth}
+    \begin{minipage}[c][3cm][c]{\dimexpr0.45\textwidth-0.5\Colsep\relax}
+        \begin{center}
+            \begin{circuitikz}\draw
+                (0,0) to[R, l=$R_1$] (0,2)
+                (0,2) to[short] (2,2)
+                (2,0) to[R, l=$R_2$] (2,2)
+                (0,0) to[short] (2,0)
+                (0,0) to[short,-*] (-1,0)
+                (2,0) to[short,-*] (3,0)
+                (0,2) to[short,-*] (-1,2)
+                (2,2) to[short,-*] (3,2)
+            ;\end{circuitikz}
+        \end{center}
+    \end{minipage} \hfill
+    \begin{minipage}[c][3cm][c]{\dimexpr0.1\textwidth-0.5\Colsep\relax}
+        $$\iff$$
+    \end{minipage} \hfill
+    \begin{minipage}[c][3cm][c]{\dimexpr0.45\textwidth-0.5\Colsep\relax}
+        \begin{center}
+            \begin{circuitikz}\draw
+                (0,0) to[R, l=$R_{eq}$] (0,2)
+                (0,2) to[short,-*] (1,2)
+                (0,0) to[short,-*] (1,0)
+                (0,0) to[short,-*] (-1,0)
+                (0,2) to[short,-*] (-1,2)
+            ;\end{circuitikz}
+        \end{center}
+    \end{minipage}
+    \end{minipage}
+
     \subsubsection{Transformação $\Delta-Y$}
-    Permite transformar um circuito em configuração $\Delta$ para $Y$ e vice-versa, respeitando às seguintes relações:
+    Permite transformar um circuito em configuração $\Delta$ para $Y$ e vice-versa, respeitando às seguintes relações: \\
     % circuito em Delta com Ra,Rb,Rc e circuito em Y com R1,R2,R3
-    *INSERT IMAGE*
+    \noindent\begin{minipage}{\textwidth}
+    \begin{minipage}[c][5cm][c]{\dimexpr0.45\textwidth-0.5\Colsep\relax}
+        \begin{center}
+            \begin{circuitikz}\draw
+                (0,0) to[R,l=$R_a$] (2,3)
+                (2,3) to[R,l=$R_b$] (4,0)
+                (0,0) to[R,l_=$R_c$] (4,0)
+                (0,0) to[short,-*] (-.5,0)
+                (2,3) to[short,-*] (2,3.5)
+                (4,0) to[short,-*] (4.5,0)
+            ;\end{circuitikz}
+        \end{center}
+    \end{minipage} \hfill
+    \begin{minipage}[c][5cm][c]{\dimexpr0.1\textwidth-0.5\Colsep\relax}
+        $$\iff$$
+    \end{minipage} \hfill
+    \begin{minipage}[c][5cm][c]{\dimexpr0.45\textwidth-0.5\Colsep\relax}
+        \begin{center}
+            \begin{circuitikz}\draw
+                (2,4) to[R,l=$R_{3}$,*-] (2,1.5)
+                (0,0) to[R,l=$R_{2}$,*-] (2,1.5)
+                (2,1.5) to[R,l=$R_{1}$,-*] (4,0)
+            ;\end{circuitikz}
+        \end{center}
+    \end{minipage}
+    \end{minipage}
+
     \begin{center}{$\Delta \longrightarrow Y$}\end{center}
     \begin{itemize}
         \item $R_1=\displaystyle\frac{R_bR_c}{R_a+R_b+R_c}$
@@ -271,10 +353,55 @@
     \begin{itemize}
         \item \textbf{Princípio da Superposição:} $f(x_{1}+x_{2})= f(x_{1})+f(x_{2})$
     \end{itemize}
-    O mais pertinente exemplo é a relação entre tensão e corrente nos circuitos reativos.
+    O mais pertinente exemplo é a relação entre tensão e corrente nos circuitos reativos. $V(t)=f(i(t))$ ou $i(t)=f(V(t))$. Alguns exemplos,
+        $$V_R(i)=Ri_R \implies V(i_1+i_2) = R(i_1+i_2) = Ri_1+Ri_2 = V(i_1) + V(i_2)$$
+        $$V_C(i)=\frac{1}{C}\int_0^ti_Cd\tau \implies V(i_1+i_2)=\frac{1}{C}\int_0^t(i_1+i_2)d\tau=\frac{1}{C}\int_0^ti_1d\tau+\frac{1}{C}\int_0^ti_2d\tau=V(i_1)+V(i_2)$$
+        $$V_L(i)=L\frac{di_L}{dt} \implies V(i_1+i_2)=L\frac{d(i_1+i_2)}{dt}=L\frac{di_1}{dt}+L\frac{di_2}{dt}=V(i_1)+V(i_2)$$
 
     \subsubsection{Superposição em Circuitos Elétricos}
     O Princípio da Superposição possui uma importante aplicação em circuitos elétricos, pois permite que a contribuição de cada fonte seja considerada separadamente, muitas vezes facilitando a resolução de problemas que, de outras formas, levaria a uma solução mais complexa e/ou demorada.
+
+    \begin{center}
+        \begin{circuitikz}\draw
+            (0,3) to[V,l=$V_1$] (0,0)
+            (0,3) to[R,l=$R_1$] (3,3)
+            (3,0) to[R,l=$R_2$,v<=$e_0$] (3,3)
+            (3,3) to[R,l=$R_3$] (6,3)
+            (6,3) to[V,l=$V_2$] (6,0)
+            (0,0) -- (6,0)
+        ;\end{circuitikz}
+    \end{center}
+
+    A saída $e_0$ pode ser calculada por superposição, de modo que o problema resume-se a resolver os dois circuitos mais simples abaixo
+
+    $$e_0=e_{0_1}+e_{0_2}$$
+
+    \noindent\begin{minipage}{\textwidth}
+    \begin{minipage}[c][5cm][c]{\dimexpr0.5\textwidth-0.5\Colsep\relax}
+        \begin{center}
+            \begin{circuitikz}\draw
+                (0,3) to[V,l=$V_1$] (0,0)
+                (0,3) to[R,l=$R_1$] (3,3)
+                (3,0) to[R,l=$R_2$,v<=$e_{0_1}$] (3,3)
+                (3,3) to[R,l=$R_3$] (6,3)
+                (6,3) -- (6,0)
+                (0,0) -- (6,0)
+            ;\end{circuitikz}
+        \end{center}
+    \end{minipage} \hfill
+    \begin{minipage}[c][5cm][c]{\dimexpr0.5\textwidth-0.5\Colsep\relax}
+        \begin{center}
+            \begin{circuitikz}\draw
+                (0,3) -- (0,0)
+                (0,3) to[R,l=$R_1$] (3,3)
+                (3,0) to[R,l=$R_2$,v<=$e_{0_2}$] (3,3)
+                (3,3) to[R,l=$R_3$] (6,3)
+                (6,3) to[V,l=$V_2$] (6,0)
+                (0,0) -- (6,0)
+            ;\end{circuitikz}
+        \end{center}
+    \end{minipage}
+    \end{minipage}
 
     \subsubsection{Curto-Circuito e Circuito Aberto}
     Considera-se um \textbf{curto-circuito} um elemento com resistência/impedância tendendo a 0 (zero), ou seja, que permite livremente a passagem de corrente e com queda de tensão nula sobre o mesmo. \\
@@ -289,14 +416,36 @@
     \end{cases}
     $$
 
+    A função também pode ser denotada em outras bibliografias por $H(t)$ ou $u_{-1}(t)$. Seu principal uso é localizar algum evento no tempo, a exemplo de uma fonte sendo ligada ou uma chave sendo aberta ou fechada. O gráfico abaixo ilustra o comportamento da função $\cos (t)u(t)$ ao longo do tempo
+
+    \begin{center}
+        \includegraphics[width=\textwidth]{img/cos(t).png}
+    \end{center}
+
     \subsubsection{Unidades de Medida}
     \begin{itemize}
         \item \textbf{Ohm [$\Omega$]}: resistência/impedância elétrica, relação entre a tensão e a corrente em um resistor.
         \item \textbf{Siemens [$S$]}: condutância/admitância elétrica, inverso da resistência. Esta unidade é também conhecida como \textbf{Mho [$\mho$]} ou \textbf{[$\Omega^{-1}$]}.
         \item \textbf{Henry [$H$]}: indutância elétrica, relação entre a tensão e a variação da corrente em um indutor.
         \item \textbf{Farad [$F$]}: capacitância, relação entre a carga elétrica e a tensão em um capacitor.
-        \item \textbf{Watt [$W$]}: potência útil, calculada por $P_x=V_xi_x$. Para indutores e capacitores existe a unidade \textbf{Volt-Ampère reativo [$VAr$]} que representa a potência reativa, e também deve ser citada a unidade \textbf{Volt-Ampère [$VA$]} que representa a potência aparente de um circuito de corrente alternada. As duas últimas não serão tratadas neste material
+        \item \textbf{Watt [$W$]}: potência útil, calculada por $P=Vi$. Para indutores e capacitores existe a unidade \textbf{Volt-Ampère reativo [$VAr$]} que representa a potência reativa, e também deve ser citada a unidade \textbf{Volt-Ampère [$VA$]} que representa a potência aparente de um circuito de corrente alternada. As duas últimas não serão tratadas neste material
     \end{itemize}
+
+    Além disso, existem alguns prefixos de unidades comuns na análise de circuitos elétricos.
+
+    \begin{center}
+        Relações dos prefixos das unidades \\
+        \begin{tabular}{|c|c|c|} \hline
+            Prefixo & Símbolo & Multiplicador \\ \hline
+            Pico & $p$ & $10^{-12}$ \\
+            Nano & $n$ & $10^{-9}$ \\
+            Micro & $\mu$ & $10^{-6}$ \\
+            Mili & $m$ & $10^{-3}$ \\
+            Kilo & $k$ & $10^{3}$ \\
+            Mega & $M$ & $10^{6}$ \\
+            Giga & $G$ & $10^{9}$ \\ \hline
+        \end{tabular}
+    \end{center}
 
     \subsubsection{Teorema da Reciprocidade}
     Considerando um circuito elétrico resistivo com apenas uma fonte de corrente ou tensão, e um instrumento de medição voltímetro ou amperímetro, é possível permutar a fonte e o instrumento sem modificar a leitura do mesmo.
