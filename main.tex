@@ -348,6 +348,41 @@
         \item $R_c=\displaystyle\frac{R_1R_2+R_2R_3+R_1R_3}{R_3}$
     \end{itemize}
 
+    Vale notar que no caso particular em que todos os resistores são iguais (a $R$, por exemplo), a conversão de $\Delta$ para $Y$ resulta em $R_1=R_2=R_3=\frac{1}{3}R$. No caso da operação inversa, obtêm-se $R_a=R_b=R_c=3R$.
+
+    As configurações $\Delta$ e $Y$ podem ser rearranjadas em um formato alternativo (o exato mesmo circuito é escrito de maneira ligeiramente diferente). Por isso o nome Transformação $\pi-T$ também é empregado.
+
+    \noindent\begin{minipage}{\textwidth}
+    \begin{minipage}[c][5cm][c]{\dimexpr0.45\textwidth-0.5\Colsep\relax}
+        \begin{center}
+            \begin{circuitikz}\draw
+                (0,0) to[R,l=$R_a$] (0,3)
+                (4,3) to[R,l=$R_b$] (4,0)
+                (0,3) to[R,l_=$R_c$] (4,3)
+                (0,0) to[short,-*] (-.5,0)
+                (0,3) to[short,-*] (-.5,3)
+                (4,0) to[short,-*] (4.5,0)
+                (4,3) to[short,-*] (4.5,3)
+                (0,0) -- (4,0)
+            ;\end{circuitikz}
+        \end{center}
+    \end{minipage} \hfill
+    \begin{minipage}[c][5cm][c]{\dimexpr0.1\textwidth-0.5\Colsep\relax}
+        $$\iff$$
+    \end{minipage} \hfill
+    \begin{minipage}[c][5cm][c]{\dimexpr0.45\textwidth-0.5\Colsep\relax}
+        \begin{center}
+            \begin{circuitikz}\draw
+                (-.5,3) to[R,l=$R_{1}$,*-] (2,3)
+                (2,3) to[R,l=$R_{2}$] (2,0)
+                (2,3) to[R,l=$R_{3}$,-*] (4.5,3)
+                (-.5,0) to[short,*-*] (4.5,0)
+            ;\end{circuitikz}
+        \end{center}
+    \end{minipage}
+    \end{minipage}
+
+
     \subsubsection{Linearidade}
     A relação entre duas variáveis é dita linear quando respeita a seguinte relação
     \begin{itemize}
@@ -448,12 +483,47 @@
     \end{center}
 
     \subsubsection{Teorema da Reciprocidade}
-    Considerando um circuito elétrico resistivo com apenas uma fonte de corrente ou tensão, e um instrumento de medição voltímetro ou amperímetro, é possível permutar a fonte e o instrumento sem modificar a leitura do mesmo.
+    Considerando um circuito elétrico resistivo com apenas uma fonte de corrente ou tensão, e um instrumento de medição voltímetro ou amperímetro, é possível permutar a fonte e o instrumento sem modificar a leitura do mesmo. Por exemplo
 
+    \noindent\begin{minipage}{\textwidth}
+    \begin{minipage}[b][5cm][b]{\dimexpr0.5\textwidth-0.5\Colsep\relax}
+        \begin{center}
+            \begin{circuitikz}[scale=0.95,transform shape]\draw
+                (0,3) to[R,l=$R_1$] (0,0)
+                (0,3) to[R,l=$R_2$] (3,3)
+                (.5,3) -- (.5,4.5)
+                (.5,4.5) to[voltmeter] (2.5,4.5)
+                (2.5,4.5) -- (2.5,3)
+                (3,3) to[V,l=$e_i$] (3,0)
+                (3,3) to[R,l=$R_3$] (6,3)
+                (6,3) to[R,l=$R_4$] (6,0)
+                (0,0) -- (6,0)
+            ;\end{circuitikz}
+        \end{center}
+    \end{minipage}
+    \begin{minipage}[b][5cm][b]{\dimexpr0.5\textwidth-0.5\Colsep\relax}
+        \begin{center}
+            \begin{circuitikz}[scale=0.95,transform shape]\draw
+                (0,3) to[R,l=$R_1$] (0,0)
+                (0,3) to[R,l=$R_2$] (3,3)
+                (.5,3) -- (.5,4.5)
+                (.5,4.5) to[V,l=$e_i$] (2.5,4.5)
+                (2.5,4.5) -- (2.5,3)
+                (3,3) to[voltmeter] (3,0)
+                (3,3) to[R,l=$R_3$] (6,3)
+                (6,3) to[R,l=$R_4$] (6,0)
+                (0,0) -- (6,0)
+            ;\end{circuitikz}
+        \end{center}
+    \end{minipage}
+    \end{minipage}
+
+    \vspace{0.5cm}
+    A tensão medida no voltímetro permanece a mesma nos dois casos. O Teorema de Reciprocidade extende-se também para fontes de corrente.
 
     \newpage
 
-    \section{Circuitos não Reativos}
+    \section{Circuitos Não Reativos}
     \label{sec:resistivos}
 
     \subsection{Operações básicas}
@@ -491,13 +561,113 @@
     \subsubsection{Thévenin}
     \label{subsubsec:thevenin}
     O Teorema de Thévenin (também chamado de Equivalente de Thévenin) é uma técnica de simplificação de circuitos que transforma uma rede de resistores e fontes(controladas ou não) em um circuito equivalente contendo uma fonte de tensão $V_{th}$ em série com um resistor $R_{th}$. Para tal, deve-se escolher dois terminais de interesse $a$ e $b$.
-    %IMAGEM DA BATATA AQUI%
-    *INSERT IMAGE*
+
+    Considerando uma rede genérica que contém apenas fontes independentes e resistores
+
+    \begin{center}
+        \begin{circuitikz}[scale=1.2,transform shape]\draw
+            node[fourport](btt){}
+            (btt.2) to[short,-*] ++(1,0) node[label={right:$b$}]{}
+            (btt.3) to[short,-*] ++(1,0) node[label={right:$a$}]{}
+        ;\end{circuitikz}
+    \end{center}
     Por definição,
     \begin{itemize}
         \item $V_{th}$ é a tensão entre $a$ e $b$ a circuito aberto,
-        \item $R_{th}$ é a resistência equivalente medida a partir dos terminais $a$ e $b$ após ``matar'' as fontes independentes.
+        \item $R_{th}$ é a resistência equivalente medida a partir dos terminais $a$ e $b$ após ``matar''\footnote{Matar uma fonte é um termo informal para ``igualar o valor da fonte a zero''.} as fontes independentes.
     \end{itemize}
+
+    Deste modo, conseguimos simplificar a configuração do circuito elétrico, facilitando o cálculo de tensão e corrente em qualquer carga aplicada entre os terminais $a$ e $b$. Por exemplo, para encontrar o valor da tensão no capacitor $C$ pode-se aplicar o Teorema de Thévenin nos terminais indicados na figura
+
+    \noindent\begin{minipage}{\textwidth}
+    \begin{minipage}[c][4cm][c]{\dimexpr0.5\textwidth-0.5\Colsep\relax}
+        \begin{center}
+            \begin{circuitikz}[scale=0.9,transform shape]\draw
+                (0,3) to[V,l=$e_i$] (0,0)
+                (0,3) to[R,l=$R_1$] (3,3)
+                (3,3) to[R,l=$R_2$] (3,0)
+                (3,3) to[R,l=$R_3$] (6,3)
+                (6,3) node[label={right:$a$}]{} to[C,l=$C$,v=$e_0$,*-*] (6,0) node[label={right:$b$}]{}
+                (0,0) -- (6,0)
+            ;\end{circuitikz}
+        \end{center}
+    \end{minipage}
+    \begin{minipage}[c][4cm][c]{\dimexpr0.5\textwidth-0.5\Colsep\relax}
+        Inicialmente, deve-se abrir o circuito nos terminais do capacitor ($a$ e $b$) e calcular a tensão que cai nos mesmos.
+    \end{minipage}
+    \end{minipage}
+
+    \noindent\begin{minipage}{\textwidth}
+    \begin{minipage}[c][4cm][c]{\dimexpr0.5\textwidth-0.5\Colsep\relax}
+        \begin{center}
+            \begin{circuitikz}[scale=0.9,transform shape]\draw
+                (0,3) to[V,l=$e_i$] (0,0)
+                (0,3) to[R,l=$R_1$] (3,3)
+                (3,3) to[R,l=$R_2$,v=$V_{ab}$] (3,0)
+                (3,3) to[R,l=$R_3$,v=$0V$,f=$0A$,-*] (6,3) node[label={right:$a$}]{}
+                (0,0) to[short,-*] (6,0) node[label={right:$b$}]{}
+            ;\end{circuitikz}
+        \end{center}
+    \end{minipage}
+    \begin{minipage}[c][4cm][c]{\dimexpr0.5\textwidth-0.5\Colsep\relax}
+        Como a tensão no resistor $R_3=0$, lembrando que um potencial é o mesmo ao longo de um fio ideal, a tensão $V_{ab}=V_{th}$ é exatamente a tensão que cai no resistor $R_2$, a qual pode ser calculado pelo divisor de tensão
+        $$V_{th}=\frac{R_2}{R_1+R_2}e_i$$
+    \end{minipage}
+    \end{minipage}
+
+    \noindent\begin{minipage}{\textwidth}
+    \begin{minipage}[c][4cm][c]{\dimexpr0.5\textwidth-0.5\Colsep\relax}
+        \begin{center}
+            \begin{circuitikz}[scale=0.9,transform shape]\draw
+                (0,3) to[short,*-*] (0,0)
+                (0,3) to[R,l=$R_1$] (3,3)
+                (3,3) to[R,l=$R_2$] (3,0)
+                (3,3) to[R,l=$R_3$,v=$0V$,f=$0A$,-*] (6,3) node[label={right:$a$}]{}
+                (0,0) to[short,-*] (6,0) node[label={right:$b$}]{}
+            ;\end{circuitikz}
+        \end{center}
+    \end{minipage}
+    \begin{minipage}[c][4cm][c]{\dimexpr0.5\textwidth-0.5\Colsep\relax}
+        Em seguida, para o cálculo do resistor de Thévenin, mata-se a fonte de tensão (ou seja, deve-se substituí-la por um curto-circuito) e calcula-se a resistência equivalente vista dos terminais $a$ e $b$
+    \end{minipage}
+    \end{minipage}
+
+    \noindent\begin{minipage}{\textwidth}
+    \begin{minipage}[c][4cm][c]{\dimexpr0.5\textwidth-0.5\Colsep\relax}
+        \begin{center}
+            \begin{circuitikz}[scale=0.9,transform shape]\draw
+                (0,3) to[R,l=$R_1$] (0,0)
+                (0,3) -- (3,3)
+                (3,3) to[R,l=$R_2$] (3,0)
+                (3,3) to[R,l=$R_3$,-*] (6,3) node[label={right:$a$}]{}
+                (0,0) to[short,-*] (6,0) node[label={right:$b$}]{}
+            ;\end{circuitikz}
+        \end{center}
+    \end{minipage}
+    \begin{minipage}[c][4cm][c]{\dimexpr0.5\textwidth-0.5\Colsep\relax}
+        Rearranjando ligeiramente o $R_1$, percebe-se que o resistor equivalente é $R_3$ em série com o paralelo de $R_1$ e $R_2$, ou seja
+        $$R_{th}=(R_1//R_2)+R_3=\frac{R_1R_2}{R_1+R_2}+R_3$$
+    \end{minipage}
+    \end{minipage}
+
+    \noindent\begin{minipage}{\textwidth}
+    \begin{minipage}[c][4cm][c]{\dimexpr0.5\textwidth-0.5\Colsep\relax}
+        \begin{center}
+            \begin{circuitikz}[scale=0.9,transform shape]\draw
+                (0,3) to[V,l_=$\displaystyle\frac{R_2}{R_1+R_2}e_i$] (0,0)
+                (0,3) to[R,l=$(R_1//R_2)+R_3$] (3,3) node[label={right:$a$}]{}
+                (3,3) to[C,l=$C$,v=$e_0$,*-*] (3,0) node[label={right:$b$}]{}
+                (0,0) -- (3,0)
+            ;\end{circuitikz}
+        \end{center}
+    \end{minipage}
+    \begin{minipage}[c][4cm][c]{\dimexpr0.5\textwidth-0.5\Colsep\relax}
+        Deste modo, é possível escrever o circuito original como um circuito RC série (cuja solução será abordada em capítulos futuros), que torna simples encontrar a saída $e_0$.
+    \end{minipage}
+    \end{minipage}
+
+    O interessante é que para qualquer combinação de componentes colocada entre os terminais $a$ e $b$ terão o mesmo equivalente de Thévenin calculado, facilitando o cálculo para várias cargas diferentes.
+
     Outra técnica análoga é calcular o Equivalente de Norton, que transforma a rede de componentes em um circuito com uma fonte de corrente $I_{N}$ em paralelo com um resistor $I_{N}$. \\
     %IMAGEM DA BATATA COM NORTON%
     *INSERT IMAGE*
