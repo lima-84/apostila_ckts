@@ -212,7 +212,7 @@
 
     \subsubsection{Lei de Kirchhoff das Correntes}
     \label{subsubsec:KCL}
-    \textbf{Definição:} A soma de todas as correntes que entram em um nó é igual à soma de todas as correntes que saem desse mesmo nó.
+    \textbf{Definição:} A soma de todas as correntes que entram em um nó é igual à soma de todas as correntes que saem deste mesmo nó. Considera-se um nó, um ponto arbitrário de mesmo potencial (a exemplo de um fio ideal, ou seja, independente do tamanho do fio, não há queda de tensão entre um componente e outro) no qual os terminais e, por conseguinte, as correntes de dois ou mais componentes se encontram.
     \begin{center}
         $$i_{1}+i_{2}-i_{3} = 0$$
         \begin{circuitikz}\draw
@@ -224,7 +224,7 @@
 
     \subsubsection{Lei de Kirchhoff das Tensões}
     \label{subsubsec:KVL}
-    \textbf{Definição:} A soma de todas as tensões que caem em uma malha é igual à soma de todas as tensões que sobem na mesma malha.
+    \textbf{Definição:} A soma de todas as tensões que caem em uma malha é igual à soma de todas as tensões que sobem na mesma malha. Considera-se uma malha um caminho fechado arbitrário (não necessariamente conectado por um fio, mas fechado no sentido de haver queda de tensão entre cada elemento da malha).
     \begin{center}
         $$e_{1}+e_{2}-e_{3}=0$$
         \begin{circuitikz}\draw
@@ -237,7 +237,7 @@
     \subsection{Outros Conceitos Básicos}
     \label{subsec:def}
     \subsubsection{Associação em Série}
-    Dois componentes são ditos associados em série quando estão conectados de modo que a exata mesma corrente passa por ambos. É possível substituí-los por um componente equivalente, conforme as relações
+    Dois componentes são ditos associados em série quando estão conectados de modo que a exata mesma corrente passa por ambos. É possível substituí-los por um componente equivalente sem alterar o valor da corrente, conforme as relações
     \begin{itemize}
         \item \textbf{Resistores:} $R_{eq}= R_{1} + R_{2}$
         \item \textbf{Indutores:} $L_{eq}= L_{1} + L_{2}$
@@ -248,7 +248,7 @@
     \begin{minipage}[c][2cm][c]{\dimexpr0.45\textwidth-0.5\Colsep\relax}
         \begin{center}
             \begin{circuitikz}\draw
-                (0,0) to[R, l=$R_1$,*-] (2,0)
+                (0,0) to[R, l=$R_1$,*-,f=$i$] (2,0)
                 (2,0) to[R, l=$R_2$,-*] (4,0)
             ;\end{circuitikz}
         \end{center}
@@ -259,7 +259,7 @@
     \begin{minipage}[c][2cm][c]{\dimexpr0.45\textwidth-0.5\Colsep\relax}
         \begin{center}
             \begin{circuitikz}\draw
-                (0,0) to[R, l=$R_{eq}$,*-*] (4,0)
+                (0,0) to[R, l=$R_{eq}$,*-*,f=$i$] (4,0)
             ;\end{circuitikz}
         \end{center}
     \end{minipage}
@@ -278,9 +278,9 @@
     \begin{minipage}[c][3cm][c]{\dimexpr0.45\textwidth-0.5\Colsep\relax}
         \begin{center}
             \begin{circuitikz}\draw
-                (0,0) to[R, l=$R_1$] (0,2)
+                (0,0) to[R, l=$R_1$,v<=$v$] (0,2)
                 (0,2) to[short] (2,2)
-                (2,0) to[R, l=$R_2$] (2,2)
+                (2,0) to[R, l=$R_2$,v<=$v$] (2,2)
                 (0,0) to[short] (2,0)
                 (0,0) to[short,-*] (-1,0)
                 (2,0) to[short,-*] (3,0)
@@ -295,7 +295,7 @@
     \begin{minipage}[c][3cm][c]{\dimexpr0.45\textwidth-0.5\Colsep\relax}
         \begin{center}
             \begin{circuitikz}\draw
-                (0,0) to[R, l=$R_{eq}$] (0,2)
+                (0,0) to[R, l=$R_{eq}$,v<=$v$] (0,2)
                 (0,2) to[short,-*] (1,2)
                 (0,0) to[short,-*] (1,0)
                 (0,0) to[short,-*] (-1,0)
@@ -528,7 +528,7 @@
 
     \subsection{Operações básicas}
 
-    \subsubsection{Divisor de Tensão} %INSERIR FOTOS SE QUISER%
+    \subsubsection{Divisor de Tensão}
     \label{subsubsec:divten}
     Em um circuito série contendo apenas uma fonte de tensão e resistores, pode-se expressar a tensão $V_{R_x}$ em um resistor $R_{x}$ por
     \begin{equation}
@@ -574,7 +574,7 @@
     Por definição,
     \begin{itemize}
         \item $V_{th}$ é a tensão entre $a$ e $b$ a circuito aberto,
-        \item $R_{th}$ é a resistência equivalente medida a partir dos terminais $a$ e $b$ após ``matar''\footnote{Matar uma fonte é um termo informal para ``igualar o valor da fonte a zero''.} as fontes independentes.
+        \item $R_{th}$ é a resistência equivalente medida a partir dos terminais $a$ e $b$ após matar\footnote{Matar uma fonte é um termo informal para ``igualar o valor da fonte a zero''.} as fontes independentes (no caso de existirem fontes dependentes, deve-se utilizar o método descrito em seguida).
     \end{itemize}
 
     Deste modo, conseguimos simplificar a configuração do circuito elétrico, facilitando o cálculo de tensão e corrente em qualquer carga aplicada entre os terminais $a$ e $b$. Por exemplo, para encontrar o valor da tensão no capacitor $C$ pode-se aplicar o Teorema de Thévenin nos terminais indicados na figura
@@ -666,27 +666,221 @@
     \end{minipage}
     \end{minipage}
 
-    O interessante é que para qualquer combinação de componentes colocada entre os terminais $a$ e $b$ terão o mesmo equivalente de Thévenin calculado, facilitando o cálculo para várias cargas diferentes.
+    O interessante é que para qualquer combinação de componentes colocada entre os terminais, $a$ e $b$ terão o mesmo equivalente de Thévenin calculado, facilitando o cálculo para várias cargas diferentes.
 
-    Outra técnica análoga é calcular o Equivalente de Norton, que transforma a rede de componentes em um circuito com uma fonte de corrente $I_{N}$ em paralelo com um resistor $I_{N}$. \\
-    %IMAGEM DA BATATA COM NORTON%
-    *INSERT IMAGE*
-    Neste caso,
+    Outra técnica análoga é calcular o Equivalente de Norton, que transforma a rede de componentes em um circuito com uma fonte de corrente $I_{N}$ em paralelo com um resistor $I_{N}$. Neste caso,
     \begin{itemize}
         \item $I_{N}$ é a corrente de curto circuito de $a$ para $b$,
-        \item $R_{N}$ é a resistência equivalente medida a partir dos terminais $a$ e $b$ após ``matar'' as fontes independentes.
+        \item $R_{N}$ é a resistência equivalente medida a partir dos terminais $a$ e $b$ após matar as fontes independentes (no caso de existirem fontes dependentes, deve-se utilizar o método descrito em seguida).
     \end{itemize}
-    É possível transformar um equivalente Thévenin em um equivalente Norton e vice-versa escolhendo os terminais $a$ e $b$ da seguinte maneira \\
-    %IMAGEM DO THEVENIN COM OS TERMINAIS E NORTON COM OS TERMINAIS (LADO A LADO)%
-    *INSERT IMAGE*
-    O que resulta nas relações
-    $$    R_{th}=R_{N} $$
+
+    Tomando-se o mesmo exemplo,
+
+    \noindent\begin{minipage}{\textwidth}
+    \begin{minipage}[c][4cm][c]{\dimexpr0.5\textwidth-0.5\Colsep\relax}
+        \begin{center}
+            \begin{circuitikz}[scale=0.9,transform shape]\draw
+                (0,3) to[V,l=$e_i$] (0,0)
+                (0,3) to[R,l=$R_1$] (3,3)
+                (3,3) to[R,l=$R_2$] (3,0)
+                (3,3) to[R,l=$R_3$] (6,3)
+                (6,3) node[label={right:$a$}]{} to[C,l=$C$,v=$e_0$,*-*] (6,0) node[label={right:$b$}]{}
+                (0,0) -- (6,0)
+            ;\end{circuitikz}
+        \end{center}
+    \end{minipage}
+    \begin{minipage}[c][4cm][c]{\dimexpr0.5\textwidth-0.5\Colsep\relax}
+        Deve-se trocar o capacitor por um curto-circuito e calcular a corrente que passa em $a-b$.
+    \end{minipage}
+    \end{minipage}
+
+        \noindent\begin{minipage}{\textwidth}
+        \begin{minipage}[c][4cm][c]{\dimexpr0.5\textwidth-0.5\Colsep\relax}
+            \begin{center}
+                \begin{circuitikz}[scale=0.9,transform shape]\draw
+                    (0,3) to[V,l=$e_i$] (0,0)
+                    (0,3) to[R,l=$R_1$] (3,3)
+                    (3,3) to[R,l=$R_2$] (3,0)
+                    (3,3) to[R,l=$R_3$] (6,3)
+                    (6,3) to[short,f=$I_N$] (6,0)
+                    (0,0) -- (6,0)
+                ;\end{circuitikz}
+            \end{center}
+        \end{minipage}
+        \begin{minipage}[c][4cm][c]{\dimexpr0.5\textwidth-0.5\Colsep\relax}
+            Neste caso, para calcular a corrente $I_N$, pode-se associar $R_2$ e $R_3$ e em seguida dividir a tensão.
+        \end{minipage}
+        \end{minipage}
+
+        \noindent\begin{minipage}{\textwidth}
+        \begin{minipage}[c][4cm][c]{\dimexpr0.5\textwidth-0.5\Colsep\relax}
+            \begin{center}
+                \begin{circuitikz}[scale=0.9,transform shape]\draw
+                    (0,3) to[V,l=$e_i$] (0,0)
+                    (0,3) to[R,l=$R_1$] (3,3)
+                    (3,3) to[R,l=$R_2//R_3$,v=V] (3,0)
+                    (0,0) -- (3,0)
+                ;\end{circuitikz}
+            \end{center}
+        \end{minipage}
+        \begin{minipage}[c][4cm][c]{\dimexpr0.5\textwidth-0.5\Colsep\relax}
+            $$V=\displaystyle\frac{\displaystyle\frac{R_2R_3}{R_2+R_3}}{R_1+\displaystyle\frac{R_2R_3}{R_2+R_3}}ei$$
+            Como a tensão para componentes em paralelos é a mesma que cai em seu equivalente, temos que
+            $$I_N=\frac{V}{R_3}=\displaystyle\frac{\displaystyle\frac{R_2}{R_2+R_3}}{R_1+\displaystyle\frac{R_2R_3}{R_2+R_3}}ei$$
+        \end{minipage}
+        \end{minipage}
+
+        \noindent\begin{minipage}{\textwidth}
+        \begin{minipage}[c][4cm][c]{\dimexpr0.5\textwidth-0.5\Colsep\relax}
+            \begin{center}
+                \begin{circuitikz}[scale=0.9,transform shape]\draw
+                    (0,3) to[R,l=$R_1$] (0,0)
+                    (0,3) -- (3,3)
+                    (3,3) to[R,l=$R_2$] (3,0)
+                    (3,3) to[R,l=$R_3$,-*] (6,3) node[label={right:$a$}]{}
+                    (0,0) to[short,-*] (6,0) node[label={right:$b$}]{}
+                ;\end{circuitikz}
+            \end{center}
+        \end{minipage}
+        \begin{minipage}[c][4cm][c]{\dimexpr0.5\textwidth-0.5\Colsep\relax}
+            Para o resistor $R_N$, percebe-se que o resistor equivalente é $R_3$ em série com o paralelo de $R_1$ e $R_2$, ou seja
+            $$R_{th}=(R_1//R_2)+R_3=\frac{R_1R_2}{R_1+R_2}+R_3$$
+        \end{minipage}
+        \end{minipage}
+
+        \noindent\begin{minipage}{\textwidth}
+        \begin{minipage}[c][4cm][c]{\dimexpr0.7\textwidth-0.5\Colsep\relax}
+            \begin{center}
+                \begin{circuitikz}[scale=0.9,transform shape]\draw
+                    (0,0) to[I,l=$\displaystyle\frac{\displaystyle\frac{R_2}{R_2+R_3}}{R_1+\displaystyle\frac{R_2R_3}{R_2+R_3}}ei$] (0,3)
+                    (0,3) -- (3.5,3)
+                    (3.5,3) to[R,l_=$(R_1//R_2)+R_3$] (3.5,0)
+                    (3.5,3) -- (6,3)
+                    (6,3) node[label={right:$a$}]{} to[C,l=$C$,v=$e_0$,*-*] (6,0) node[label={right:$b$}]{}
+                    (0,0) -- (6,0)
+                ;\end{circuitikz}
+            \end{center}
+        \end{minipage}
+        \begin{minipage}[c][4cm][c]{\dimexpr0.3\textwidth-0.5\Colsep\relax}
+            O circuito se limita a um RC em paralelo.
+        \end{minipage}
+        \end{minipage}
+
+
+    É possível transformar um equivalente Thévenin em um equivalente Norton e vice-versa escolhendo os terminais $a$ e $b$ da seguinte maneira
+
+    \noindent\begin{minipage}{\textwidth}
+    \begin{minipage}[c][4cm][c]{\dimexpr0.45\textwidth-0.5\Colsep\relax}
+        \begin{center}
+            \begin{circuitikz}[scale=0.9,transform shape]\draw
+                (0,0) to[I,l=$I_N$] (0,3)
+                (0,3) to[short,-*] (4,3) node[label={right:$a$}]{}
+                (3,3) to[R,l_=$R_N$] (3,0)
+                (0,0) to[short,-*] (4,0) node[label={right:$b$}]{}
+            ;\end{circuitikz}
+        \end{center}
+    \end{minipage}
+    \begin{minipage}[c][4cm][c]{\dimexpr0.1\textwidth-0.5\Colsep\relax}
+        $\iff$
+    \end{minipage}
+    \begin{minipage}[c][4cm][c]{\dimexpr0.45\textwidth-0.5\Colsep\relax}
+        \begin{circuitikz}[scale=0.9,transform shape]\draw
+            (0,3) to[V,l_=$E_{th}$] (0,0)
+            (0,3) to[R,l=$R_{th}$,-*] (3,3) node[label={right:$a$}]{}
+            (0,0) to[short, -*] (3,0) node[label={right:$b$}]{}
+        ;\end{circuitikz}
+    \end{minipage}
+    \end{minipage}
+
+    Utilizando as relações da Lei de Ohm
+    $$ R_{th}=R_{N} $$
     \begin{equation}
         E_{th}=R_{N}I_{N}
     \end{equation}
     \begin{equation}
         I_{N}=\frac{E_{th}}{R_{th}}
     \end{equation}
+
+    \subsubsection{Equivalente Thévenin/Norton com fontes controladas}
+    \label{subsubsec:thfontecontrolada}
+    Apesar de a maneira de calcular $V_{th}$ e $I_N$ seja a mesma, não é possível calcular $R_{th}$ e $R_N$ por associação. Por isso, deve-se utilizar uma outra maneira (que é sempre válida, porém um pouco mais trabalhosa). O método consiste em aplicar uma fonte com um valor conhecido e utilizar a Lei de Ohm para obter o valor do resistor. A mais clássica escolha é calcular a tensão que cai nos terminais de uma fonte de corrente de $1A$. Já que $V=Ri$, para $i=1A$, $V=R$. Do mesmo exemplo, tem-se
+
+    \noindent\begin{minipage}{\textwidth}
+    \begin{minipage}[c][4cm][c]{\dimexpr0.5\textwidth-0.5\Colsep\relax}
+        \begin{center}
+            \begin{circuitikz}[scale=0.9,transform shape]\draw
+                (0,3) -- (0,0)
+                (0,3) to[R,l=$R_1$] (3,3)
+                (3,3) to[R,l=$R_2$] (3,0)
+                (3,3) to[R,l=$R_3$,-*] (6,3) node[label={right:$a$}]{}
+                (0,0) to[short,-*] (6,0) node[label={right:$b$}]{}
+                (6,0) to[I,l_=$1A$,v^=$R_{th}$] (6,3)
+            ;\end{circuitikz}
+        \end{center}
+    \end{minipage}
+    \begin{minipage}[c][4cm][c]{\dimexpr0.5\textwidth-0.5\Colsep\relax}
+        Neste caso a tensão que cai na fonte é
+        $$R_{th}=[(R_1//R_2)+R_3]\hspace{0.05cm} 1A$$
+        Que é o exato mesmo valor encontrado nos outros casos
+    \end{minipage}
+    \end{minipage}
+
+    Tomando-se um novo exemplo, com uma fonte controlada de corrente
+
+    \noindent\begin{minipage}{\textwidth}
+    \begin{minipage}[c][4cm][c]{\dimexpr0.45\textwidth-0.5\Colsep\relax}
+        \begin{center}
+            \begin{circuitikz}[scale=0.88,transform shape]\draw
+                (0,3) to[V,l=$10V$] (0,0)
+                (0,3) to[R,l=$1\Omega$,v=$v$] (3,3)
+                (3,0) to[I,l=$3v$] (3,3)
+                (3,3) to[R,l=$1\Omega$] (6,3)
+                (6,3) node[label={right:$a$}]{} to[C,l=$C$,v=$e_0$,*-*] (6,0) node[label={right:$b$}]{}
+                (0,0) -- (6,0)
+            ;\end{circuitikz}
+        \end{center}
+    \end{minipage}
+    \begin{minipage}[c][4cm][c]{\dimexpr0.1\textwidth-0.5\Colsep\relax}
+        $\implies$
+    \end{minipage}
+    \begin{minipage}[c][4cm][c]{\dimexpr0.45\textwidth-0.5\Colsep\relax}
+        \begin{center}
+            \begin{circuitikz}[scale=0.88,transform shape]\draw
+                (0,3) -- (0,0)
+                (0,3) to[R,l=$1\Omega$,v=$v$] (3,3)
+                (3,0) to[I,l=$3v$] (3,3)
+                (3,3) to[R,l=$1\Omega$] (6,3)
+                (6,0) node[label={right:$b$}]{} to[I,l_=$1A$,v^=$R_{th}$,*-*] (6,3) node[label={right:$a$}]{}
+                (0,0) -- (6,0)
+            ;\end{circuitikz}
+        \end{center}
+    \end{minipage}
+    \end{minipage}
+
+    \noindent\begin{minipage}{\textwidth}
+    \begin{minipage}[c][5cm][c]{\dimexpr0.5\textwidth-0.5\Colsep\relax}
+        \begin{center}
+            \begin{circuitikz}[scale=0.9,transform shape]\draw
+                (0,3) -- (0,0)
+                (0,3) to[R,l=$1\Omega$,v=$v$,f=$v$] (3,3)
+                (3,0) to[I,l=$3v$] (3,3)
+                (3,3) to[R,l=$1\Omega$,v<=$1V$,f<=$1A$] (6,3)
+                (6,0) node[label={right:$b$}]{} to[I,l_=$1A$,v^=$R_{th}$,*-*] (6,3) node[label={right:$a$}]{}
+                (0,0) -- (6,0)
+            ;\end{circuitikz}
+        \end{center}
+    \end{minipage}
+    \begin{minipage}[c][5cm][c]{\dimexpr0.5\textwidth-0.5\Colsep\relax}
+        Através da equação de nó do circuito, têm-se que
+        $$v+3v+1=0$$
+        Ou seja,
+        $$v=-\frac{1}{4}=-0.25V$$
+        Então, pode-se calcular $R_{th}$ utilizando a malha que envolve ambos os resistores e a fonte de $1A$
+        $$R_{th}=1-v=1.25\Omega$$
+    \end{minipage}
+    \end{minipage}
+
+    \textbf{Observação:} Formalmente, a definição do resistor de Thévenin é a razão entre a tensão a circuito aberto e a corrente de curto-circuito. Entretanto, os autores julgam os métodos aqui apresentados mais eficientes, visto que envolvem a resolução de apenas um circuito, ao invés de dois (um com os terminais abertos e outro com os terminais fechados).
 
     \subsubsection{Transformação de Fonte}
     \label{subsubsec:transform}
@@ -1590,6 +1784,7 @@
         \item Alinhar as matrizes da representação de estados.
         \item OBS.: descobri recentemente que o motivo de dar `erro' nos hspace é porque ele recebe a unidade no argumento, por exemplo hspace\{1cm\}
         \item Rever a numeração das equações
+        \item Explicar convenção de sinais
     \end{itemize}
 
 
