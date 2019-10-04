@@ -1139,11 +1139,11 @@
     $$E_{th}=-\mu R_0e_i$$
     $$E_{th}=-20V$$
 
-    Então, para calcular o resistor $R_{th}$, aplica-se uma fonte de $1A$ entre os terminais $a$ e $b$.
+    Então, para calcular o resistor $R_{th}$, aplica-se uma fonte de $1A$ entre os terminais $a$ e $b$ e mata-se as fontes independentes.
 
     \begin{center}
         \begin{circuitikz}\draw
-            (0,4) to[V,l=$e_i$] (0,0)
+            (0,4) -- (0,0)
             (2,4) to[short,*-] (0,4)
             (2,4) to[open,v=$v$] (2,2)
             (2,2) to[short,*-] (3,2)
@@ -1163,13 +1163,13 @@
 
     Neste caso, a corrente em $R_1$ é $1A$, portanto sua tensão é $R_1$, o que resulta, pela malha à esquerda, na relação
 
-    $$v=e_i-R_1$$
+    $$v=-R_1$$
 
     Além disso, pelo nó $2$, a corrente no resistor $R_0$, polarizada conforme a imagem, deve ser $i_{R_0}=\mu v - 1$, portanto, equacionando a malha à direita,
 
-    $$R_{th}=R_1-R_0[\mu v-1]=R_1-R_0[\mu (ei-R_1)-1]$$
-    $$R_{th}=R_1+R_0+\mu R_0R_1-\mu R_0e_i$$
-    $$R_{th}=480 \Omega$$
+    $$R_{th}=R_1-R_0[\mu v-1]=R_1-R_0[-\mu R_1-1]$$
+    $$R_{th}=R_1+R_0+\mu R_0R_1$$
+    $$R_{th}=500 \Omega$$
 
     Portanto, o circuito equivalente é
 
@@ -1201,15 +1201,18 @@
 
     \subsection{Diodos}
     \label{subsec:diodos}
-    Um diodo é um elemento não-linear composto por semicondutores (geralmente cristais de silício ou germânio) polarizados em duas regiões, uma do tipo N e outra do tipo P, que permite fácil passagem de corrente em polarização direta e dificulta a passagem de corrente em polarização reversa. Existem diversos modelos de diodos, desde o ideal (mais simples, porém pouco prático em aplicações) até o diodo real (maior nível de complexidade, porém útil em casos que requerem alta precisão). Este material contém apenas o modelo ideal de um diodo. \\
-    %Imagem da representação do diodo, zener, schotky%
-    *INSERT IMAGE*
+    Um diodo é um elemento não-linear composto por semicondutores (geralmente cristais de silício ou germânio) polarizados em duas regiões, uma do tipo N e outra do tipo P, que, na maioria das vezes, permite fácil passagem de corrente em polarização direta e dificulta a passagem de corrente em polarização reversa. Existem diversos modelos de diodos, desde o ideal (mais simples, porém pouco prático em aplicações) até o diodo real (maior nível de complexidade, porém útil em casos que requerem alta precisão). Este material contém apenas o modelo ideal de um diodo.
 
     \subsubsection{Diodos Ideais}
     \label{subsubsec:diodos}
-    Os diodos ideais funcionam exclusivamente como elemento de chaveamento. Assume-se que, em condução, o diodo possui queda de tensão $V_{D}=0 \hspace{0.2cm}[V]$, ou seja, é um curto circuito. Em polarização reversa, entretanto, o diodo ideal se comporta como uma impedância infinita, impossibilitando a passagem de corrente entre seus terminais. \\
-    %Imagem dos dois casos do diodo ideal (conduzindo e não-conduzindo)%
-    *INSERT IMAGE*
+    Os diodos ideais funcionam exclusivamente como elemento de chaveamento. Assume-se que, em condução, o diodo possui queda de tensão $V_{D}=0 \hspace{0.2cm}[V]$, ou seja, é um curto circuito. Em polarização reversa, entretanto, o diodo ideal se comporta como uma impedância infinita, impossibilitando a passagem de corrente entre seus terminais.
+    \begin{center}
+        \begin{circuitikz}\draw
+            (0,0) to[D,v=$V$,f=$i$,*-*] (3,0)
+        ;\end{circuitikz}
+    \end{center}
+
+    Se o efeito de $V$ polarizar o diodo diretamente ($V>0$), diz-se que o diodo está no modo \textbf{ON} e têm-se $i>0$. Neste caso, ao constatar que o diodo está conduzindo, pode-se substituí-lo por um curto circuito, visto que ele permitirá a passagem da corrente sem alterar a tensão do circuito. Do contrário, o diodo está \textbf{OFF} e seu modelo é um circuito aberto.
 
     \subsection{Amplificador Operacional Ideal}
     \label{subsec:ampop}
