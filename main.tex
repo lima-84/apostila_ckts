@@ -1216,51 +1216,126 @@
 
     \subsection{Amplificador Operacional Ideal}
     \label{subsec:ampop}
-    Um amplificador operacional (AmpOp) é um componente que tem como saída um sinal de entrada amplificado. No caso ideal, considera-se o ganho $G=\displaystyle{\frac{V_{o}}{V_{i}}}$ infinito. Este componente possui dois terminais de entrada, as portas inversora $(-)$ e não-inversora $(+)$ e um terminal de saída, além de dois terminais de alimentação $(+V_{CC}$ e $-V_{CC})$. Idealmente o AmpOp possui uma impedância de entrada infinita, bem como uma impedância de saída zero, ou seja, um sinal de tensão é perfeitamente amplificado para a saída, sem nenhum tipo de perda. \\
-    %Imagem do AmpOp%
-    *INSERT IMAGE*
+    Um amplificador operacional (AmpOp) é um componente que tem como saída um sinal de entrada amplificado. No caso ideal, considera-se o ganho $A=V_o/V_i$ infinito. Este componente possui dois terminais de entrada, as portas inversora $(-)$ e não-inversora $(+)$ e um terminal de saída, além de dois terminais de alimentação $(+V_{CC}$ e $-V_{CC})$. Idealmente o AmpOp possui uma impedância de entrada infinita (correntes iguais a zero em sua entrada), bem como uma impedância de saída zero (não há perda alguma de tensão), ou seja, um sinal de tensão é perfeitamente amplificado para a saída, sem nenhum tipo de perda.
 
-    É evidente que no mundo real não é possível obter ganho infinito ou impedâncias infinitas ou zero. O que realmente acontece é que, a partir de um certo ponto, a tensão de saída do amplificador operacional é saturada de acordo com as tensões de alimentação. A impedância de entrada é muito alta e a impedância de saída é muito baixa. \\
-    Os amplificadores operacionais possuem diversas aplicações, sendo a mais básica delas um comparador de tensão (o maior valor entre $V_{+}$ e $V_{-}$ será amplificado, saturando a saída em $+V_{CC}$ ou $-V_{CC})$. Em grande parte das aplicações, utiliza-se de uma configuração em \textbf{malha fechada}, quando o circuito é realimentado (feedback). As aplicações a seguir utilizam a realimentação negativa, ou seja, a saída do AmpOp é conectada à entrada inversora através de uma rede de componentes.\\
-    %AmpOp realimentação negativa%
-    *INSERT IMAGE*
-    Esta ligação tem como característica a criação do chamado \textbf{curto-circuito virtual} entre seus terminais. Em outras palavras, a tensão entre as entradas inversora e não-inversora é igual a zero. Lembrando que, como a impedância de entrada é muito alta, considera-se a corrente de entrada igual a zero. \\
-    %AmpOp mostrando curto virtual e corrente de entrada zero%
-    *INSERT IMAGE*
+    \begin{center}
+        \begin{circuitikz} \draw
+            (0,0) node[op amp] (opamp) {}
+            (opamp.+) to [short,-*] (-1.5,-0.49) node[left] {$V_+$}
+            (opamp.-) to [short,-*] (-1.5,0.49) node[left] {$V_-$}
+            (opamp.out) to [short,-*] (1.6,0) node[right] {$V_o$}
+            (opamp.up) ++ (0,0.5) node[above] {+VCC} to [short,*-] (opamp.up)
+            (opamp.down) ++ (0,-0.5) node[below] {-VCC} to [short,*-] (opamp.down)
+            ;
+        \end{circuitikz}
+    \end{center}
+
+    É evidente que no mundo real não é possível obter ganho infinito ou impedâncias infinitas ou zero. O que realmente acontece é que, a partir de um certo ponto, a tensão de saída do amplificador operacional é saturada de acordo com as tensões de alimentação. A impedância de entrada é muito alta e a impedância de saída é muito baixa. Neste material, considerar-se-á apenas a característica \textbf{ideal} dos amplificadores operacionais.
+
+    Os amplificadores operacionais possuem diversas aplicações, sendo a mais básica delas um comparador de tensão (o maior valor entre $V_{+}$ e $V_{-}$ será amplificado, saturando a saída em $+V_{CC}$ ou $-V_{CC})$. Em grande parte das aplicações, utiliza-se de uma configuração em \textbf{malha fechada}, quando o circuito é realimentado (feedback). As aplicações a seguir utilizam a realimentação negativa, ou seja, a saída do AmpOp é conectada à entrada inversora através de uma rede de componentes. Note que os pinos de alimentação serão omitidos daqui em diante.
+
+    \begin{center}
+        \begin{circuitikz}\draw
+            (0,0) node[op amp] (opamp) {}
+            (opamp.+) to [short, -*] (-2.5,-0.5) node[left] {$V_+$}
+            (opamp.-) -- (-1.5,0.49)
+            (opamp.out) -- (1.2,1.5) -- (-1.5,1.5) -- (-1.5,0.49) to [short,-*] (-2.5,0.5) node[left] {$V_-$}
+            (opamp.out) to [short,-*] (1.8,0) node[right] {$V_o$}
+            ;
+        \end{circuitikz}
+    \end{center}
+
+    Esta ligação tem como característica a criação do chamado \textbf{curto-circuito virtual} entre seus terminais. Em outras palavras, a tensão entre as entradas inversora e não-inversora é igual a zero. Lembrando que, como a impedância de entrada é muito alta, considera-se a corrente de entrada igual a zero.
+
     \subsubsection{Configuração Inversora}
-    A aplicação de tensão na porta inversora causa um ganho na saída proporcional e com sinal oposto ao da entrada. No caso geral
-    %AmpOp inversor com Ri e Rf%
-    *INSERT IMAGE*
+    A aplicação de tensão na porta inversora causa um ganho proporcional na saída e com sinal oposto ao da entrada. No caso geral
+
+    \begin{center}
+        \begin{circuitikz}\draw
+            (0,0) node[op amp] (opamp) {}
+            (opamp.+) node[ground] {}
+            (opamp.-) -- (-1.5,0.49) to [R,l=$R_i$,-*] (-3.5,0.49) node[left] {$V_i$}
+            (opamp.out) -- (1.2,1.5) to [R,l_=$R_f$] (-1.5,1.5) -- (-1.5,0.49)
+            (opamp.out) to [short,-*] (1.8,0) node[right] {$V_o$}
+            ;
+        \end{circuitikz}
+    \end{center}
+
     \begin{equation}
-        G=\frac{V_{o}}{V_{i}}=-\frac{R_{f}}{R_{i}}
+        A=\frac{V_{o}}{V_{i}}=-\frac{R_{f}}{R_{i}}
     \end{equation}
     \subsubsection{Configuração Não-Inversora}
-    A aplicação de tensão na porta não-inversora causa um ganho proporcional à entrada, sem mudança de sinal. \\
-    %AmpOp Não-inversor com Ri e Rf%
-    *INSERT IMAGE*
+    A aplicação de tensão na porta não-inversora causa um ganho proporcional à entrada, sem mudança de sinal.
+
+    \begin{center}
+        \begin{circuitikz}\draw
+            (0,0) node[op amp] (opamp) {}
+            (opamp.+) to [short,-*] (-1.5,-0.49) node[left] {$V_i$}
+            (opamp.-) -- (-1.5,0.49) to [R,l=$R_i$] (-3.5,0.49) node[ground] {}
+            (opamp.out) -- (1.2,1.5) to [R,l_=$R_f$] (-1.5,1.5) -- (-1.5,0.49)
+            (opamp.out) to [short,-*] (1.8,0) node[right] {$V_o$}
+            ;
+        \end{circuitikz}
+    \end{center}
+
     \begin{equation}
-        G=\frac{V_{o}}{V_{i}}=1+\frac{R_{f}}{R_{i}}
+        A=\frac{V_{o}}{V_{i}}=1+\frac{R_{f}}{R_{i}}
     \end{equation}
 
     \subsubsection{Configuração Seguidor de Tensão}
     Caso particular do amplificador não-inversor em que as resistências $R_{i}$ e $R_{f}$ são iguais a, respectivamente, infinito e $0$ (caso ideal), fazendo com que o ganho seja unitário, o que implica a tensão de saída ser igual à de entrada.
-    %AmpOp não-inversor sem resistências.
-    *INSERT IMAGE*
+
+    \begin{center}
+        \begin{circuitikz}\draw
+            (0,0) node[op amp] (opamp) {}
+            (opamp.+) to [short,-*] (-1.5,-0.49) node[left] {$V_i$}
+            (opamp.-) -- (-1.5,0.49) -- (-2.5,0.49) node[ground] {}
+            (opamp.out) -- (1.2,1.5) -- (-1.5,1.5) -- (-1.5,0.49)
+            (opamp.out) to [short,-*] (1.8,0) node[right] {$V_o$}
+            ;
+        \end{circuitikz}
+    \end{center}
+
     \begin{equation}
-        G=\frac{V_{o}}{V_{i}}=1+\frac{R_{f}}{R_{i}}=1+\frac{0}{\infty}\xrightarrow{}1
+        A=\frac{V_{o}}{V_{i}}=1+\frac{R_{f}}{R_{i}}=1+\frac{0}{\infty}\xrightarrow{}1
     \end{equation}
 
     \subsubsection{Configuração Somador de Tensão}
     A aplicação de $n$ fontes de tensão gera uma ganho inverso à soma ponderada das entradas.
-    %AmpOp somador inversor com n entradas%
-    *INSERT IMAGE*
+
+    \begin{center}
+        \begin{circuitikz}\draw
+            (0,0) node[op amp] (opamp) {}
+            (opamp.+) node[ground] {}
+            (opamp.-) -- (-1.5,0.49) to [R,l_=$R_1$,-*] (-3.5,0.49) node[left] {$V_1$}
+            (opamp.out) -- (1.2,1.5) to [R,l_=$R_f$] (-1.5,1.5) -- (-1.5,0.49)
+            (-1.5,1.5) to [R,l_=$R_2$,-*] (-3.5,1.5) node[left] {$V_2$}
+            (-1.5,1.5) -- (-1.5,2.5) to [R,l_=$R_3$,-*] (-3.5,2.5) node[left] {$V_3$}
+            (-1.5,2.5) -- (-1.5,3.5) node[midway,fill=white]{$\vdots$}
+            (-1.5,3.5) to [R,l_=$R_n$,-*] (-3.5,3.5) node[left] {$V_n$}
+            (opamp.out) to [short,-*] (1.8,0) node[right] {$V_o$}
+            ;
+        \end{circuitikz}
+    \end{center}
+
     \begin{equation}
-        G=\frac{V_{o}}{V_{i}}=-(\frac{R_{f}}{R_{1}}V_{1}+\frac{R_{f}}{R_{2}}V_{2}+...+\frac{R_{f}}{R_{n}}V_{n})=-\sum_{k=1}^{n}\frac{R_{f}}{R_{k}}V_{k}
+        A=\frac{V_{o}}{V_{i}}=-\left(\frac{R_{f}}{R_{1}}V_{1}+\frac{R_{f}}{R_{2}}V_{2}+...+\frac{R_{f}}{R_{n}}V_{n}\right)=-\sum_{k=1}^{n}\frac{R_{f}}{R_{k}}V_{k}
     \end{equation}
 
     \subsubsection{Configuração Amplificador de Diferenças}
-    Trabalha como amplificador da tensão diferencial $V_{d}=V_{+}-V_{-}$ entre os terminais de entrada. %AmpOp amplificador de diferenças com R1(-),R2(feedback),R3(+),R4(ground), fontes V2+ e V1-%
-    *INSERT IMAGE*
+    Trabalha como amplificador da tensão diferencial $V_{d}=V_{+}-V_{-}$ entre os terminais de entrada.
+
+    \begin{center}
+        \begin{circuitikz}\draw
+            (0,0) node[op amp] (opamp) {}
+            (-1.5,-0.49) to [R,l=$R_3$,-*] (-3.5,-0.49) node[left] {$V_2$}
+            (opamp.+) -- (-1.5,-0.49) to [R,l=$R_4$] (-1.5,-2.0) node[ground] {}
+            (opamp.-) -- (-1.5,0.49) to [R,l=$R_1$,-*] (-3.5,0.49) node[left] {$V_1$}
+            (opamp.out) -- (1.2,1.5) to [R,l_=$R_2$] (-1.5,1.5) -- (-1.5,0.49)
+            (opamp.out) to [short,-*] (1.8,0) node[right] {$V_o$}
+            ;
+        \end{circuitikz}
+    \end{center}
 
     Usando o teorema da superposição,
     \begin{equation*}
