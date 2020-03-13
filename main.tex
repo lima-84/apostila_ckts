@@ -1348,9 +1348,19 @@
 
     \subsection{Quadripolos}
     \label{subsec:quadripolos}
-    Quadripolo é o nome dado a uma rede de componentes que se liga com algum outro circuito por apenas dois pares de terminais. São definidas as tensão nas portas $V_{1}$ e $V_{2}$ polarizadas simetricamente e as correntes nas portas $I_{1}$ e $I_{2}$ entrando no quadripolo. \\
-    %Quadripolo genérico com V1,I1, V2,I2%
-    *INSERT IMAGE*
+    Quadripolo é o nome dado a uma rede de componentes que se liga com algum outro circuito por apenas dois pares de terminais. São definidas as tensão nas portas $V_{1}$ e $V_{2}$ polarizadas simetricamente e as correntes nas portas $I_{1}$ e $I_{2}$ entrando no quadripolo.
+
+    \begin{center}
+        \begin{circuitikz}[scale=1.2,transform shape]\draw
+            node[fourport](btt){}
+            (btt.1) to[short,-*] (-2,-0.45)
+            (btt.2) to[short,-*] (2,-0.45)
+            (btt.3) to[short,f<=$I_2$,-*] (2,0.45)
+            (btt.4) to[short,f<_=$I_1$,-*] (-2,0.45)
+            (-2,0.45) to[open,v=$V_1$] (-2,-0.45)
+            (2.5,0.45) to[open,v_=$V_2$] (2.5,-0.45)
+        ;\end{circuitikz}
+    \end{center}
 
     A relação entre as tensões e correntes varia de acordo com o tipo de \textbf{parâmetro} escolhido durante a sua modelagem. Este tipo de componente é muito útil na simplificação de circuitos com muitos elementos, já que, uma vez obtidos os parâmetros, relaciona as tensões e correntes sem precisar saber o conteúdo do quadripolo.
 
@@ -1599,8 +1609,7 @@
     \paragraph{Configuração Série-Série:}
     Neste caso a melhor escolha é de parâmetros resistivos $r$, pois é válida a relação
         $$ [\textbf{r}]_{eq} = [\textbf{r}]_{1} + [\textbf{r}]_{2} $$
-        %imagem de dois quadripolos em série-série%
-        *INSERT IMAGE*
+
 
     \paragraph{Configuração Paralelo-Paralelo:}
     Neste caso a melhor escolha é a de parâmetros $y$, já que
@@ -1623,8 +1632,27 @@
     \paragraph{Configuração Cascata:}
     Neste caso a melhor escolha é parâmetros de transmissão $ABCD$, possibilitando que
         $$ [\textbf{ABCD}]_{eq} = [\textbf{ABCD}]_{1} \cdot [\textbf{ABCD}]_{2} $$
-        %imagem de dois quadripolos em cascata%
-        *INSERT IMAGE*
+
+        \begin{center}
+            \begin{circuitikz}[scale=1.2,transform shape]\draw
+                node[fourport](btt){}
+                (btt.1) to[short,-*] (-2,-0.45)
+                (btt.2) to[short,-*] (2,-0.45)
+                (btt.3) to[short,f<=$I_2$,-*] (2,0.45)
+                (btt.4) to[short,f<_=$I_1$,-*] (-2,0.45)
+                (-2,0.45) to[open,v=$V_1$] (-2,-0.45)
+                (2,0.45) to[open,v_=$V_2$] (2,-0.45)
+
+                (2,0) to[open] (4,0) node[fourport](btt2){}
+                (2,-0.45) to[short] (btt2.1)
+                (2,0.45) to[short,f=$I_3$] (btt2.4)
+                (btt2.3) to[short,f<=$I_4$,-*] (6,0.45)
+                (btt2.2) to[short,-*] (6,-0.45)
+                (3,0.45) to[open,v=$V_3$] (3,-0.45)
+                (6.5,0.45) to[open,v=$V_4$] (6.5,-0.45)
+            ;\end{circuitikz}
+        \end{center}
+
 
     \newpage
 
@@ -1640,9 +1668,19 @@
 
     \subsubsection{Equacionamento}
     \label{subsubsec:equacionamento}
-    Usa-se as equações que modelam os elementos reativos (relações \textbf{VI}) para relacionar a variável de saída com a variável de entrada. Considere o circuito \\
-    %Usei a questão 1 da lista do Tristão, ordem 2 com malhas ei=VR1+VC1; VL=VR2+VC2;   eo=VC1
-    *INSERT IMAGE*
+    Usa-se as equações que modelam os elementos reativos (relações \textbf{VI}) para relacionar a variável de saída com a variável de entrada. Considere o circuito
+        %Usei a questão 1 da lista do Tristão, ordem 2 com malhas ei=VR1+VC1; VL=VR2+VC2;   eo=VC1
+    \begin{center}
+        \begin{circuitikz}\draw
+            (0,2) to[V=$e_i$] (0,0)
+            (0,2) to[R=$R_1$] (2,2)
+            (2,2) to[C=$C_1$,v=$e_0$] (2,0)
+            (2,2) to[R=$R_2$] (4,2)
+            (4,2) to[C=$C_2$] (4,0)
+            (0,0) -- (4,0)
+            ;
+        \end{circuitikz}
+    \end{center}
 
     Quer-se encontrar a tensão no capacitor $e_o(t)$. O primeiro passo é equacionar a malha (I)
     \begin{align*}
@@ -2090,43 +2128,5 @@
     \end{equation}
 
     Essa equação relaciona diretamente a saída com a entrada e as condições iniciais. Ou seja, é a \textbf{resposta completa} do sistema. Mais especificamente, $C(sI-A)^{-1}\textbf{x}(0)$ é a \textbf{resposta à entrada zero} e $[C(sI-A)^{-1}B+D]\textbf{U}$ é a \textbf{resposta ao estado zero} (também conhecida como \textbf{função de transferência do sistema}).
-
-
-    \newpage
-
-    \section{Lista de Exercícios}
-    \label{sec:exerc}
-
-%Changelog e TODO list, esta parte não constará no documento final%
-    \newpage
-    \begin{center}{\textbf{\Large Changelog}}\end{center}
-    \begin{itemize}
-        \item[13/04/2019  - Pedro:] Elementos ativos independentes, elementos controlados, instrumentos, Leis de Kirchhoff, DIVTEN, DIVCOR, Transformação de Fontes, Diodos, Diodos Ideais, Ampop e algumas configurações
-        \item[19/04/2019 - Pedro:] Thévenin, balanço de potência
-        \item[24/04/2019 - Pedro:] Quadripolos: parâmetros r, y, h, g, ABCD, quadripolo geral (não sei o que mais incluir ali além de exemplos), associação de quadripolos
-        \item[25/04/2019 - Pedro:] Circuitos reativos, resolução por EDOL, equacionamento(introdução) resposta natural
-        \item[28/04/2019 - Pedro:] Resposta forçada, ampop seguidor de tensão. Troquei a ordem de diagrama de fluxo e representação de estados pq vou mostrar o método pelo diagrama de estados. Representação de estados, 4 métodos de obtê-la e resolução por laplace.
-        \item[02/05/2019 - Pedro:] Criei um backup do material antes de corrigir os erros de sintaxe (principalmente hspaces sem unidade e labels repetidas). A princípio o material está igual, no pior dos casos algo está formatado errado. Por isso o backup
-        \item[08/05/2019 - Pedro:] Setei margens de acordo com a ABNT, Equacionamento de EDOL, condinics e resolução da EDOL na seção 'resposta completa' (que eu criei tb).
-        \item[19/08/2019 - Pedro:] Fiz o resto menos entrada zero não-nula, fotos e exemplos
-        \item[25/08/2019 - Pedro:] Adicionei Delta-Y, unidades.
-    \end{itemize}
-
-    \begin{center}{\textbf{\Large TODO}}\end{center}
-    \begin{itemize}
-        \item Inserir fotos (as requested) %Marcadas com comentário e *Insert Image*%
-        \item Faltam exemplos para tudo!
-        \item Checar última atualização (Sintaxe, linguagem etc)
-        \item Checar formatação após introduzidas as fotos
-        \item Incluir condutância nos itens gerais (falar da unidade siemens)
-        \item Rever labels das subsecs
-        \item Criar labels padronizadas nas equações úteis nas equações. Ex.: %\label{VI:resistor},  ou \label{eq:ampop_inversor}...
-        \item Ajustar largura das margens ?
-        \item Alinhar as matrizes da representação de estados.
-        \item OBS.: descobri recentemente que o motivo de dar `erro' nos hspace é porque ele recebe a unidade no argumento, por exemplo hspace\{1cm\}
-        \item Rever a numeração das equações
-        \item Explicar convenção de sinais
-    \end{itemize}
-
 
 \end{document}
