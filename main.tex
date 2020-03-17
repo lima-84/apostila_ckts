@@ -64,7 +64,7 @@
 
     \center{
     \begin{circuitikz}\draw
-    	(0, 0) to[R, v=$V_{R}$, f=$i_{R}$] (2.5, 0)
+    	(0, 0) to[R, v=$V_{R}$, f=$i_{R}$,*-*] (2.5, 0)
     ;\end{circuitikz}
     }
     \begin{equation}
@@ -80,7 +80,7 @@
     \begin{center}{\textbf{Capacitor}}\end{center}
     \center{
     \begin{circuitikz}\draw
-    	(0, 0) to[C, v=$V_{C}$, f=$i_{C}$] (2.5, 0)
+    	(0, 0) to[C, v=$V_{C}$, f=$i_{C}$,*-*] (2.5, 0)
     ;\end{circuitikz}
     }
     \begin{equation}
@@ -96,7 +96,7 @@
     \begin{center}{\textbf{Indutor}}\end{center}
     \center{
     \begin{circuitikz}\draw
-    	(0, 0) to[L, v=$V_{L}$, f=$i_{L}$] (2.5, 0)
+    	(0, 0) to[L, v=$V_{L}$, f=$i_{L}$,*-*] (2.5, 0)
     ;\end{circuitikz}
     }
     \begin{equation}
@@ -118,7 +118,7 @@
         Gera uma tensão $V$ entre seus terminais.
         \center{
         \begin{circuitikz}\draw
-            (0, 2) to[V, l=$e_i$] (0, 0)
+            (0, 2) to[V, l=$e_i$,*-*] (0, 0)
         ;\end{circuitikz}
         }
     \end{minipage} \hfill
@@ -128,7 +128,7 @@
         Gera uma corrente $i$ entre seus terminais.
         \center{
         \begin{circuitikz}\draw
-            (0, 0) to[I,l_=$i_{i}$] (0, 2)
+            (0, 0) to[I,l_=$i_{i}$,*-*] (0, 2)
         ;\end{circuitikz}
         }
     \end{minipage} \hfill
@@ -182,24 +182,26 @@
     \end{minipage}
     \subsubsection{Instrumentos}
     \label{subsubsec:instrumentos}
-    Elementos ideais cuja função é medir algum valor em algum outro elemento do circuito.
-
+    Elementos ideais cuja função é medir algum valor em algum outro elemento do circuito. \\
     \noindent\begin{minipage}{\textwidth}
-        \begin{minipage}[t][4cm]{\dimexpr0.5\textwidth-\Colsep\relax}
+        \begin{minipage}[t][6cm]{\dimexpr0.45\textwidth-\Colsep\relax}
             \begin{center}{\textbf{Voltímetro}}\end{center}
-            Mede a tensão $V$ entre seus terminais. Idealmente, o voltímetro possui uma impedância infinita, o que implica corrente $0$ (zero) entre seus terminais.
+            Mede a tensão $V$ entre seus terminais. Idealmente, o voltímetro possui uma impedância infinita, o que implica corrente $0$ (zero) entre seus terminais. Deve ser ligado em paralelo com o componente do qual quer-se medir a tensão.
             \center{
             \begin{circuitikz}\draw
-                (0, 0) to[voltmeter] (2, 0)
+                (0, 0) to[voltmeter,*-*] (2, 0)
             ;\end{circuitikz}
             }
         \end{minipage}
-        \begin{minipage}[t][4cm]{\dimexpr0.5\textwidth\relax}
+        \begin{minipage}[c][2cm][c]{\dimexpr0.05\textwidth-0.5\Colsep\relax}
+
+        \end{minipage} \hfill
+        \begin{minipage}[t][6cm]{\dimexpr0.45\textwidth-\Colsep\relax}
             \begin{center}{\textbf{Amperímetro}}\end{center}
-            Mede a corrente $i$ entre seus terminais. Idealmente, o amperímetro possui uma impedância $0$ (zero), permitindo que a corrente passe livremente (sem resistência) entre seus terminais.
+            Mede a corrente $i$ entre seus terminais. Idealmente, o amperímetro possui uma impedância $0$ (zero), permitindo que a corrente passe livremente (sem resistência) entre seus terminais. Deve ser colocado em série com o componente do qual quer-se medir a corrente.
             \center{
             \begin{circuitikz}\draw
-                (0, 0) to[ammeter] (2, 0)
+                (0, 0) to[ammeter,*-*] (2, 0)
             ;\end{circuitikz}
             }
         \end{minipage} \hfill
@@ -212,7 +214,7 @@
 
     \subsubsection{Lei de Kirchhoff das Correntes}
     \label{subsubsec:KCL}
-    \textbf{Definição:} A soma de todas as correntes que entram em um nó é igual à soma de todas as correntes que saem deste mesmo nó. Considera-se um nó, um ponto arbitrário de mesmo potencial (a exemplo de um fio ideal, ou seja, independente do tamanho do fio, não há queda de tensão entre um componente e outro) no qual os terminais e, por conseguinte, as correntes de dois ou mais componentes se encontram.
+    \textbf{Definição:} A soma de todas as correntes que entram em um nó é igual à soma de todas as correntes que saem deste mesmo nó. Considera-se um nó, um ponto arbitrário de mesmo potencial (a exemplo de um fio ideal, ou seja, independente do tamanho do fio, não há queda de tensão ao longo de sua extensão) no qual os terminais e, por conseguinte, as correntes de dois ou mais componentes se encontram.
     \begin{center}
         $$i_{1}+i_{2}-i_{3} = 0$$
         \begin{circuitikz}\draw
@@ -228,9 +230,10 @@
     \begin{center}
         $$e_{1}+e_{2}-e_{3}=0$$
         \begin{circuitikz}\draw
-            (0, 0) to[V, l=$e_1$,*-] (0, 3)
+            (0, 0) to[V, l=$e_1$] (0, 3)
             (0, 3) to[V, l=$e_2$] (3, 3)
-            (3, 0) to[V, l_=$e_3$,*-] (3, 3)
+            (3, 0) to[V, l_=$e_3$] (3, 3)
+            (0, 0) -- (3, 0)
         ;\end{circuitikz}
     \end{center}
 
@@ -459,11 +462,11 @@
 
     \subsubsection{Unidades de Medida}
     \begin{itemize}
-        \item \textbf{Ohm [$\Omega$]}: resistência/impedância elétrica, relação entre a tensão e a corrente em um resistor.
-        \item \textbf{Siemens [$S$]}: condutância/admitância elétrica, inverso da resistência. Esta unidade é também conhecida como \textbf{Mho [$\mho$]} ou \textbf{[$\Omega^{-1}$]}.
+        \item \textbf{Ohm [$\Omega$]}: resistência elétrica, é a relação entre a tensão e a corrente em um resistor. Também utilizado como medida de reatância e impedância elétrica, tem-se que uma impedância $Z$ segue a relação $Z = R + jX$, sendo $R$ a resistência e $X$ a reatância. Em outras palavras, a resistência é a parte real da impedância. Tal relação torna-se útil ao trabalhar com circuitos no domínio da frequência, fora do escopo deste material.
+        \item \textbf{Siemens [$S$]}: condutância elétrica, inverso da resistência (ou admitância, inverso de impedância). Esta unidade é também conhecida como \textbf{Mho [$\mho$]} ou \textbf{[$\Omega^{-1}$]}.
         \item \textbf{Henry [$H$]}: indutância elétrica, relação entre a tensão e a variação da corrente em um indutor.
         \item \textbf{Farad [$F$]}: capacitância, relação entre a carga elétrica e a tensão em um capacitor.
-        \item \textbf{Watt [$W$]}: potência útil, calculada por $P=Vi$. Para indutores e capacitores existe a unidade \textbf{Volt-Ampère reativo [$VAr$]} que representa a potência reativa, e também deve ser citada a unidade \textbf{Volt-Ampère [$VA$]} que representa a potência aparente de um circuito de corrente alternada. As duas últimas não serão tratadas neste material
+        \item \textbf{Watt [$W$]}: potência útil, calculada por $P=Vi$. Para indutores e capacitores existe a unidade \textbf{Volt-Ampère reativo [$VAr$]} que representa a potência reativa, e também deve ser citada a unidade \textbf{Volt-Ampère [$VA$]} que representa a potência aparente de um circuito de corrente alternada. Essa relação torna-se útil ao trabalhar no domínio da frequência.
     \end{itemize}
 
     Além disso, existem alguns prefixos de unidades comuns na análise de circuitos elétricos.
@@ -1348,7 +1351,7 @@
 
     \subsection{Quadripolos}
     \label{subsec:quadripolos}
-    Quadripolo é o nome dado a uma rede de componentes que se liga com algum outro circuito por apenas dois pares de terminais. São definidas as tensão nas portas $V_{1}$ e $V_{2}$ polarizadas simetricamente e as correntes nas portas $I_{1}$ e $I_{2}$ entrando no quadripolo.
+    Quadripolo é o nome dado a uma rede de componentes que se liga com algum outro circuito por apenas dois pares de terminais. São definidas as tensões nas portas $V_{1}$ e $V_{2}$ polarizadas simetricamente e as correntes nas portas $I_{1}$ e $I_{2}$ entrando no quadripolo.
 
     \begin{center}
         \begin{circuitikz}[scale=1.2,transform shape]\draw
@@ -1721,9 +1724,20 @@
     \label{subsubsec:condinics}
 
     Uma equação diferencial possui uma infinidade de soluções, chamadas \textbf{família de soluções}. Entretanto, em nosso caso, procura-se a resposta para apenas um circuito elétrico específico. Ou seja, devem ser encontradas as \textbf{condições iniciais} do sistema, para especificar qual a única solução dentro da família que corresponde a $e_{o}(t)$. Uma EDOL de ordem 2 precisa de duas condições iniciais, uma envolvendo $e_{o}$ e outra envolvendo $\displaystyle{\frac{de_{o}}{dt}}$. É comum considerar as condições no tempo $t=0$. \\
-    Considerando o circuito no tempo inicial $t=0$, na resposta ao estado zero, os capacitores e indutores estão descarregados, portanto podem ser modelados como, respectivamente, curto circuitos e circuitos abertos. \\
-    %Circuito da questão em t=0
-    *INSERT IMAGE*
+    Considerando o circuito no tempo inicial $t=0$, na resposta ao estado zero, os capacitores e indutores estão descarregados, portanto podem ser modelados como, respectivamente, curto circuitos e circuitos abertos.
+
+    \begin{center}
+        \begin{circuitikz}\draw
+            (0,2) to[V=$e_i(0)$] (0,0)
+            (0,2) to[R=$R_1$] (2,2)
+            (2,2) to[short,v=$e_0$] (2,0)
+            (2,2) to[R=$R_2$] (4,2)
+            (4,2) to[short] (4,0)
+            (0,0) -- (4,0)
+            ;
+        \end{circuitikz}
+    \end{center}
+
     \begin{itemize}
         \item Por inspeção, percebe-se que $e_{o}(0) = 0$.
         \item Utilizando a relação VI do capacitor, têm-se que $\displaystyle{\frac{ de_{o}(0) }{ dt }= \frac{ i_{ C{_1} } } { C_{1} } } = \frac{ e_{i}(0) }{ R_{1}C_{1} } = 10$
