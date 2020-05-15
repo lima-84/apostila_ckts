@@ -18,7 +18,7 @@
 
 \usetikzlibrary{matrix,decorations.pathreplacing,calc,arrows,decorations.markings,shapes.misc,external}
 \ctikzset{label/align= straight,diodes/scale=0.7}
-%\tikzexternalize[prefix=tikz/]
+\tikzexternalize[prefix=tikz/]
 \numberwithin{equation}{section}
 \newlength\Colsep
 \setlength\Colsep{10pt}
@@ -506,7 +506,7 @@ $$e_0=e_{0_1}+e_{0_2}$$
     A função também pode ser denotada em outras bibliografias por $H(t)$ ou $u_{-1}(t)$. Seu principal uso é localizar algum evento no tempo, a exemplo de uma fonte sendo ligada ou uma chave sendo aberta ou fechada. O gráfico abaixo ilustra o comportamento da função $\cos (t)u(t)$ ao longo do tempo
 
     \begin{center}
-        \includegraphics[width=\textwidth]{img/cos(t).png}
+        \includegraphics[width=0.95\textwidth]{img/cos(t).png}
     \end{center}
 
     \item \textbf{Delta de Dirac:} Inicialmente, define-se um pulso unitário $p(t)$ em torno da origem e com área unitária a partir de uma soma de saltos deslocados no tempo, tal que
@@ -1281,7 +1281,7 @@ Note que pode parecer fácil escolher que $I$ seja tal que a variável de contro
 Segue um exemplo clássico de aplicação dessa técnica. Apesar de não ser o enfoque deste material, a título de curiosidade, vale dizer que o circuito abaixo representa o modelo de pequenos sinais de um transistor bipolar de junção autopolarizado. Este componente extremamente versátil é utilizado amplamente na indústria de microeletrônica. Enquanto o estudo de transistores faz parte do conteúdo das disciplinas de eletrônica, nossa análise será voltada apenas ao seu circuito equivalente.
 
 \noindent\begin{minipage}{0.95\textwidth}
-\begin{minipage}[c][7cm][c]{\dimexpr0.55\textwidth-0.5\Colsep\relax}
+\begin{minipage}[c][7cm][c]{\dimexpr0.65\textwidth-0.5\Colsep\relax}
     \begin{center}
         \begin{tikzpicture}[scale=0.9,transform shape]\draw
             (0,2) to[C,l=$C$,-*] (0,4) node[label={left:$b$}]{}
@@ -1307,13 +1307,13 @@ Segue um exemplo clássico de aplicação dessa técnica. Apesar de não ser o e
         ;\end{tikzpicture}
     \end{center}
 \end{minipage} \hfill
-\begin{minipage}[c][7cm][c]{\dimexpr0.36\textwidth-0.5\Colsep\relax}
+\begin{minipage}[c][7cm][c]{\dimexpr0.35\textwidth-0.5\Colsep\relax}
     Desejando-se saber qual a resistência equivalente vista a partir dos terminais $o$ e $b$, faz-se $V_{cc} = 0$, bem como impõe-se uma fonte de corrente de valor $I$ entre os mesmos terminais, tal que $i_b = 1A$.
 \end{minipage}
 \end{minipage}
 
 \noindent\begin{minipage}{0.95\textwidth}
-\begin{minipage}[c][8cm][c]{\dimexpr0.55\textwidth-0.5\Colsep\relax}
+\begin{minipage}[c][8cm][c]{\dimexpr0.65\textwidth-0.5\Colsep\relax}
     \begin{center}
         \begin{tikzpicture}[scale=0.9,transform shape]\draw
 
@@ -1336,7 +1336,7 @@ Segue um exemplo clássico de aplicação dessa técnica. Apesar de não ser o e
         ;\end{tikzpicture}
     \end{center}
 \end{minipage} \hfill
-\begin{minipage}[c][8cm][c]{\dimexpr0.36\textwidth-0.5\Colsep\relax}
+\begin{minipage}[c][8cm][c]{\dimexpr0.35\textwidth-0.5\Colsep\relax}
     Em seguida, utiliza-se a lei dos nós em $b$ para determinar a corrente que percorre $R_{f}$, bem como, então, no nó entre $R_c$ e $r$ para determinar $i_r$, possibilitando obter $i_{R_e}$ a partir do nó abaixo de $R_e$. Dessa forma, podemos facilmente descobrir o valor de $I$ fazendo a malha que percorre $R_e$, $R_b$, $R_{f}$ e, por fim, $r$, depois isolando $I$ na equação.
 \end{minipage}
 \end{minipage}
@@ -1356,7 +1356,7 @@ Segue um exemplo clássico de aplicação dessa técnica. Apesar de não ser o e
 \noindent Note que o resistor $R_c$ não influencia nos valores de $I$ e $R_{th}$, pois está em série com a fonte controlada de corrente. Convém, portanto, analisar um caso mais completo, em que adiciona-se uma resistência $R_o$ entre os pontos $e$ e $c$ (representando, por exemplo, a não idealidade da fonte controlada), de modo que o resistor $R_c$ não mais seja uma redundância. Assim, o número de variáveis envolvidas no cálculo da resistência de Thévenin aumenta, consequentemente aumentando a complexidade do problema.
 
 \noindent\begin{minipage}{0.95\textwidth}
-\begin{minipage}[c][7cm][c]{\dimexpr0.55\textwidth-0.5\Colsep\relax}
+\begin{minipage}[c][7cm][c]{\dimexpr0.65\textwidth-0.5\Colsep\relax}
     \begin{center}
         \begin{tikzpicture}[scale=0.9,transform shape]\draw
             (0,2) to[C,l=$C$,-*] (0,4) node[label={left:$b$}]{}
@@ -1382,16 +1382,15 @@ Segue um exemplo clássico de aplicação dessa técnica. Apesar de não ser o e
         ;\end{tikzpicture}
     \end{center}
 \end{minipage} \hfill
-\begin{minipage}[c][7cm][c]{\dimexpr0.36\textwidth-0.5\Colsep\relax}
+\begin{minipage}[c][7cm][c]{\dimexpr0.35\textwidth-0.5\Colsep\relax}
     Novamente, desejando-se saber qual a resistência equivalente vista a partir dos terminais $o$ e $b$, faz-se $V_{cc} = 0$, bem como impõe-se uma fonte de corrente de valor $I$ tal que $i_b = 1A$. Também utiliza-se da transformação de fonte para com a fonte de corrente $\beta i_b$ e o resistor $R_o$.
 \end{minipage}
 \end{minipage}
 
-\noindent\begin{minipage}{0.95\textwidth}
-\begin{minipage}[c][8cm][c]{\dimexpr0.55\textwidth-0.5\Colsep\relax}
+\noindent\begin{minipage}{0.96\textwidth}
+\begin{minipage}[c][8cm][c]{\dimexpr0.63\textwidth-0.5\Colsep\relax}
     \begin{center}
         \begin{tikzpicture}[scale=0.9,transform shape]\draw
-
             (0,-1) to[I,l=$I$,v=$I\cdot R_{th}$,-*] (0,4)
             node[label={left:$b$}]{}
             (0,4) to[short,f=$1A$] (2,4)
@@ -1411,13 +1410,13 @@ Segue um exemplo clássico de aplicação dessa técnica. Apesar de não ser o e
         ;\end{tikzpicture}
     \end{center}
 \end{minipage} \hfill
-\begin{minipage}[c][7cm][c]{\dimexpr0.36\textwidth-0.5\Colsep\relax}
+\begin{minipage}[c][7cm][c]{\dimexpr0.37\textwidth-0.5\Colsep\relax}
     Feitas essas simplificações, como no circuito anterior, utiliza-se a lei dos nós em $b$ para determinar a corrente que percorre $R_{f}$. Após, tendo que apenas uma das correntes do nó é conhecida, uma possibilidade é utilizar a malha que contém $R_{b}$, $R_{f}$, $R_o + R_c$ e $\beta R_o$ para, justamente, descobrir a tensão em $R_o + R_c$ e, dividindo pelo próprio $R_o + R_c$, descobrir a corrente, $i_x$, nesse resistor. As demais correntes podem ser facilmente obtidas em função de $i_x$, pela lei dos nós.
 \end{minipage}
 \end{minipage}
 
 \vspace{5mm}
-\noindent Alternativamente, $i_x$ pode ser reescrito em função de $I$ como a equação de uma reta, isto é, $i_x = a_1I + a_0$, sendo $a_1$ e $a_0$ definidos pela equação
+\noindent Alternativamente, a corrente $i_x$ pode ser reescrita em função de $I$ como a equação de uma reta, isto é, $i_x = a_1I + a_0$, sendo $a_1$ e $a_0$ definidos pela equação
 
 \begin{equation}
     i_x=-\dfrac{R_{f}}{R_o+R_c}I + \dfrac{R_{f}+R_b+\beta R_o}{R_o+R_c}, \label{eq:ix_Rth_fonte_arbitraria}
@@ -1550,8 +1549,8 @@ Na segunda figura, percebe-se, pelo nó $b$, que a corrente no fio adicionado é
 
 Para um caso com mais resistores, o processo é exatamente o mesmo. Percebe-se que é possível estender este raciocínio para $n$ resistores e que as correntes nos fios adicionados serão todas nulas. A figura abaixo ilustra uma explosão de fonte de corrente para $n=3$ resistores.
 
-\noindent\begin{minipage}{0.8\textwidth}
-\begin{minipage}[c][5cm][c]{\dimexpr0.45\textwidth-0.5\Colsep\relax}
+\noindent\begin{minipage}{0.95\textwidth}
+\begin{minipage}[c][3cm][c]{\dimexpr0.4\textwidth-0.5\Colsep\relax}
     \begin{center}
         \begin{tikzpicture}[scale=0.9,transform shape]\draw
             (0,0) to[I,l=$I$] (4,0)
@@ -1561,10 +1560,10 @@ Para um caso com mais resistores, o processo é exatamente o mesmo. Percebe-se q
         ;\end{tikzpicture}
     \end{center}
 \end{minipage} \hfill
-\begin{minipage}[c][5cm][c]{\dimexpr0.1\textwidth-0.5\Colsep\relax}
+\begin{minipage}[c][3cm][c]{\dimexpr0.1\textwidth-0.5\Colsep\relax}
     $$\iff$$
 \end{minipage} \hfill
-\begin{minipage}[c][5cm][c]{\dimexpr0.45\textwidth-0.5\Colsep\relax}
+\begin{minipage}[c][3cm][c]{\dimexpr0.5\textwidth-0.5\Colsep\relax}
     \begin{center}
         \begin{tikzpicture}[scale=0.9,transform shape]\draw
             (0,0) to[I,l=$I$] (2,0)
