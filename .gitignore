@@ -5,3 +5,4 @@
 *.toc
 *.aux
 *.synctex(busy)
+*.auxlock
