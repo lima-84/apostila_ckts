@@ -18,7 +18,7 @@
 
 \usetikzlibrary{matrix,decorations.pathreplacing,calc,arrows,decorations.markings,shapes.misc,external}
 \ctikzset{label/align= straight,diodes/scale=0.7}
-\tikzexternalize[prefix=tikz/]
+\tikzexternalize[prefix=tikz/, figure name = ckt\thesubsubsection-]
 \numberwithin{equation}{section}
 \newlength\Colsep
 \setlength\Colsep{10pt}
@@ -57,6 +57,71 @@ A organização dos tópicos a serem abordados foi escolhida de modo a seguir a 
 \label{sec:introd}
 
 A primeira coisa que é válida a ser salientada sobre circuitos é o fato desses ``diagramas elétricos''  serem intrinsecamente, na verdade, uma modelagem matemática de equações diferenciais.
+
+\subsection{Variáveis Fundamentais}
+\label{subsec:variaveis}
+
+\subsubsection{Corrente Elétrica}
+\label{subsubsec:corrente}
+
+A mais básica propriedade de sistemas elétricos é a \textbf{carga elétrica}, que representa as concentrações de prótons ($+$) e de elétrons ($-$) em um corpo (um fio condutor, por exemplo). Se uma força eletromotriz for aplicada em dito corpo, a mesma causará uma movimentação das cargas negativas em relação às positivas, definindo um certo fluxo de carga denominado \textbf{corrente elétrica}. Portanto, a corrente elétrica $i$ é o fluxo de carga $q$ por unidade de tempo $t$, isto é
+
+\begin{equation}
+    i = \dfrac{dq}{dt},
+\end{equation}
+
+\noindent mensurada, no Sistema Internacional de Unidades, em ampères [$A$].
+
+Antes da inclusão dos elétrons nos modelos elétricos, acreditava-se que o fluxo de carga partia do terminal positivo em direção ao negativo, dando origem a uma grandeza ainda utilizada e hoje conhecida como \textbf{corrente convencional}. Este e a grande maioria dos outros materiais de circuitos elétricos adotam a corrente convencional, apesar de que isso apenas implica mudança de sentido do fluxo de cargas. Por isso, quando afirma-se que existe uma corrente de, digamos, $i_1=1A$, está implícito que esta representa a movimentação das cargas positivas. Analogamente, uma corrente $i_2=-1A$ indica movimentação no sentido oposto. Por isso, a mesma corrente pode ser representada de duas maneiras:
+
+\begin{center}
+    \begin{tikzpicture}
+        \draw
+            (0,0) to[short,*-,f=$i$] (2,0)
+            (2,0) to[short,-*,f<=$-i$] (4,0)
+        ;
+    \end{tikzpicture}
+\end{center}
+
+Ao resolver um circuito elétrico, pode-se atribuir um sentido arbitrário para as correntes, desde que a atribuição seja seguida integralmente ao longo da resolução. No caso do sentido real da corrente ser oposto ao escolhido, o valor de corrente encontrado deverá ser negativo.
+
+Existem dois principais tipos de corrente. Chama-se de \textbf{corrente contínua} (do inglês, \textit{direct current, DC}) aquela que não varia com o tempo, ou seja, constante. Já uma corrente que varia de forma senoidal, com média zero, é denominada \textbf{corrente alternada} (\textit{alternating current, AC}).
+
+\subsubsection{Tensão}
+\label{subsubsec:tensão}
+
+A \textbf{tensão elétrica} $V$ (também denotada por $e$) representa a transferência de energia $E$ envolvida na movimentação das cargas elétricas $q$, isto é
+
+\begin{equation}
+    V = \dfrac{dE}{dq},
+\end{equation}
+
+\noindent sendo mensurada em volts [$V$].
+
+A tensão é sempre medida entre dois pontos, digamos, $a$ e $b$, e representa a \textbf{diferença de potencial} entre os terminais $a$ e $b$. Por isso, uma tensão $V_{ab}$ sempre pode ser expressa por $V_{ab}=\tilde{V}_a - \tilde{V}_b$, sendo $\tilde{V}_x$ o potencial elétrico no ponto $x$. Os sinais de ($+$) e ($-$) definem a \textbf{polaridade} da tensão, indicando um \textbf{referencial} para sua magnitude. A figura abaixo ilustra a representação da tensão em uma carga genérica.
+
+\begin{center}
+    \begin{tikzpicture}
+        \draw
+            (0,0) node[label={left:$a$}]{} to[european resistor,v=$V_{ab}$,*-*] (3,0) node[label={right:$b$}]{}
+            (3,0) to[open,v=$V_{ba}$] (0,0)
+        ;
+    \end{tikzpicture}
+\end{center}
+
+\noindent Note que $V_{ba} = -V_{ab}$. Por isso, é comum omitir o subíndice e apenas utilizar-se da magnitude e da polaridade da tensão. Além disso, na maior parte dos circuitos elétricos, atribui-se que o referencial é tal que possua potencial nulo, conhecido como \textbf{terra} (do inglês, \textit{ground, GND}). Incluindo o terra no modelo genérico e excluindo os subíndices, o circuito é:
+
+\vspace{2mm}
+
+\begin{center}
+    \begin{tikzpicture}
+        \draw
+            (0,0) node[label={left:$a$}]{} to[european resistor,v=$V$,*-] (3,0) node[ground]{}
+        ;
+    \end{tikzpicture}
+\end{center}
+
+\textbf{Observação:} Neste material, o terra será omitido e a referência será o potencial comum das fontes independentes (em geral, na parte inferior do circuito). Além disso, diz-se que a tensão ``cai'' quando é lida do terminal positivo para o negativo. Do contrário, a tensão ``sobe''.
 
 \subsection{Elementos e Relações Volt-Ampère}
 \label{subsec:elements}
@@ -333,9 +398,85 @@ Dois componentes são ditos associados em paralelo quando estão conectados de m
 \end{minipage}
 \end{minipage}
 
+\subsubsection{Associação de Fontes}
+\label{subsubsec:assocfonte}
+
+Analogamente aos componentes passivos, é também possível associar fontes de modo a representar suas contribuições por meio de um único componente.
+
+\vspace{4mm}
+
+\textbf{\small{\textbullet} Fontes de tensão:} Quando em série, pode-se somar as fontes de tensão de acordo com suas polaridades. Segue um exemplo.
+
+\noindent\begin{minipage}{\textwidth}
+\centering
+\begin{minipage}[c][4cm][c]{\dimexpr0.45\textwidth-0.5\Colsep\relax}
+    \begin{center}
+        \begin{tikzpicture}
+            \draw
+            (0,2) to[V_=$e_1$] (0,0)
+            (2,2) to[V_=$e_2$] (0,2)
+            (2,2) to[V=$e_3$,-*] (4,2)
+            (0,0) to[short,-*] (4,0)
+            ;
+        \end{tikzpicture}
+    \end{center}
+\end{minipage} \hfill
+\begin{minipage}[c][4cm][c]{\dimexpr0.1\textwidth-0.5\Colsep\relax}
+    $$\iff$$
+\end{minipage} \hfill
+\begin{minipage}[c][4cm][c]{\dimexpr0.45\textwidth-0.5\Colsep\relax}
+    \begin{center}
+        \begin{tikzpicture}
+            \draw
+            (0,2) to[V_=$e_1+e_2-e_3$] (0,0)
+            (0,2) to[short,-*] (2,2)
+            (0,0) to[short,-*] (2,0)
+            ;
+        \end{tikzpicture}
+    \end{center}
+\end{minipage}
+\end{minipage}
+
+\textbf{\small{\textbullet} Fontes de corrente:} Quando em paralelo, pode-se somar as correntes de cada fonte de acordo com seus sentidos. Por exemplo:
+
+\noindent\begin{minipage}{\textwidth}
+\centering
+\begin{minipage}[c][4cm][c]{\dimexpr0.45\textwidth-0.5\Colsep\relax}
+    \begin{center}
+        \begin{tikzpicture}
+            \draw
+            (0,0) to[I,l=$i_1$] (0,2)
+            (0,2) -- (2,2)
+            (2,0) to[I,l=$i_2$] (2,2)
+            (2,2) -- (4,2)
+            (4,2) to[I,l=$i_3$] (4,0)
+            (4,2) to[short,-*] (5,2)
+            (0,0) to[short,-*] (5,0)
+            ;
+        \end{tikzpicture}
+    \end{center}
+\end{minipage} \hfill
+\begin{minipage}[c][4cm][c]{\dimexpr0.1\textwidth-0.5\Colsep\relax}
+    $$\iff$$
+\end{minipage} \hfill
+\begin{minipage}[c][4cm][c]{\dimexpr0.45\textwidth-0.5\Colsep\relax}
+    \begin{center}
+        \begin{tikzpicture}
+            \draw
+            (0,0) to[I,l=$i_1+i_2-i_3$] (0,2)
+            (0,2) to[short,-*] (2,2)
+            (0,0) to[short,-*] (2,0)
+            ;
+        \end{tikzpicture}
+    \end{center}
+\end{minipage}
+\end{minipage}
+
+\textbf{Observação:} Não é comum utilizar fontes de tensão em paralelo, muito menos fontes de corrente em série, visto que nessas configurações as fontes impõem seus respectivos valores no circuito. De fato, é impossível que as correntes ou tensões assumam dois valores diferentes em um mesmo ponto. Na prática, conectar duas fontes de forma incorreta pode danificar os componentes e, possivelmente, causar faíscas e explosões. Entretanto, uma aplicação é conectar fontes de tensão idênticas em paralelo, de modo que a corrente e, consequentemente, a potência exigidas de cada fonte são menores. Neste material, considera-se que as fontes são ideais, podendo sempre fornecer a potência requerida pela carga.
+
 \subsubsection{Transformação $\Delta-Y$}
-Permite transformar um circuito em configuração $\Delta$ para $Y$ e vice-versa, respeitando às seguintes relações: \\
-% circuito em Delta com Ra,Rb,Rc e circuito em Y com R1,R2,R3
+Permite transformar um circuito em configuração $\Delta$ para $Y$ e vice-versa, respeitando às seguintes relações:
+
 \noindent\begin{minipage}{\textwidth}
 \begin{minipage}[c][5cm][c]{\dimexpr0.45\textwidth-0.5\Colsep\relax}
     \begin{center}
@@ -494,7 +635,6 @@ $$e_0=e_{0_1}+e_{0_2}$$
 \subsubsection{Funções Singulares}
 
 \begin{itemize}
-    %\setlength{\itemindent}{20pt}
     \item \textbf{Função de Heaviside:} também conhecida como função salto, ou função degrau, é definida por partes como
     $$ u(t) =
     \begin{cases}
@@ -628,7 +768,15 @@ Além disso, existem alguns prefixos de unidades comuns na análise de circuitos
     \end{tabular}
 \end{center}
 
-\subsubsection{curto circuito e Circuito Aberto}
+Uma importante ferramenta para conferir respostas em circuitos elétricos (e na engenharia, de modo geral) é a chamada \textbf{análise dimensional}, que consiste em, como diz o nome, analisar as dimensões de alguma equação, tendo como princípio que, se ambos os lados são iguais, ambos os lados devem possuir a exata mesma unidade. Tomando como exemplo a fórmula da potência útil $P = Vi$ e utilizando as definições de tensão e corrente da Seção (\ref{subsec:variaveis}), tem-se que
+
+\begin{equation}
+    P = Vi = \dfrac{dE}{dq} \dfrac{dq}{dt} = \left[\dfrac{J}{C}\dfrac{C}{s}\right] = \left[\dfrac{J}{s}\right] = [W],
+\end{equation}
+
+\noindent em que [$\cdot$] representa unidades de medida. Verifica-se que, de fato, existe equivalência de unidades na equação. Caso houvesse disparidade, concluir-se-ía que a equação está incorreta.
+
+\subsubsection{Curto Circuito e Circuito Aberto}
 Considera-se um \textbf{curto circuito} um elemento com impedância tendendo a 0 (zero), ou seja, que permite livremente a passagem de corrente e com queda de tensão nula sobre o mesmo. \\
 \indent Considera-se um \textbf{circuito aberto} um elemento com impedância tendendo ao infinito, não permitindo a passagem de corrente, mas podendo possuir queda de tensão entre seus terminais.
 
