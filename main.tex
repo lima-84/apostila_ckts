@@ -22,6 +22,7 @@
 \numberwithin{equation}{section}
 \newlength\Colsep
 \setlength\Colsep{10pt}
+\newcommand{\curtovirtual}{($(opamp.+)+(0.3,0)$) to[open,v^=$ $, l=0, voltage shift=1] ($(opamp.-)+(0.3,0)$)}
 
 \title{\begin{center}
     \includegraphics[width=0.45\textwidth]{img/ceeca.png}
@@ -129,6 +130,7 @@ A tensão é sempre medida entre dois pontos, digamos, $a$ e $b$, e representa a
 \subsubsection{Elementos Passivos}
 \label{subsubsec:passivos}
 
+Componentes passivos não conseguem, por si só, gerar e/ou manipular sinais. Quando combinados com elementos ativos, no entanto, permitem a implementação de diversos sistemas analógicos. O sentido da corrente nos passivos é sempre dadd de modo que o fluxo passe do terminal positivo para o negativo. Alternativamente, a polarização da tensão sempre terá seu terminal positivo definido pelo ponto em que a corrente ``entra''. Alguns exemplos são os resistores, os capacitores, e os indutores.
 
 \begin{center}{\textbf{Resistor}}\end{center}
 
@@ -147,6 +149,7 @@ A tensão é sempre medida entre dois pontos, digamos, $a$ e $b$, e representa a
     E_{R} = Ri_{R}^{2}t \hspace{0.2cm} [J]
 \end{equation}
 
+\vspace{3mm}
 \begin{center}{\textbf{Capacitor}}\end{center}
 \center{
 \begin{tikzpicture}\draw
@@ -165,6 +168,7 @@ A tensão é sempre medida entre dois pontos, digamos, $a$ e $b$, e representa a
     E_{C} = \frac{1}{2}CV_{C}^{2} [J]
     \end{equation}
 
+\vspace{3mm}
 \begin{center}{\textbf{Indutor}}\end{center}
 \center{
 \begin{tikzpicture}\draw
@@ -181,14 +185,16 @@ A tensão é sempre medida entre dois pontos, digamos, $a$ e $b$, e representa a
     E_{L} = \frac{1}{2}Li_{L}^{2} [J]
 \end{equation}
 
-
+\vfill
 \justifying
-
 \subsubsection{Elementos Ativos Independentes}
 \label{subsubsec:ativos}
 
+Componentes ativos são capazes de gerar e/ou amplificar sinais elétricos. Alguns exemplos são as fontes e os transistores.
 
-\begin{minipage}[c][5cm]{\dimexpr0.48\textwidth-0.5\Colsep\relax}
+\vspace{3mm}
+
+\begin{minipage}[c][5cm]{\dimexpr0.45\textwidth-0.5\Colsep\relax}
     \begin{center}{\textbf{Fonte de Tensão}}\end{center}
 
     Gera uma tensão $e_i$ entre seus terminais, enquanto a corrente entre seus terminais é independente e determinada pelo resto do circuito.
@@ -198,7 +204,10 @@ A tensão é sempre medida entre dois pontos, digamos, $a$ e $b$, e representa a
     ;\end{tikzpicture}
     }
 \end{minipage} \hfill
-\begin{minipage}[c][5cm]{\dimexpr0.48\textwidth-0.5\Colsep\relax}
+\begin{minipage}[c][2cm][c]{\dimexpr0.05\textwidth-0.5\Colsep\relax}
+
+\end{minipage} \hfill
+\begin{minipage}[c][5cm]{\dimexpr0.45\textwidth-0.5\Colsep\relax}
     \begin{center}{\textbf{Fonte de Corrente}}\end{center}
 
     Gera uma corrente $i$ entre seus terminais, enquanto a tensão entre seus terminais é independente e determinada pelo resto do circuito.
@@ -260,11 +269,12 @@ Gera uma corrente $Ki \hspace{0.25cm}[A]$ ou $Kv$ \hspace{0.25cm}[$\frac{A}{V}$V
 \end{minipage}
 \subsubsection{Instrumentos}
 \label{subsubsec:instrumentos}
-Elementos ideais cuja função é medir algum valor em algum outro elemento do circuito.\footnote{Conceitos de Impedância, Paralelo e Série são devidamente definidos na Seção \ref{subsec:def}} \\
+Elementos ideais cuja função é medir algum valor em outro elemento do circuito.
+
 \noindent\begin{minipage}{\textwidth}
     \begin{minipage}[t][6cm]{\dimexpr0.45\textwidth-\Colsep\relax}
         \begin{center}{\textbf{Voltímetro}}\end{center}
-        Mede a tensão $V$ entre seus terminais. Idealmente, o voltímetro possui uma impedância infinita, o que implica corrente $0$ (zero) entre seus terminais. Deve ser ligado em paralelo com o componente do qual quer-se medir a tensão.
+        Mede a tensão $V$ entre seus terminais. Idealmente, o voltímetro possui uma impedância infinita\footnotemark, o que implica corrente $0$ (zero) entre seus terminais. Deve ser ligado em paralelo com o componente do qual quer-se medir a tensão.
 
         \center{
         \begin{tikzpicture}\draw
@@ -286,6 +296,7 @@ Elementos ideais cuja função é medir algum valor em algum outro elemento do c
         }
     \end{minipage} \hfill
 \end{minipage}
+\footnotetext{Conceitos de Impedância, Paralelo e Série são devidamente definidos na Seção \ref{subsec:def}}
 
 \subsection{Leis de Kirchhoff}
 \label{subsec:Kirchhoff}
@@ -768,7 +779,7 @@ Além disso, existem alguns prefixos de unidades comuns na análise de circuitos
     \end{tabular}
 \end{center}
 
-Uma importante ferramenta para conferir respostas em circuitos elétricos (e na engenharia, de modo geral) é a chamada \textbf{análise dimensional}, que consiste em, como diz o nome, analisar as dimensões de alguma equação, tendo como princípio que, se ambos os lados são iguais, ambos os lados devem possuir a exata mesma unidade. Tomando como exemplo a fórmula da potência útil $P = Vi$ e utilizando as definições de tensão e corrente da Seção (\ref{subsec:variaveis}), tem-se que
+Uma importante ferramenta para conferir respostas em circuitos elétricos (e na engenharia, de modo geral) é a chamada \textbf{análise dimensional}, que consiste em, como diz o nome, analisar as dimensões de alguma equação, tendo como princípio que, se ambos os lados são iguais, ambos os lados devem possuir a exata mesma unidade. Tomando como exemplo a fórmula da potência útil $P = Vi$ e utilizando as definições de tensão e corrente da Seção \ref{subsec:variaveis}, tem-se que
 
 \begin{equation}
     P = Vi = \dfrac{dE}{dq} \dfrac{dq}{dt} = \left[\dfrac{J}{C}\dfrac{C}{s}\right] = \left[\dfrac{J}{s}\right] = [W],
@@ -1896,7 +1907,7 @@ $$R_{th}=500 \Omega.$$
     ;\end{tikzpicture}
 \end{center}
 
-\noindent É evidente que a nova forma do circuito é muito mais simples em comparação à original, tornando fácil encontrar $e_0(t)$. Este exemplo será revisitado e concluído na Seção $\ref{sec:reativos}$, visto que envolve a resolução de um circuito reativo.
+\noindent É evidente que a nova forma do circuito é muito mais simples em comparação à original, tornando fácil encontrar $e_0(t)$. Este exemplo será revisitado e concluído na Seção \ref{sec:reativos}, visto que envolve a resolução de um circuito reativo.
 
 %Here
 
@@ -2103,7 +2114,7 @@ Se o efeito de $V$ polarizar o diodo diretamente ($V>0$), diz-se que o diodo est
 \end{minipage}
 \end{center}
 
-Note que ao passar o circuito para notação potencial, ambas as fontes de tensão foram trocadas por potenciais de mesmas respectivas intensidades, visto que seus valores eram dados em relação à referência nula. Da mesma forma, o terminal do resistor na vertical $R$ que o conectava a $e_1$ e $e_2$ foi substituído pelo próprio terra.
+Note que ao passar o circuito para notação potencial (referida na Seção \ref{subsec:notpot}), ambas as fontes de tensão foram trocadas por potenciais de mesmas respectivas intensidades, visto que seus valores eram dados em relação à referência nula. Da mesma forma, o terminal do resistor na vertical $R$ que o conectava a $e_1$ e $e_2$ foi substituído pelo próprio terra.
 
 \subsection{Amplificador Operacional Ideal}
 \label{subsec:ampop}
@@ -2115,8 +2126,8 @@ Um amplificador operacional (AmpOp) é um componente que tem como saída um sina
         (opamp.+) to [short,-*] (-1.5,-0.49) node[left] {$V_+$}
         (opamp.-) to [short,-*] (-1.5,0.49) node[left] {$V_-$}
         (opamp.out) to [short,-*] (1.6,0) node[right] {$V_o$}
-        (opamp.up) ++ (0,0.5) node[above] {+VCC} to [short,*-] (opamp.up)
-        (opamp.down) ++ (0,-0.5) node[below] {-VCC} to [short,*-] (opamp.down)
+        (opamp.up) ++ (0,0.5) node[above] {$+V_{CC}$} to [short,*-] (opamp.up)
+        (opamp.down) ++ (0,-0.5) node[below] {$-V_{CC}$} to [short,*-] (opamp.down)
         ;
     \end{tikzpicture}
 \end{center}
@@ -2139,14 +2150,14 @@ Os amplificadores operacionais possuem diversas aplicações, sendo a mais bási
 Esta ligação tem como característica a criação do chamado \textbf{curto circuito virtual} entre seus terminais. Em outras palavras, a tensão entre as entradas inversora e não inversora é igual a zero. Lembrando que, como a impedância de entrada é muito alta, considera-se a corrente de entrada igual a zero.
 
 \subsubsection{Configuração Inversora}
-A aplicação de tensão na porta inversora causa um ganho proporcional na saída e com sinal oposto ao da entrada. No caso geral
+A aplicação de tensão na porta inversora causa um ganho proporcional e com sinal oposto em relação à entrada. Para um caso genérico:
 
 \begin{center}
     \begin{tikzpicture}\draw
         (0,0) node[op amp] (opamp) {}
-        (opamp.+) node[ground] {}
-        (opamp.-) -- (-1.5,0.49) to [R,l=$R_i$,-*] (-3.5,0.49) node[left] {$V_i$}
-        (opamp.out) -- (1.2,1.5) to [R,l_=$R_f$] (-1.5,1.5) -- (-1.5,0.49)
+        (opamp.+) -- (-1.5,-0.49) node[ground] {}
+        (opamp.-) -- (-2,0.49) to [R,l_=$R_i$,-*] (-5,0.49) node[left] {$V_i$}
+        (opamp.out) -- (1.2,2) to [R,l_=$R_f$] (-2,2) -- (-2,0.49)
         (opamp.out) to [short,-*] (1.8,0) node[right] {$V_o$}
         ;
     \end{tikzpicture}
@@ -2161,14 +2172,38 @@ A aplicação de tensão na porta inversora causa um ganho proporcional na saíd
 \begin{center}
     \begin{tikzpicture}\draw
         (0,0) node[op amp] (opamp) {}
-        (opamp.+) node[ground] {}
-        ($(opamp.+)+(0.3,0)$) to[open,v^=$ $, l=0, voltage shift=1] ($(opamp.-)+(0.3,0)$)
-        (opamp.-) to[short,f_<=$0$,current arrow scale=24] (-1.5,0.49) to [R,l=$R_i$,-*,v<=$V_i$,f<=$i$] (-3.5,0.49) node[left] {$V_i$}
-        (opamp.out) -- (1.2,1.5) to [R,l_=$R_f$,f_<=$i$] (-1.5,1.5) -- (-1.5,0.49)
+        (opamp.+) -- (-1.5,-0.49) node[ground] {}
+        \curtovirtual
+        (opamp.-) to[short,f_<=$0$] (-2,0.49) to [R,l_=$R_i$,-*,v^<=$V_i$,f_<=$i$] (-5,0.49) node[left] {$V_i$}
+        (opamp.out) -- (1.2,2) to [R,l_=$R_f$,f_<=$i$,v^<=$V_{R_f}$] (-2,2) -- (-2,0.49)
         (opamp.out) to [short,-*] (1.8,0) node[right] {$V_o$}
         ;
     \end{tikzpicture}
 \end{center}
+
+\begin{equation*}
+    i_{R_i} = i_{R_f} = i = \dfrac{V_i}{R_i}.
+\end{equation*}
+
+\noindent A tensão no resistor de realimentação $R_f$ é, portanto,
+
+\begin{equation*}
+    V_{R_f} = R_f i = \dfrac{R_f}{R_i} V_i.
+\end{equation*}
+
+\noindent Basta, então, relacionar a tensão em $R_f$ com seus potenciais (respeitando a polarização), resultando em
+
+\begin{equation*}
+    V_{R_f} = 0 - V_o,
+\end{equation*}
+
+\noindent o que implica
+
+\begin{equation*}
+    V_o = -\dfrac{R_f}{R_i} V_i \implies \dfrac{V_o}{V_i} = -\dfrac{R_f}{R_i}.
+\end{equation*}
+
+\textbf{Observação:} Ao relacionar os potenciais com a tensão, foi feita implicitamente a malha que passa por $V_i$, pelo curto virtual, por $V_{R_f}$ e, finalmente, por $V_o$. Caso o leitor não esteja acostumado com a notação potencial, em que as fontes de tensão são omitidas, uma breve explicação foi dada na Seção \ref{subsec:notpot}.
 
 \subsubsection{Configuração Não Inversora}
 A aplicação de tensão na porta não inversora causa um ganho proporcional à entrada, sem mudança de sinal.
@@ -2176,9 +2211,9 @@ A aplicação de tensão na porta não inversora causa um ganho proporcional à 
 \begin{center}
     \begin{tikzpicture}\draw
         (0,0) node[op amp] (opamp) {}
-        (opamp.+) to [short,-*] (-1.5,-0.49) node[left] {$V_i$}
-        (opamp.-) -- (-1.5,0.49) to [R,l=$R_i$] (-3.5,0.49) node[ground] {}
-        (opamp.out) -- (1.2,1.5) to [R,l_=$R_f$] (-1.5,1.5) -- (-1.5,0.49)
+        (opamp.+) to [short,-*] (-2,-0.49) node[left] {$V_i$}
+        (opamp.-) -- (-2,0.49) to [R,l_=$R_i$] (-5,0.49) node[ground] {}
+        (opamp.out) -- (1.2,2) to [R,l_=$R_f$] (-2,2) -- (-2,0.49)
         (opamp.out) to [short,-*] (1.8,0) node[right] {$V_o$}
         ;
     \end{tikzpicture}
@@ -2187,6 +2222,36 @@ A aplicação de tensão na porta não inversora causa um ganho proporcional à 
 \begin{equation}
     A=\frac{V_{o}}{V_{i}}=1+\frac{R_{f}}{R_{i}}
 \end{equation}
+
+\textbf{Dedução:} A realimentação negativa gera um curto circuito virtual, o que implica o potencial $V_i$ ser propagado para o nó à direita do resistor $R_i$. Assim, $R_i$ será polarizado por $V_i$ e, do fato da impedância de entrada ser infinita, terá uma corrente $i_{R_i} = i_{R_f} = i$, dada pela expressão a seguir.
+
+\begin{center}
+    \begin{tikzpicture}\draw
+        (0,0) node[op amp] (opamp) {}
+        (opamp.+) to [short,-*] (-2,-0.49) node[left] {$V_i$}
+        \curtovirtual
+        (opamp.-) to[short,f_<=$0$] (-2,0.49) to [R,l_=$R_i$,f_=$i$,v^=$V_i$] (-5,0.49) node[ground] {}
+        (opamp.out) -- (1.2,2) to [R,l_=$R_f$,f_=$i$,v^=$V_{R_f}$] (-2,2) -- (-2,0.49)
+        (opamp.out) to [short,-*] (1.8,0) node[right] {$V_o$}
+        ;
+    \end{tikzpicture}
+\end{center}
+
+\begin{equation*}
+    i = \dfrac{V_i}{R_i}.
+\end{equation*}
+
+\noindent Analisando, então, a tensão no resistor $R_f$, sabendo que seus potenciais à esquerda e à direita são, respectivamente, $V_i$ e $V_o$, tem-se que
+
+\begin{equation*}
+    V_o - V_i = V_{R_f} = \dfrac{R_f}{R_i} V_i.
+\end{equation*}
+
+\noindent Isolando a tensão de saída $V_o$, resulta em
+
+\begin{equation*}
+    V_o = \left(1+\dfrac{R_f}{R_i}\right) V_i \implies \dfrac{V_o}{V_i} = 1+\dfrac{R_f}{R_i}.
+\end{equation*}
 
 \subsubsection{Configuração Seguidor de Tensão}
 Caso particular do amplificador não inversor em que as resistências $R_{i}$ e $R_{f}$ são iguais a, respectivamente, infinito e $0$ (caso ideal), fazendo com que o ganho seja unitário, o que implica a tensão de saída ser igual à de entrada.
@@ -2212,7 +2277,7 @@ A aplicação de $n$ fontes de tensão gera uma ganho inverso à soma ponderada 
 \begin{center}
     \begin{tikzpicture}\draw
         (0,0) node[op amp] (opamp) {}
-        (opamp.+) node[ground] {}
+        (opamp.+) -- (-1.5,-0.49) node[ground] {}
         (opamp.-) -- (-1.5,0.49) to [R,l_=$R_1$,-*] (-3.5,0.49) node[left] {$V_1$}
         (opamp.out) -- (1.2,1.5) to [R,l_=$R_f$] (-1.5,1.5) -- (-1.5,0.49)
         (-1.5,1.5) to [R,l_=$R_2$,-*] (-3.5,1.5) node[left] {$V_2$}
@@ -2233,8 +2298,8 @@ A aplicação de $n$ fontes de tensão gera uma ganho inverso à soma ponderada 
 \begin{center}
     \begin{tikzpicture}\draw
         (0,0) node[op amp] (opamp) {}
-        (opamp.+) node[ground] {}
-        ($(opamp.+)+(0.3,0)$) to[open,v^=$ $, l=0, voltage shift=1] ($(opamp.-)+(0.3,0)$)
+        (opamp.+) -- (-1.5,-0.49) node[ground] {}
+        \curtovirtual
         (opamp.-) -- (-1.5,0.49) to [R,l_=$R_1$,-*] (-3.5,0.49) node[left] {$V_1$}
         (opamp.out) -- (1.2,1.5) to [R,l_=$R_f$] (-1.5,1.5) -- (-1.5,0.49)
         (-1.5,1.5) to [R,l_=$R_2$] (-3.5,1.5) node[tlground,rotate=-90] {}
