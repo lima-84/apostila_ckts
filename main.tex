@@ -144,7 +144,7 @@ Componentes passivos não conseguem, por si só, gerar e/ou manipular sinais. Qu
     \hspace{0.6cm}
     i_{R} = \frac{V_{R}}{R} \hspace{0.2cm} [A]
     \hspace{0.6cm}
-    P_{R} = V_{R}i_{R} \hspace{0.2cm} [W]\footnote{A diferença entre P e Q e suas unidades de medida são devidamente esclarecidas na Seção \ref{subsubsec:unidades}.}
+    P_{R}\footnote{\label{footnote:potencias} A diferença entre P e Q e suas unidades de medida são devidamente esclarecidas na Seção \ref{subsubsec:unidades}.} = V_{R}i_{R} \hspace{0.2cm} [W]
     \hspace{0.6cm}
     E_{R} = Ri_{R}^{2}t \hspace{0.2cm} [J]
 \end{equation}
@@ -163,7 +163,7 @@ Componentes passivos não conseguem, por si só, gerar e/ou manipular sinais. Qu
     \hspace{0.6cm}
     i_{C} = C \frac{dV_{C}}{dt} \hspace{0.2cm} [A]
     \hspace{0.6cm}
-    Q_{C} = V_{C}i_{C} \hspace{0.2cm} [VAr]
+    Q_{C}\footnotemark[1] = V_{C}i_{C} \hspace{0.2cm} [VAr]
     \hspace{0.6cm}
     E_{C} = \frac{1}{2}CV_{C}^{2} [J]
     \end{equation}
@@ -180,7 +180,7 @@ Componentes passivos não conseguem, por si só, gerar e/ou manipular sinais. Qu
     \hspace{0.6cm}
     i_{L} = \frac{1}{L}\int_{0}^{t}{V_{L}} d\tau \hspace{0.2cm} [A]
     \hspace{0.6cm}
-    Q_{L} = V_{L}i_{L} \hspace{0.2cm} [VAr]
+    Q_{L}\footnotemark[1] = V_{L}i_{L} \hspace{0.2cm} [VAr]
     \hspace{0.6cm}
     E_{L} = \frac{1}{2}Li_{L}^{2} [J]
 \end{equation}
@@ -1990,9 +1990,57 @@ $$ P_R = 10W, \quad P_{e_1} = -20W, \quad P_{e_2} = 10W.$$
 
 $$ \widehat{P_R} = 2.5W, \quad \widehat{P_{e_1}} = 7.5W, \quad \widehat{P_{e_2}} = -10W,$$
 
-\noindent indicando que, agora, a fonte $\widehat{e_2}$ fornece potência para os demais componentes. Outra observação importante é que em ambos os casos o resistor $R$ dissipou potência, já que a polarização da tensão em resistores é dada pela corrente e vice-versa, ou seja, componentes resistivos sempre dissipam potência (facilmente verificável pelo efeito Joule).
+\noindent indicando que, agora, a fonte $\widehat{e_2}$ fornece potência para os demais componentes. Outra observação importante é que em ambos os casos o resistor $R$ dissipou potência, já que a polarização da tensão em resistores é dada pela corrente e vice-versa, ou seja, componentes resistivos sempre dissipam potência (facilmente verificável pelo efeito Joule, que expressa o calor gerado em um resistor percorrido por corrente).
 
 \textbf{Nota:} Apesar da convenção de sinais apresentada ser amplamente utilizada, a mesma não é universal. O importante é que o leitor saiba distinguir as diferenças entre as potências fornecida e dissipada. Particularmente, os autores calculam separadamente as potências fornecida e dissipada e, então, checam se existe igualdade entre ambos os valores. Desta forma, não é necessário utilizar nenhuma convenção de sinais, mas sim aplicar propriamente os conceitos de potência.
+
+\subsection{Teorema da Máxima Transferência de Potência}
+\label{subsec:maxpot}
+
+Considerando uma rede elétrica linear contendo apenas resistores e fontes que alimenta uma carga resistiva $R_L$, pela teoria discutida na Seção \ref{subsubsec:thevenin}, é possível encontrar um equivalente para dito circuito em relação à carga, resultando no modelo abaixo.
+
+\begin{center}
+    \begin{tikzpicture}
+        \draw
+            (0,3) to[V_=$E_{th}$] (0,0)
+            (0,3) to[R,l=$R_{th}$,f=$i$] (3,3)
+            (3,3) to[R,l=$R_L$,v=$V$] (3,0)
+            (0,0) -- (3,0)
+        ;
+    \end{tikzpicture}
+\end{center}
+
+\noindent Assim, é possível calcular a potência dissipada na carga através da relação $P = Vi$. Além disso, por divisor de tensão e pela Lei de Ohm, as expressões de tensão e corrente podem ser desenvolvidas de forma que
+
+\begin{equation}
+    P = \dfrac{R_L}{R_L+R_{th}}E_{th} \dfrac{1}{R_L+R_{th}}E_{th} = \dfrac{R_L}{(R_L+R_{th})^2}E_{th}^2. \label{eq:maxtransfpot}
+\end{equation}
+
+\noindent Como a potência em resistores é sempre dissipada, bem como sua resistência sempre positiva, dado um equivalente de Thévenin, conclui-se que existe um valor máximo de potência na carga para $0 < R_L < \infty$ no ponto que satisfaz a equação diferencial
+
+\begin{equation*}
+    \dfrac{\partial}{\partial R_L}P(R_L) = 0.
+\end{equation*}
+
+\noindent Derivando a expressão \eqref{eq:maxtransfpot}, tem-se
+
+\begin{equation*}
+    \left(\dfrac{1}{R_L+R_{th})^2} - \dfrac{2R_L}{(R_L+R_{th})^3}\right)E_{th}^2 = 0.
+\end{equation*}
+
+\noindent Por ser uma constante, é possível dividir ambos os lados por $E_{th}^2$. Multiplicando, também, ambos os lados por $(R_L+R_{th})^3$, resulta em
+
+\begin{equation*}
+    (R_L+R_{th}) - 2R_L = 0,
+\end{equation*}
+
+\noindent o que implica
+
+\begin{equation}
+    R_L = R_{th}.
+\end{equation}
+
+Ou seja, a máxima transferência de potência ocorre quando a carga é exatamente igual ao resistor equivalente de Thévenin.
 
 \subsection{Notação Potencial}
 \label{subsec:notpot}
@@ -2604,8 +2652,8 @@ Em sumo, um quadripolo qualquer pode ser representado por qualquer relação ent
 
 \subsubsection{Associação de Quadripolos}
 \label{subsubsec:quadripolosassociacao}
-Analogamente aos componentes mais simples (resistor, capacitor, indutor), existem casos em que uma configuração de quadripolos pode ser associada de acordo com suas conexões. Por esse motivo, muitas vezes a escolha dos parâmetros é feita tal que os quadripolos finais possam ser facilmente simplificados.
-\paragraph{Configuração Série-Série:}
+Analogamente aos componentes mais simples (resistor, capacitor, indutor), existem casos em que uma configuração de quadripolos pode ser associada de acordo com suas conexões. Por esse motivo, muitas vezes a escolha dos parâmetros é feita tal que os quadripolos finais possam ser facilmente simplificados. As definições de série e paralelo são exatamente as mesmas, isto é, série implica exata mesma corrente e paralelo implica exata mesma tensão. A diferença é que os lados do quadripolo podem estar conectados de formas diferentes.
+\noindent\textbf{\small{\textbullet}Configuração Série-Série:}
 Neste caso a melhor escolha é de parâmetros resistivos $r$, pois é válida a relação
     $$ [\textbf{r}]_{eq} = [\textbf{r}]_{1} + [\textbf{r}]_{2} $$
 
@@ -2639,7 +2687,7 @@ Neste caso a melhor escolha é de parâmetros resistivos $r$, pois é válida a 
             (4,-3.45) to[short,f<=$I_2$,*-] (2,-3.45)
         ;\end{tikzpicture}
 
-        $$\iff$$
+        \rotatebox[origin=c]{90}{$\iff$}
 
         \begin{tikzpicture}[scale=1.2,transform shape]\draw
         node[fourport,t=$\textbf{r}_{eq}$](btt){}
@@ -2653,7 +2701,7 @@ Neste caso a melhor escolha é de parâmetros resistivos $r$, pois é válida a 
     \end{center}
 
 
-\paragraph{Configuração Paralelo-Paralelo:}
+\noindent\textbf{\small{\textbullet} Configuração Paralelo-Paralelo:}
 Neste caso a melhor escolha é a de parâmetros $y$, já que
     $$ [\textbf{y}]_{eq} = [\textbf{y}]_{1} + [\textbf{y}]_{2} $$
     %
@@ -2705,7 +2753,7 @@ Neste caso a melhor escolha é a de parâmetros $y$, já que
             (3.5,-3.45) -- (2,-3.45)
         ;\end{tikzpicture}
 
-        $$\iff$$
+        \rotatebox[origin=c]{90}{$\iff$}
 
         \begin{tikzpicture}[scale=1.2,transform shape]\draw
         node[fourport,t=$\textbf{y}_{eq}$](btt){}
@@ -2718,7 +2766,7 @@ Neste caso a melhor escolha é a de parâmetros $y$, já que
     ;\end{tikzpicture}
     \end{center}
 
-\paragraph{Configuração Série-Paralelo:}
+\noindent\textbf{\small{\textbullet}Configuração Série-Paralelo:}
 Neste caso a melhor escolha é parâmetros $h$. É possível equacionar
     $$ [\textbf{h}]_{eq} = [\textbf{h}]_{1} + [\textbf{h}]_{2} $$
     %%
@@ -2770,7 +2818,7 @@ Neste caso a melhor escolha é parâmetros $h$. É possível equacionar
             (3.5,-3.45) -- (2,-3.45)
         ;\end{tikzpicture}
 
-        $$\iff$$
+        \rotatebox[origin=c]{90}{$\iff$}
 
         \begin{tikzpicture}[scale=1.2,transform shape]\draw
         node[fourport,t=$\textbf{h}_{eq}$](btt){}
@@ -2783,7 +2831,7 @@ Neste caso a melhor escolha é parâmetros $h$. É possível equacionar
     ;\end{tikzpicture}
     \end{center}
 
-\paragraph{Configuração Paralelo-Série:}
+\noindent\textbf{\small{\textbullet}Configuração Paralelo-Série:}
 Neste caso a melhor escolha é parâmetros $g$, pois
     $$ [\textbf{g}]_{eq} = [\textbf{g}]_{1} + [\textbf{g}]_{2} $$
     %%
@@ -2835,7 +2883,7 @@ Neste caso a melhor escolha é parâmetros $g$, pois
             (3.5,-3.45) -- (2,-3.45)
         ;\end{tikzpicture}
 
-        $$\iff$$
+        \rotatebox[origin=c]{90}{$\iff$}
 
         \begin{tikzpicture}[scale=1.2,transform shape]\draw
         node[fourport,t=$\textbf{g}_{eq}$](btt){}
@@ -2848,7 +2896,7 @@ Neste caso a melhor escolha é parâmetros $g$, pois
     ;\end{tikzpicture}
     \end{center}
 
-\paragraph{Configuração Cascata:}
+\noindent\textbf{\small{\textbullet}Configuração Cascata:}
 Neste caso a melhor escolha é parâmetros de transmissão $ABCD$, possibilitando que
     $$ [\textbf{ABCD}]_{eq} = [\textbf{ABCD}]_{1} \cdot [\textbf{ABCD}]_{2} $$
 
@@ -2857,7 +2905,7 @@ Neste caso a melhor escolha é parâmetros de transmissão $ABCD$, possibilitand
             node[fourport,t=$\textbf{ABCD}_{1}$](btt){}
             (btt.1) to[short,-*] (-2,-0.45)
             (btt.2) to[short,-*] (2,-0.45)
-            (btt.3) to[short,f<=$I_2$,-*] (2,0.45)
+            (btt.3) to[short,f=$I_2$,-*] (2,0.45)
             (btt.4) to[short,f<_=$I_1$,-*] (-2,0.45)
             (-2,0.45) to[open,v=$V_1$] (-2,-0.45)
             (2,0.45) to[open,v_=$V_2$] (2,-0.45)
@@ -2865,19 +2913,19 @@ Neste caso a melhor escolha é parâmetros de transmissão $ABCD$, possibilitand
             (2,0) to[open] (4,0) node[fourport,t=$\textbf{ABCD}_{2}$](btt2){}
             (2,-0.45) to[short] (btt2.1)
             (2,0.45) to[short,f=$I_3$] (btt2.4)
-            (btt2.3) to[short,f<=$I_4$,-*] (6,0.45)
+            (btt2.3) to[short,f=$I_4$,-*] (6,0.45)
             (btt2.2) to[short,-*] (6,-0.45)
             (3,0.45) to[open,v=$V_3$] (3,-0.45)
             (6.5,0.45) to[open,v=$V_4$] (6.5,-0.45)
         ;\end{tikzpicture}
 
-        $$\iff$$
+        \rotatebox[origin=c]{90}{$\iff$}
 
         \begin{tikzpicture}[scale=1.2,transform shape]\draw
         node[fourport,t=$\textbf{ABCD}_{eq}$](btt){}
         (btt.1) to[short,-*] (-2,-0.45)
         (btt.2) to[short,-*] (2,-0.45)
-        (btt.3) to[short,f<=$I_4$,-*] (2,0.45)
+        (btt.3) to[short,f=$I_4$,-*] (2,0.45)
         (btt.4) to[short,f<_=$I_1$,-*] (-2,0.45)
         (-2,0.45) to[open,v=$V_1$] (-2,-0.45)
         (2.5,0.45) to[open,v_=$V_4$] (2.5,-0.45)
@@ -2972,7 +3020,7 @@ Tais condições iniciais, juntamente com a equação diferencial, formam um \te
 
 \begin{equation}
     \begin{cases}
-        \dfrac{ d^2e_{o}(t) }{ dt }+ 2.5 \frac{ de_{o}(t) }{ dt } + e_{o}(t) = 10\\ \\
+        \dfrac{ d^2e_{o}(t) }{ dt }+ 2.5 \dfrac{ de_{o}(t) }{ dt } + e_{o}(t) = 10\\ \\
         \displaystyle e_{o}(0) = 0, \quad \frac{de_o(0)}{dt}=10
     \end{cases}
 \end{equation}
@@ -2992,31 +3040,32 @@ Observa-se que no caso em que $y(t) = e^{\lambda t}$, é possível escrever a eq
 \begin{equation*}
     (\lambda^{2}+p\lambda+q)\hspace{0.05cm} e^{\lambda t} = 0
 \end{equation*}
-\paragraph{}Já que a função $e^{\lambda t}$ não assume valor nulo para qualquer tempo real e $\lambda$ complexo, a única solução possível precisa que
+Já que a função $e^{\lambda t}$ não assume valor nulo para qualquer tempo real e $\lambda$ complexo, a única solução possível precisa que
 \begin{equation}
     \lambda^{2}+p\lambda+q=0
 \end{equation}
-\paragraph{}O polinômio acima representa a \textbf{equação característica}, elemento importante no momento de definir conceitos como a resposta natural e a estabilidade de um sistema. A equação característica terá sua ordem definida pela equação diferencial homogênea. No caso em questão, uma EDOL de ordem dois possui duas raízes em sua equação característica.
-\paragraph{}Após encontrar as soluções da equação característica, combina-se linearmente os termos de modo que
+O polinômio acima representa a \textbf{equação característica}, elemento importante no momento de definir conceitos como a resposta natural e a estabilidade de um sistema. A equação característica terá sua ordem definida pela equação diferencial homogênea. No caso em questão, uma EDOL de ordem dois possui duas raízes em sua equação característica.
+
+Após encontrar as soluções da equação característica, combina-se linearmente os termos de modo que
 \begin{equation*}
     \displaystyle y_{n}(t)=C_{1}e^{\lambda_{1}t}+C_{2}e^{\lambda_{2}t}, \qquad \lambda_{1},\lambda_{2} \in \mathbb{C}
 \end{equation*}
 Convém analisar os diferentes casos para $\lambda$.
-%Não usei itemize, pois estava formatando errado e eu não sabia consertar
-\paragraph{Caso 1:} $\lambda_{1} \neq \lambda_{2}, \quad \lambda_{1},\lambda_{2} \in \mathbb{R} $ \\
+
+\noindent\textbf{\small{\textbullet} Caso 1:} $\lambda_{1} \neq \lambda_{2}, \quad \lambda_{1},\lambda_{2} \in \mathbb{R} $ \\
 A solução permanece no formato
 \begin{equation*}
     \displaystyle y_{n}(t)=C_{1}e^{\lambda_{1}t}+C_{2}e^{\lambda_{2}t}
 \end{equation*}
 
 %Provar solução do caso com com teorema de d'Alembert?
-\paragraph{Caso 2:} $\lambda_{1} = \lambda_{2} = \lambda, \quad \lambda_{1},\lambda_{2} \in \mathbb{R}$ \\
+\noindent\textbf{\small{\textbullet} Caso 2:} $\lambda_{1} = \lambda_{2} = \lambda, \quad \lambda_{1},\lambda_{2} \in \mathbb{R}$ \\
 Nota-se que as duas exponenciais se tornam linearmente dependentes. Deve-se, portanto, considerar uma outra solução linearmente independente a $y_{1}(t)=e^{\lambda t}$. Através do método de D'Alembert, descobre-se que um outro termo LI é $y_{2}(t)=te^{\lambda t}$, o que resulta em
 \begin{equation*}
     \displaystyle y_{n}(t)=C_{1}e^{\lambda t}+C_{2}te^{\lambda t}
 \end{equation*}
 
-\paragraph{Caso 3:} $\lambda_{1} = \overline{\lambda_{2}}, \quad \lambda_{1},\lambda_{2} \in \mathbb{C}$ \\
+\noindent\textbf{\small{\textbullet} Caso 3:} $\lambda_{1} = \overline{\lambda_{2}}, \quad \lambda_{1},\lambda_{2} \in \mathbb{C}$ \\
 Para encontrar duas funções LI utiliza-se a identidade de Euler, sendo $j$ a unidade imaginária,
 \begin{equation}
     e^{j\omega t}=\cos{(\omega t)}+j\sin{(\omega t)}
