@@ -23,6 +23,11 @@
 \newlength\Colsep
 \setlength\Colsep{10pt}
 \newcommand{\curtovirtual}{($(opamp.+)+(0.3,0)$) to[open,v^=$ $, l=0, voltage shift=1] ($(opamp.-)+(0.3,0)$)}
+\newcommand{\deo}[1]{\dfrac{d^{#1}e_o}{dt^{#1}}}
+\newcommand{\dei}[1]{\dfrac{d^{#1}e_i}{dt^{#1}}}
+\let\l\left
+\let\r\right
+\let\dfr\dfrac
 
 \title{\begin{center}
     \includegraphics[width=0.45\textwidth]{img/ceeca.png}
@@ -130,7 +135,7 @@ A tensão é sempre medida entre dois pontos, digamos, $a$ e $b$, e representa a
 \subsubsection{Elementos Passivos}
 \label{subsubsec:passivos}
 
-Componentes passivos não conseguem, por si só, gerar e/ou manipular sinais. Quando combinados com elementos ativos, no entanto, permitem a implementação de diversos sistemas analógicos. O sentido da corrente nos passivos é sempre dadd de modo que o fluxo passe do terminal positivo para o negativo. Alternativamente, a polarização da tensão sempre terá seu terminal positivo definido pelo ponto em que a corrente ``entra''. Alguns exemplos são os resistores, os capacitores, e os indutores.
+Componentes passivos não conseguem, por si só, gerar e/ou manipular sinais. Quando combinados com elementos ativos, no entanto, permitem a implementação de diversos sistemas analógicos. O sentido da corrente nos passivos é sempre dado de modo que o fluxo passe do terminal positivo para o negativo. Alternativamente, a polarização da tensão sempre terá seu terminal positivo definido pelo ponto em que a corrente ``entra''. Alguns exemplos são os resistores, os capacitores, e os indutores.
 
 \begin{center}{\textbf{Resistor}}\end{center}
 
@@ -2412,7 +2417,26 @@ Quadripolo é o nome dado a uma rede de componentes que se liga com algum outro 
     ;\end{tikzpicture}
 \end{center}
 
-A relação entre as tensões e correntes varia de acordo com o tipo de \textbf{parâmetro} escolhido durante a sua modelagem. Este tipo de componente é muito útil na simplificação de circuitos com muitos elementos, já que, uma vez obtidos os parâmetros, relaciona as tensões e correntes sem precisar saber o conteúdo do quadripolo.
+A relação entre as tensões e correntes varia de acordo com o tipo de \textbf{parâmetro} escolhido durante a sua modelagem. Este tipo de componente é muito útil na simplificação de circuitos com muitos elementos, já que, uma vez obtidos os parâmetros, relaciona as tensões e correntes sem necessidade de conhecer o conteúdo do quadripolo.
+
+No caso de $V_1$ e $V_2$ possuírem o mesmo referencial, representa-se tal propriedade através de um fio pontilhado que liga os terminais negativos das tensões, como na figura abaixo. Neste caso, diz-se que o componente é um \textbf{tripolo}. Esta diferença parece sutil em termos de representação, mas possui uma implicação importante, já que a informação do referencial comum permite, muitas vezes, equacionar novas malhas.
+
+\begin{center}
+    \begin{tikzpicture}[scale=1.2,transform shape]
+        \draw
+        node[fourport,t=Q](btt){}
+        (btt.1) to[short,-*] (-2,-0.45)
+        (btt.2) to[short,-*] (2,-0.45)
+        (btt.3) to[short,f<=$I_2$,-*] (2,0.45)
+        (btt.4) to[short,f<_=$I_1$,-*] (-2,0.45)
+        (-2,0.45) to[open,v=$V_1$] (-2,-0.45)
+        (2.5,0.45) to[open,v_=$V_2$] (2.5,-0.45)
+        ;
+        \draw[dashed]
+        (btt.1) -- (btt.2)
+        ;
+    \end{tikzpicture}
+\end{center}
 
 \subsubsection{Parâmetros r}
 \label{subsubsec:quadripolosr}
@@ -2652,8 +2676,11 @@ Em sumo, um quadripolo qualquer pode ser representado por qualquer relação ent
 
 \subsubsection{Associação de Quadripolos}
 \label{subsubsec:quadripolosassociacao}
-Analogamente aos componentes mais simples (resistor, capacitor, indutor), existem casos em que uma configuração de quadripolos pode ser associada de acordo com suas conexões. Por esse motivo, muitas vezes a escolha dos parâmetros é feita tal que os quadripolos finais possam ser facilmente simplificados. As definições de série e paralelo são exatamente as mesmas, isto é, série implica exata mesma corrente e paralelo implica exata mesma tensão. A diferença é que os lados do quadripolo podem estar conectados de formas diferentes.
-\noindent\textbf{\small{\textbullet}Configuração Série-Série:}
+Analogamente aos componentes mais simples (resistor, capacitor, indutor), existem casos em que uma configuração de quadripolos pode ser associada de acordo com suas conexões. Por esse motivo, muitas vezes a escolha dos parâmetros é feita tal que os quadripolos finais possam ser facilmente simplificados. As definições de série e paralelo são exatamente as mesmas, isto é, série implica exata mesma corrente e paralelo implica exata mesma tensão. A diferença é que os quadripolos possuem quatro terminais, possibilitando maior gama de associações.
+
+\vspace{2mm}
+
+\noindent\textbf{\small{\textbullet} Configuração Série-Série:}
 Neste caso a melhor escolha é de parâmetros resistivos $r$, pois é válida a relação
     $$ [\textbf{r}]_{eq} = [\textbf{r}]_{1} + [\textbf{r}]_{2} $$
 
@@ -2700,6 +2727,7 @@ Neste caso a melhor escolha é de parâmetros resistivos $r$, pois é válida a 
     ;\end{tikzpicture}
     \end{center}
 
+\vspace{4mm}
 
 \noindent\textbf{\small{\textbullet} Configuração Paralelo-Paralelo:}
 Neste caso a melhor escolha é a de parâmetros $y$, já que
@@ -2766,7 +2794,9 @@ Neste caso a melhor escolha é a de parâmetros $y$, já que
     ;\end{tikzpicture}
     \end{center}
 
-\noindent\textbf{\small{\textbullet}Configuração Série-Paralelo:}
+\vspace{4mm}
+
+\noindent\textbf{\small{\textbullet} Configuração Série-Paralelo:}
 Neste caso a melhor escolha é parâmetros $h$. É possível equacionar
     $$ [\textbf{h}]_{eq} = [\textbf{h}]_{1} + [\textbf{h}]_{2} $$
     %%
@@ -2831,7 +2861,9 @@ Neste caso a melhor escolha é parâmetros $h$. É possível equacionar
     ;\end{tikzpicture}
     \end{center}
 
-\noindent\textbf{\small{\textbullet}Configuração Paralelo-Série:}
+\vspace{4mm}
+
+\noindent\textbf{\small{\textbullet} Configuração Paralelo-Série:}
 Neste caso a melhor escolha é parâmetros $g$, pois
     $$ [\textbf{g}]_{eq} = [\textbf{g}]_{1} + [\textbf{g}]_{2} $$
     %%
@@ -2896,7 +2928,9 @@ Neste caso a melhor escolha é parâmetros $g$, pois
     ;\end{tikzpicture}
     \end{center}
 
-\noindent\textbf{\small{\textbullet}Configuração Cascata:}
+\vspace{4mm}
+
+\noindent\textbf{\small{\textbullet} Configuração Cascata:}
 Neste caso a melhor escolha é parâmetros de transmissão $ABCD$, possibilitando que
     $$ [\textbf{ABCD}]_{eq} = [\textbf{ABCD}]_{1} \cdot [\textbf{ABCD}]_{2} $$
 
@@ -2940,17 +2974,17 @@ Com o conteúdo abordado nos capítulos anteriores, percebe-se que a análise b�
 
 \subsection{Resolução por Equações Diferenciais Ordinárias Lineares a Coeficientes Constantes}
 \label{subsec:edolcc}
-Uma importante ferramenta para resolução de circuitos no domínio do tempo é a resolução por \textbf{equações diferenciais}. Mais especificamente, as do tipo \textbf{ordinárias} (que são diferenciais apenas em relação a uma variável) \textbf{lineares} (que satisfazem o princípio matemático da linearidade) e a \textbf{coeficientes constantes} (os coeficientes são uma função constante real). O método se resume a relacionar a saída e a entrada a partir de uma equação diferencial (EDOL) e separá-la, pelo princípio da superposição, em duas equações mais simples, a \textbf{resposta natural} e a \textbf{resposta forçada}. A solução do problema em questão é a \textbf{resposta completa}, que é uma combinação linear das respostas natural e forçada.
+Uma importante ferramenta para resolução de circuitos no domínio do tempo é a resolução por \textbf{equações diferenciais}. Mais especificamente, as do tipo \textbf{ordinárias} (que são diferenciais apenas em relação a uma variável) \textbf{lineares} (definidas por um polinômio linear da função incógnita) e a \textbf{coeficientes constantes} (os coeficientes são uma função constante). O método se resume a relacionar a saída e a entrada a partir de uma equação diferencial (EDOL) e separá-la, pelo princípio da superposição, em duas equações mais simples, a \textbf{resposta natural} e a \textbf{resposta forçada}. A solução do problema em questão é a \textbf{resposta completa}, que é uma combinação linear das respostas natural e forçada.
 
 \subsubsection{Equacionamento}
 \label{subsubsec:equacionamento}
-Usa-se as equações que modelam os elementos reativos (relações \textbf{VI}) para relacionar a variável de saída com a variável de entrada. Considere o circuito
+Usa-se as equações que modelam os elementos reativos (relações \textbf{VI}) para relacionar a variável de saída com a variável de entrada. Considere o circuito:
     %Usei a questão 1 da lista do Tristão, ordem 2 com malhas ei=VR1+VC1; VL=VR2+VC2;   eo=VC1
 \begin{center}
     \begin{tikzpicture}\draw
-        (0,2) to[V=$e_i$] (0,0)
+        (0,2) to[V_=$e_i$] (0,0)
         (0,2) to[R=$R_1$] (2,2)
-        (2,2) to[C=$C_1$,v=$e_0$] (2,0)
+        (2,2) to[C=$C_1$,v=$e_o$] (2,0)
         (2,2) to[R=$R_2$] (4,2)
         (4,2) to[C=$C_2$] (4,0)
         (0,0) -- (4,0)
@@ -2958,28 +2992,104 @@ Usa-se as equações que modelam os elementos reativos (relações \textbf{VI}) 
     \end{tikzpicture}
 \end{center}
 
-Quer-se encontrar a tensão no capacitor $e_o(t)$. O primeiro passo é equacionar a malha (I)
-\begin{align*}
-    e_{i}(t) = V_{R_{1}}(t) &+ e_{o}(t) \\
-    V_{R_{1}}(t) = e_{i}(t) &- e_{o}(t)
-\end{align*}
+\noindent Quer-se encontrar, literalmente (i.e. sem subtituir os valores dos componentes), a tensão no capacitor $e_o(t)$. O primeiro passo é definir as polaridades das tensões ou os sentidos das correntes no circuito. Neste caso, arbitrou-se as tensões conforme a figura abaixo. Vale ressaltar que, em função de simplificar a notação, a dependência temporal das variáveis será omitida, o que não significa que ela é inexistente.
 
-Portanto, através da relação VI do resistor, a corrente que percorre $R_{1}$ é $i_{ R_{1} }= \displaystyle {\frac{ e_{i}(t) - e_{o}(t) }{ R_{1}} }$. Além disso, a corrente no capacitor $C_{1}$ é, pela relação VI, $i_{ C_{1} } = C_{1} \displaystyle{ \frac{ de_{o}(t) }{ dt } }$. Equaciona-se, então, o nó (A)
-\begin{align*}
-    i_{ R_{1} }(t) &= i_{ C_{1} }(t) + i_{2}(t) \\
-    \frac{ e_{i}(t) - e_{o}(t) }{ R_{1}} &= C_{1}\frac{ de_{o}(t) }{ dt } + i_{2}(t) \\
-    i_{2}(t) = \frac{ e_{i}(t) - e_{o}(t) }{ R_{1} } &- C_{1}\frac{ de_{o}(t) }{ dt }
-\end{align*}
+\begin{center}
+    \begin{tikzpicture}
+        %\ctikzset{voltage/shift=3,voltage/american label distance=0.4,american voltage source/voltage/shift=0}
+        \draw
+        (0,3) to[V_=$e_i$] (0,0)
+        (0,3) to[R,v^=$V_{R_1}$,f>_=$i_{R_1}$] (3,3)
+        (3,3) to[C,v=$e_o$,f=$i_{C_1}$] (3,0)
+        (3,3) to[R,v^=$V_{R_2}$,f>_=$i_{R_2}$] (6,3)
+        (6,3) to[C,v=$V_{C_2}$] (6,0)
+        (0,0) -- (6,0)
+        ;
+    \end{tikzpicture}
+\end{center}
 
-Finalmente, equaciona-se a malha (II)
-\begin{align}
-    e_{o}(t) = V_{ R_{2} } &+ V_{ C_{2} } \nonumber \\
-    e_{o}(t) = R_{2} i_{2}(t) &+ \frac{ 1 }{ C_{2} } \int_{0}^{t} i_{2}(\tau) d\tau  \nonumber \\
-    e_{o}(t) = R_{2} \left[ \frac{ e_{i}(t) - e_{o}(t) }{ R_{1}} - C_{1}\frac{ de_{o}(t) }{ dt } \right] &+ \frac{ 1 }{ C_{2} } \int_{0}^{t} \left[ \frac{ e_{i}(\tau) - e_{o}(\tau) }{ R_{1}} - C_{1}\frac{ de_{o}(\tau) }{ d\tau } \right] d\tau
-\end{align}
+\noindent Note que a polarização das tensões pode ser escolhida de forma arbitrária, desde que seja seguida integralmente até o final da questão. Além disso, implicitamente, pelo princípio de polarização dos passivos, as direções das correntes também foram definidas. A seguir, equaciona-se a malha à esquerda, a qual passa por $e_i(t)$, $V_{R_1}(t)$ e $e_0(t)$.
 
-%substituir por referência correta
-Em (4.1) obteve-se uma \textbf{equação difero-integral}. Para resolvê-la, deve-se reduzí-la a uma equação diferencial, ou seja, deriva-se ambos os lados da equação com respeito ao tempo. Além disso, escreve-se a expressão de forma que a variável da saída $e_{o}$ e a variável da entrada $e_{i}$ estejam em lados opostos da expressão.
+\begin{equation*}
+    e_{i}(t) = V_{R_{1}}(t) + e_{o}(t).
+\end{equation*}
+
+\noindent O objetivo é escrever todas as tensões e/ou correntes em função apenas da entrada e da saída. Por isso, isola-se a tensão no resistor $R_1$, de forma que
+
+\begin{equation*}
+    V_{R_{1}}(t) = e_{i}(t) - e_{o}(t).
+\end{equation*}
+
+\noindent Portanto, pela relação VI, a corrente que percorre $R_1$ é
+
+\begin{equation}
+    i_{R_1} = \dfrac{e_i(t)-e_o(t)}{R_1}. \label{eq:ex_ir1}
+\end{equation}
+
+\noindent Assim, representando as tensões e correntes no diagrama elétrico, tem-se
+
+\begin{center}
+    \begin{tikzpicture}
+        \ctikzset{voltage/shift=3,voltage/american label distance=0.4}
+        \draw
+        (0,3) to[V_=$e_i$,voltage shift=0] (0,0)
+        (0,3) to[R,v^=$e_i-e_o$,f>_=$i_{R_1}$] (3,3)
+        (3,3) to[C,v=$e_o$,f=$i_{C_1}$] (3,0)
+        (3,3) to[R,v^=$V_{R_2}$,f>_=$i_{R_2}$] (6,3)
+        (6,3) to[C,v=$V_{C_2}$] (6,0)
+        (0,0) -- (6,0)
+        ;
+    \end{tikzpicture}
+\end{center}
+
+\noindent Lembrando que, pela relação VI, a corrente no capacitor $i_{C_1}$ é dada por
+
+\begin{equation}
+    i_{C_1} = C_1 \dfrac{de_o}{dt}, \label{eq:ex_ic1}
+\end{equation}
+
+\noindent o que permite equacionar o nó do circuito, isto é
+
+\begin{equation*}
+    i_{R_1} = i_{C_1} + i_{R_2}.
+\end{equation*}
+
+\noindent Substituindo as expressões \eqref{eq:ex_ir1} e \eqref{eq:ex_ic1}, encontra-se o valor da corrente $i_{R_2}$.
+
+\begin{equation}
+    i_{R_2} = \dfrac{e_i-e_o}{R_1} - C_1 \dfrac{de_o}{dt}. \label{eq:ex_ir2}
+\end{equation}
+
+\noindent Sabendo que essa corrente é comum para $R_2$ e $C_2$, é possível, então, equacionar a malha à direita, a qual contém $C_1$, $R_2$ e $C_2$, ou seja,
+
+\begin{equation*}
+    e_o = V_{R_2} + V_{C_2}.
+\end{equation*}
+
+\noindent Aplicando as relações VI,
+
+\begin{equation*}
+    e_o = R_2i_{R_2} + \dfrac{1}{C_2}\int i_{R_2}dt.
+\end{equation*}
+
+\noindent Substituindo o valor da corrente, de \eqref{eq:ex_ir2},
+
+\begin{equation}
+    e_o = R_2\left[\dfrac{e_i-e_o}{R_1}-C_1 \deo{}\right] + \dfrac{1}{C_2} \int \left[\dfrac{e_i-e_o}{R_1} - C_1 \deo{} dt\right] \label{eq:ex_dif_int}.
+\end{equation}
+
+\noindent Em \eqref{eq:ex_dif_int} obteve-se uma \textbf{equação difero-integral}. Para resolvê-la, deve-se reduzí-la a uma equação puramente diferencial, ou seja, deriva-se ambos os lados da equação com respeito ao tempo. Dessa forma,
+
+\begin{equation*}
+    \deo{} = R_2\l[\dfr{1}{R_1}\dei{}-\dfr{1}{R_1}\deo{}-C_1 \deo{2}\r] + \dfr{1}{C_2}\l[\dfr{e_i-e_o}{R_1} - C_1 \deo{}\r].
+\end{equation*}
+
+\begin{equation*}
+    \dfrac{de_o}{dt} = R_2\left[\dfrac{1}{R_1}\dfrac{de_i}{dt}-\dfrac{1}{R_1}\dfrac{de_o}{dt}-C_1 \dfrac{d^2e_o}{dt^2}\right] + \dfrac{1}{C_2}\left[\dfrac{e_i-e_o}{R_1} - C_1 \dfrac{de_o}{dt}\right].
+\end{equation*}
+
+Finalmente, escreve-se a expressão de forma que a variável de saída $e_{o}$ e a variável de entrada $e_{i}$ estejam em lados opostos da expressão.
+
 \begin{gather}
     \frac{de_{o}(t)}{dt} = R_{2} \left[ \frac{1}{R_{1}} \frac{ de_{i}(t) }{ dt } - \frac{1}{R_{1}} \frac{ de_{o}(t) }{ dt } - C_{1}\frac{ d^2e_{o}(t) }{ dt^2 } \right] + \frac{ 1 }{ C_{2} } \left[ \frac{ e_{i}(t) }{ R_{1} } - \frac{ e_{o}(t) }{ R_{1} } - C_{1}\frac{ de_{o}(t) }{ dt } \right] \nonumber \\
     \frac{de_{o}(t)}{dt} = \frac{R_{2}}{R_{1}} \frac{ de_{i}(t) }{ dt } - \frac{R_{2}}{R_{1}} \frac{ de_{o}(t) }{ dt } - R_{2}C_{1}\frac{ d^2e_{o}(t) }{ dt^2 } + \frac{ e_{i}(t) }{ R_{1}C_{2} } - \frac{ e_{o}(t) }{ R_{1}C_{2} } - \frac{C_{1}}{C_{2}} \frac{ de_{o}(t) }{ dt } \nonumber \\
@@ -3172,7 +3282,7 @@ $$\mathscr{L}\{f(t)\}=F(s)$$
     \item Indutor $(L)$: representado como uma impedância $sL$
 \end{itemize}
 %
-\large\textbf{Imagem ckt tempo -> frequência}
+\textbf{Imagem ckt tempo -> frequência}
 
 Deste modo, é possível efetuar operações como a Lei de Ohm, Thévenin e divisores de tensão e corrente em um circuito com capacitores e indutores, facilitando a resolução de diversas configurações com representações mais complicadas no tempo. Por exemplo, um circuito de ordem 3, no tempo, é representado por uma equação diferencial ordinária de terceira ordem, a qual precisa de três condições iniciais para ser completamente resolvida. Operando em frequência, o problema é reduzido a um polinômio de terceira ordem, que requere apenas álgebra básica para ser resolvido. \\
 Deste modo, podem ser introduzidos novos métodos de resolução de circuitos.
@@ -3183,17 +3293,17 @@ O Diagrama de Fluxo é uma representação simbólica de um circuito elétrico. 
 \begin{itemize}
     \item \textbf{Ganho:} multiplicador aplicado à variável em questão. \\
     %
-    \large\textbf{Ganho}
+    \textbf{Ganho}
     \item \textbf{Soma:} representa a soma de dois ramos que se encontram. \\
     %
-    \large\textbf{Soma}
+    \textbf{Soma}
     \item \textbf{Amostra:} retira o valor do ponto equivalente e o copia para o ramo atual. Um mesmo ponto pode ser amostrado infinitamente sem sofrer alterações em seu valor. \\
     %
-    \large\textbf{Amostra}
+    \textbf{Amostra}
 \end{itemize}
 A grande vantagem do diagrama de fluxo é que pode-se relacionar qualquer saída com as entradas do circuito. Considerando o mesmo circuito utilizado como exemplo na seção anterior, um possível diagrama de fluxo é \\
 %
-\large\textbf{Diagrama da questão da lista}
+\textbf{Diagrama da questão da lista}
 A função de transferência $T(s)=\displaystyle{\frac{E_{o}(s)}{E_{i}(s)}}$ é calculada através da \textbf{Regra de Mason},
 $$T(s) = \sum_{k=1}^{N} \frac{M_{k}\Delta_{k}}{\Delta} $$
 Considerando um ``loop'' como um caminho fechado, ou seja, partindo de um ponto, chega-se no mesmo ponto seguindo as setas do diagrama e ``caminho direto'' como a multiplicação dos ganhos de um ponto ao outro, seguindo o sentido das setas,
@@ -3297,7 +3407,7 @@ No método da \textbf{superposição}, considera-se as variáveis de estado como
 \label{subsubsec:est_mason}
 É possível montar a representação de estados utilizando a \textbf{regra de Mason}. De posse de um diagrama de \textbf{estados}, deve-se ``abrir'' os pontos de integração. Por definição, antes da integração a variável é $\dot x$ e depois ela se torna $x$. \\
 %%
-\large\textbf{Imagem de um diagrama de estados "cortado" nas variáveis de estado e renomeado}
+\textbf{Imagem de um diagrama de estados "cortado" nas variáveis de estado e renomeado}
 
 Agora, basta aplicar a regra de Mason em cada um dos termos das matrizes A,B,C,D.
 
