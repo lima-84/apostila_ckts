@@ -28,6 +28,7 @@
 \let\l\left
 \let\r\right
 \let\dfr\dfrac
+\newcommand{\itembull}[1]{\noindent\textbf{\small{\textbullet \hspace{1.5mm}#1}}}
 
 \title{\begin{center}
     \includegraphics[width=0.45\textwidth]{img/ceeca.png}
@@ -272,12 +273,16 @@ Gera uma corrente $Ki \hspace{0.25cm}[A]$ ou $Kv$ \hspace{0.25cm}[$\frac{A}{V}$V
     ;\end{tikzpicture}
     }
 \end{minipage}
+
+\newpage
 \subsubsection{Instrumentos}
 \label{subsubsec:instrumentos}
 Elementos ideais cuja função é medir algum valor em outro elemento do circuito.
 
+\vspace{-1.6cm}
+
 \noindent\begin{minipage}{\textwidth}
-    \begin{minipage}[t][6cm]{\dimexpr0.45\textwidth-\Colsep\relax}
+    \begin{minipage}[t][4.5cm]{\dimexpr0.45\textwidth-\Colsep\relax}
         \begin{center}{\textbf{Voltímetro}}\end{center}
         Mede a tensão $V$ entre seus terminais. Idealmente, o voltímetro possui uma impedância infinita\footnotemark, o que implica corrente $0$ (zero) entre seus terminais. Deve ser ligado em paralelo com o componente do qual quer-se medir a tensão.
 
@@ -288,10 +293,10 @@ Elementos ideais cuja função é medir algum valor em outro elemento do circuit
         }
 
     \end{minipage}
-    \begin{minipage}[c][2cm][c]{\dimexpr0.05\textwidth-0.5\Colsep\relax}
+    \begin{minipage}[c][4.5cm]{\dimexpr0.05\textwidth-0.5\Colsep\relax}
 
     \end{minipage} \hfill
-    \begin{minipage}[t][6cm]{\dimexpr0.45\textwidth-\Colsep\relax}
+    \begin{minipage}[t][4.5cm]{\dimexpr0.45\textwidth-\Colsep\relax}
         \begin{center}{\textbf{Amperímetro}}\end{center}
         Mede a corrente $i$ entre seus terminais. Idealmente, o amperímetro possui uma impedância $0$ (zero), permitindo que a corrente passe livremente (sem resistência) entre seus terminais. Deve ser colocado em série com o componente do qual quer-se medir a corrente.
         \center{
@@ -301,7 +306,7 @@ Elementos ideais cuja função é medir algum valor em outro elemento do circuit
         }
     \end{minipage} \hfill
 \end{minipage}
-\footnotetext{Conceitos de Impedância, Paralelo e Série são devidamente definidos na Seção \ref{subsec:def}}
+\footnotetext{Conceitos de Impedância, Paralelo e Série são devidamente definidos na Seção \ref{subsec:def}.}
 
 \subsection{Leis de Kirchhoff}
 \label{subsec:Kirchhoff}
@@ -2030,7 +2035,7 @@ Considerando uma rede elétrica linear contendo apenas resistores e fontes que a
 \noindent Derivando a expressão \eqref{eq:maxtransfpot}, tem-se
 
 \begin{equation*}
-    \left(\dfrac{1}{R_L+R_{th})^2} - \dfrac{2R_L}{(R_L+R_{th})^3}\right)E_{th}^2 = 0.
+    \left(\dfrac{1}{(R_L+R_{th})^2} - \dfrac{2R_L}{(R_L+R_{th})^3}\right)E_{th}^2 = 0.
 \end{equation*}
 
 \noindent Por ser uma constante, é possível dividir ambos os lados por $E_{th}^2$. Multiplicando, também, ambos os lados por $(R_L+R_{th})^3$, resulta em
@@ -2680,7 +2685,7 @@ Analogamente aos componentes mais simples (resistor, capacitor, indutor), existe
 
 \vspace{2mm}
 
-\noindent\textbf{\small{\textbullet} Configuração Série-Série:}
+\itembull{Configuração Série-Série:}
 Neste caso a melhor escolha é de parâmetros resistivos $r$, pois é válida a relação
     $$ [\textbf{r}]_{eq} = [\textbf{r}]_{1} + [\textbf{r}]_{2} $$
 
@@ -2729,7 +2734,7 @@ Neste caso a melhor escolha é de parâmetros resistivos $r$, pois é válida a 
 
 \vspace{4mm}
 
-\noindent\textbf{\small{\textbullet} Configuração Paralelo-Paralelo:}
+\itembull{Configuração Paralelo-Paralelo:}
 Neste caso a melhor escolha é a de parâmetros $y$, já que
     $$ [\textbf{y}]_{eq} = [\textbf{y}]_{1} + [\textbf{y}]_{2} $$
     %
@@ -2796,7 +2801,7 @@ Neste caso a melhor escolha é a de parâmetros $y$, já que
 
 \vspace{4mm}
 
-\noindent\textbf{\small{\textbullet} Configuração Série-Paralelo:}
+\itembull{Configuração Série-Paralelo:}
 Neste caso a melhor escolha é parâmetros $h$. É possível equacionar
     $$ [\textbf{h}]_{eq} = [\textbf{h}]_{1} + [\textbf{h}]_{2} $$
     %%
@@ -2863,7 +2868,7 @@ Neste caso a melhor escolha é parâmetros $h$. É possível equacionar
 
 \vspace{4mm}
 
-\noindent\textbf{\small{\textbullet} Configuração Paralelo-Série:}
+\itembull{Configuração Paralelo-Série:}
 Neste caso a melhor escolha é parâmetros $g$, pois
     $$ [\textbf{g}]_{eq} = [\textbf{g}]_{1} + [\textbf{g}]_{2} $$
     %%
@@ -2930,7 +2935,7 @@ Neste caso a melhor escolha é parâmetros $g$, pois
 
 \vspace{4mm}
 
-\noindent\textbf{\small{\textbullet} Configuração Cascata:}
+\itembull{Configuração Cascata:}
 Neste caso a melhor escolha é parâmetros de transmissão $ABCD$, possibilitando que
     $$ [\textbf{ABCD}]_{eq} = [\textbf{ABCD}]_{1} \cdot [\textbf{ABCD}]_{2} $$
 
@@ -2974,20 +2979,20 @@ Com o conteúdo abordado nos capítulos anteriores, percebe-se que a análise b�
 
 \subsection{Resolução por Equações Diferenciais Ordinárias Lineares a Coeficientes Constantes}
 \label{subsec:edolcc}
-Uma importante ferramenta para resolução de circuitos no domínio do tempo é a resolução por \textbf{equações diferenciais}. Mais especificamente, as do tipo \textbf{ordinárias} (que são diferenciais apenas em relação a uma variável) \textbf{lineares} (definidas por um polinômio linear da função incógnita) e a \textbf{coeficientes constantes} (os coeficientes são uma função constante). O método se resume a relacionar a saída e a entrada a partir de uma equação diferencial (EDOL) e separá-la, pelo princípio da superposição, em duas equações mais simples, a \textbf{resposta natural} e a \textbf{resposta forçada}. A solução do problema em questão é a \textbf{resposta completa}, que é uma combinação linear das respostas natural e forçada.
+Uma importante ferramenta para resolução de circuitos no domínio do tempo é a resolução por \textbf{equações diferenciais}. Mais especificamente, as do tipo \textbf{ordinárias} (que são diferenciais apenas em relação a uma variável) \textbf{lineares} (definidas por um polinômio linear da função incógnita e de suas derivadas) e a \textbf{coeficientes constantes} (os coeficientes são uma função constante). O método se resume a relacionar a saída e a entrada a partir de uma equação diferencial (EDOL) e separá-la, pelo princípio da superposição, em duas equações mais simples, a \textbf{resposta natural} e a \textbf{resposta forçada}. A solução do problema em questão é a \textbf{resposta completa}, que é uma combinação linear das respostas natural e forçada.
 
 \subsubsection{Equacionamento}
 \label{subsubsec:equacionamento}
 Usa-se as equações que modelam os elementos reativos (relações \textbf{VI}) para relacionar a variável de saída com a variável de entrada. Considere o circuito:
-    %Usei a questão 1 da lista do Tristão, ordem 2 com malhas ei=VR1+VC1; VL=VR2+VC2;   eo=VC1
+
 \begin{center}
     \begin{tikzpicture}\draw
-        (0,2) to[V_=$e_i$] (0,0)
-        (0,2) to[R=$R_1$] (2,2)
-        (2,2) to[C=$C_1$,v=$e_o$] (2,0)
-        (2,2) to[R=$R_2$] (4,2)
-        (4,2) to[C=$C_2$] (4,0)
-        (0,0) -- (4,0)
+        (0,3) to[V_=$e_i$] (0,0)
+        (0,3) to[R=$R_1$] (3,3)
+        (3,3) to[C=$C_1$,v=$e_o$] (3,0)
+        (3,3) to[R=$R_2$] (6,3)
+        (6,3) to[C=$C_2$] (6,0)
+        (0,0) -- (6,0)
         ;
     \end{tikzpicture}
 \end{center}
@@ -3075,17 +3080,13 @@ Usa-se as equações que modelam os elementos reativos (relações \textbf{VI}) 
 \noindent Substituindo o valor da corrente, de \eqref{eq:ex_ir2},
 
 \begin{equation}
-    e_o = R_2\left[\dfrac{e_i-e_o}{R_1}-C_1 \deo{}\right] + \dfrac{1}{C_2} \int \left[\dfrac{e_i-e_o}{R_1} - C_1 \deo{} dt\right] \label{eq:ex_dif_int}.
+    e_o = R_2\left[\dfrac{e_i-e_o}{R_1}-C_1 \deo{}\right] + \dfrac{1}{C_2} \int \left[\dfrac{e_i-e_o}{R_1} - C_1 \deo{}\right]dt \label{eq:ex_dif_int}.
 \end{equation}
 
 \noindent Em \eqref{eq:ex_dif_int} obteve-se uma \textbf{equação difero-integral}. Para resolvê-la, deve-se reduzí-la a uma equação puramente diferencial, ou seja, deriva-se ambos os lados da equação com respeito ao tempo. Dessa forma,
 
 \begin{equation*}
     \deo{} = R_2\l[\dfr{1}{R_1}\dei{}-\dfr{1}{R_1}\deo{}-C_1 \deo{2}\r] + \dfr{1}{C_2}\l[\dfr{e_i-e_o}{R_1} - C_1 \deo{}\r].
-\end{equation*}
-
-\begin{equation*}
-    \dfrac{de_o}{dt} = R_2\left[\dfrac{1}{R_1}\dfrac{de_i}{dt}-\dfrac{1}{R_1}\dfrac{de_o}{dt}-C_1 \dfrac{d^2e_o}{dt^2}\right] + \dfrac{1}{C_2}\left[\dfrac{e_i-e_o}{R_1} - C_1 \dfrac{de_o}{dt}\right].
 \end{equation*}
 
 Finalmente, escreve-se a expressão de forma que a variável de saída $e_{o}$ e a variável de entrada $e_{i}$ estejam em lados opostos da expressão.
@@ -3162,20 +3163,20 @@ Após encontrar as soluções da equação característica, combina-se linearmen
 \end{equation*}
 Convém analisar os diferentes casos para $\lambda$.
 
-\noindent\textbf{\small{\textbullet} Caso 1:} $\lambda_{1} \neq \lambda_{2}, \quad \lambda_{1},\lambda_{2} \in \mathbb{R} $ \\
+\itembull{Caso 1:} $\lambda_{1} \neq \lambda_{2}, \quad \lambda_{1},\lambda_{2} \in \mathbb{R} $ \\
 A solução permanece no formato
 \begin{equation*}
     \displaystyle y_{n}(t)=C_{1}e^{\lambda_{1}t}+C_{2}e^{\lambda_{2}t}
 \end{equation*}
 
 %Provar solução do caso com com teorema de d'Alembert?
-\noindent\textbf{\small{\textbullet} Caso 2:} $\lambda_{1} = \lambda_{2} = \lambda, \quad \lambda_{1},\lambda_{2} \in \mathbb{R}$ \\
+\itembull{Caso 2:} $\lambda_{1} = \lambda_{2} = \lambda, \quad \lambda_{1},\lambda_{2} \in \mathbb{R}$ \\
 Nota-se que as duas exponenciais se tornam linearmente dependentes. Deve-se, portanto, considerar uma outra solução linearmente independente a $y_{1}(t)=e^{\lambda t}$. Através do método de D'Alembert, descobre-se que um outro termo LI é $y_{2}(t)=te^{\lambda t}$, o que resulta em
 \begin{equation*}
     \displaystyle y_{n}(t)=C_{1}e^{\lambda t}+C_{2}te^{\lambda t}
 \end{equation*}
 
-\noindent\textbf{\small{\textbullet} Caso 3:} $\lambda_{1} = \overline{\lambda_{2}}, \quad \lambda_{1},\lambda_{2} \in \mathbb{C}$ \\
+\itembull{Caso 3:} $\lambda_{1} = \overline{\lambda_{2}}, \quad \lambda_{1},\lambda_{2} \in \mathbb{C}$ \\
 Para encontrar duas funções LI utiliza-se a identidade de Euler, sendo $j$ a unidade imaginária,
 \begin{equation}
     e^{j\omega t}=\cos{(\omega t)}+j\sin{(\omega t)}
@@ -3263,7 +3264,6 @@ O sistema de equações formado por (4.9) e (4.10) implica $A_{1}  = \displaysty
 
 \subsubsection{Exemplos}
 \label{subsubsec:exemplosreativos}
-
 
 \subsubsection{Elementos Reativos com Condições Iniciais: Resposta à Entrada Zero não nula}
 \label{subsubsec:entradazeronaonula}
