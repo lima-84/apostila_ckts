@@ -13,6 +13,7 @@
 \usepackage{ragged2e} % Ambientes de alinhamento
 \usepackage{multicol} % Multi-colunas
 \usepackage[american,cute inductors,nooldvoltagedirection]{circuitikz} %circuitikz, desenho de circuitos
+\usepackage{float} % Posicionamento das figuras
 \usepackage{enumitem} % Setar identação nos itemizes
 \setlist[itemize]{leftmargin=*}
 
@@ -74,7 +75,7 @@ A primeira coisa que é válida a ser salientada sobre circuitos é o fato desse
 A mais básica propriedade de sistemas elétricos é a \textbf{carga elétrica}, que representa as concentrações de prótons ($+$) e de elétrons ($-$) em um corpo (um fio condutor, por exemplo). Se uma força eletromotriz for aplicada em dito corpo, a mesma causará uma movimentação das cargas negativas em relação às positivas, definindo um certo fluxo de carga denominado \textbf{corrente elétrica}. Portanto, a corrente elétrica $i$ é o fluxo de carga $q$ por unidade de tempo $t$, isto é
 
 \begin{equation}
-    i = \dfrac{dq}{dt},
+    i = \dfr{dq}{dt},
 \end{equation}
 
 \noindent mensurada, no Sistema Internacional de Unidades, em ampères [$A$].
@@ -100,7 +101,7 @@ Existem dois principais tipos de corrente. Chama-se de \textbf{corrente contínu
 A \textbf{tensão elétrica} $V$ (também denotada por $e$) representa a transferência de energia $E$ envolvida na movimentação das cargas elétricas $q$, isto é
 
 \begin{equation}
-    V = \dfrac{dE}{dq},
+    V = \dfr{dE}{dq},
 \end{equation}
 
 \noindent sendo mensurada em volts [$V$].
@@ -128,7 +129,7 @@ A tensão é sempre medida entre dois pontos, digamos, $a$ e $b$, e representa a
     \end{tikzpicture}
 \end{center}
 
-\textbf{Observação:} Neste material, o terra será omitido e a referência será o potencial comum das fontes independentes (em geral, na parte inferior do circuito). Além disso, diz-se que a tensão ``cai'' quando é lida do terminal positivo para o negativo. Do contrário, a tensão ``sobe''.
+\textbf{Observação:} Neste material, o terra será omitido e a referência será o potencial comum das fontes independentes (em geral, na parte inferior do circuito). Além disso, diz-se que a tensão \textbf{cai} quando é lida do terminal positivo para o negativo. Do contrário, a tensão \textbf{sobe}.
 
 \subsection{Elementos e Relações Volt-Ampère}
 \label{subsec:elements}
@@ -136,9 +137,13 @@ A tensão é sempre medida entre dois pontos, digamos, $a$ e $b$, e representa a
 \subsubsection{Elementos Passivos}
 \label{subsubsec:passivos}
 
-Componentes passivos não conseguem, por si só, gerar e/ou manipular sinais. Quando combinados com elementos ativos, no entanto, permitem a implementação de diversos sistemas analógicos. O sentido da corrente nos passivos é sempre dado de modo que o fluxo passe do terminal positivo para o negativo. Alternativamente, a polarização da tensão sempre terá seu terminal positivo definido pelo ponto em que a corrente ``entra''. Alguns exemplos são os resistores, os capacitores, e os indutores.
+Componentes passivos não conseguem, por si só, gerar e/ou manipular sinais. Quando combinados com elementos ativos, no entanto, permitem a implementação de diversos sistemas analógicos. O sentido da corrente nos passivos é sempre dado de modo que o fluxo passe do terminal positivo para o negativo. Alternativamente, a polarização da tensão sempre terá seu terminal positivo definido pelo ponto em que a corrente ``entra''. Alguns exemplos são os resistores, os capacitores, e os indutores. Na grande maioria das aplicações, os valores dos componentes são conhecidos. Além disso, os armazenadores de energia (capacitores e indutores) são classificados como \textbf{reativos}.
 
-\begin{center}{\textbf{Resistor}}\end{center}
+\vspace{3mm}
+
+\begin{center}\textbf{Resistor}\end{center}
+
+Elemento não reativo que gera oposição à passagem de corrente. Possui uma resistência $R$ que depende do tamanho, da área e da resistividade elétrica do condutor. A equação que relaciona tensão e corrente em um resistor é denominada \textbf{Lei de Ohm}.
 
 \center{
 \begin{tikzpicture}\draw
@@ -156,7 +161,10 @@ Componentes passivos não conseguem, por si só, gerar e/ou manipular sinais. Qu
 \end{equation}
 
 \vspace{3mm}
-\begin{center}{\textbf{Capacitor}}\end{center}
+\begin{center}\textbf{Capacitor}\end{center}
+
+\justifying Elemento reativo que armazena energia através de um campo elétrico. Possui uma capacitância $C$ que relaciona sua a carga e sua tensão, isto é, $q=CV$. Em geral, consiste em duas placas metálicas paralelas e idênticas, de modo que o valor da capacitância dependa da área da seção transversal das placas, da distância entre placas e da permissividade do meio. Capacitores resistem a variações bruscas de tensão.
+
 \center{
 \begin{tikzpicture}\draw
 	(0, 0) to[C, f=$i_{C}$,*-*] (2.5, 0)
@@ -174,8 +182,11 @@ Componentes passivos não conseguem, por si só, gerar e/ou manipular sinais. Qu
     E_{C} = \frac{1}{2}CV_{C}^{2} [J]
     \end{equation}
 
-\vspace{3mm}
-\begin{center}{\textbf{Indutor}}\end{center}
+\newpage
+\begin{center}\textbf{Indutor}\end{center}
+
+\justifying Elemento reativo que armazena energia na forma de um campo magnético. Possui uma indutância $L$ que relaciona sua corrente e seu fluxo magnético concatenado, de modo que $\psi=Li$. Em geral, consiste em um fio enrolado sucessivamente. Sua tensão é dada pela \textbf{Lei de Faraday}. Os indutores resistem a variações bruscas de corrente.
+
 \center{
 \begin{tikzpicture}\draw
 	(0, 0) to[L, v=$V_{L}$, f=$i_{L}$,*-*] (2.5, 0)
@@ -191,7 +202,6 @@ Componentes passivos não conseguem, por si só, gerar e/ou manipular sinais. Qu
     E_{L} = \frac{1}{2}Li_{L}^{2} [J]
 \end{equation}
 
-\vfill
 \justifying
 \subsubsection{Elementos Ativos Independentes}
 \label{subsubsec:ativos}
@@ -250,7 +260,9 @@ Gera uma tensão $Kv \hspace{0.25cm}[V]$ ou $Ki$ [$\frac{V}{A}$A] entre seus ter
     }
 \end{minipage}
 
-A tensão e corrente $v,i$ são chamadas, nesse contexto, de ``variáveis de controle''.
+\noindent A tensão e corrente $v,i$ são chamadas, nesse contexto, de \textbf{variáveis de controle}.
+
+\newpage
 
 \begin{center}{\textbf{Fonte Controlada de Corrente}}\end{center}
 Gera uma corrente $Ki \hspace{0.25cm}[A]$ ou $Kv$ \hspace{0.25cm}[$\frac{A}{V}$V] entre seus terminais, sendo $v,i$, respectivamente, a tensão e a corrente em algum outro componente do circuito e $K$, uma constante real, o ganho da fonte. \\
@@ -274,7 +286,6 @@ Gera uma corrente $Ki \hspace{0.25cm}[A]$ ou $Kv$ \hspace{0.25cm}[$\frac{A}{V}$V
     }
 \end{minipage}
 
-\newpage
 \subsubsection{Instrumentos}
 \label{subsubsec:instrumentos}
 Elementos ideais cuja função é medir algum valor em outro elemento do circuito.
@@ -533,9 +544,9 @@ Permite transformar um circuito em configuração $\Delta$ para $Y$ e vice-versa
     $\Delta \longrightarrow Y$
       \vspace{0.2cm}
      \begin{itemize}
-        \item $R_1=\dfrac{R_bR_c}{R_a+R_b+R_c}$
-        \item $R_2=\dfrac{R_aR_c}{R_a+R_b+R_c}$
-        \item $R_3=\dfrac{R_aR_b}{R_a+R_b+R_c}$
+        \item $R_1=\dfr{R_bR_c}{R_a+R_b+R_c}$
+        \item $R_2=\dfr{R_aR_c}{R_a+R_b+R_c}$
+        \item $R_3=\dfr{R_aR_b}{R_a+R_b+R_c}$
     \end{itemize}
 
     \end{center}
@@ -549,9 +560,9 @@ Permite transformar um circuito em configuração $\Delta$ para $Y$ e vice-versa
     \vspace{0.2cm}
 
     \begin{itemize}
-    \item $R_a=\dfrac{R_1R_2+R_2R_3+R_1R_3}{R_1}$
-    \item $R_b=\dfrac{R_1R_2+R_2R_3+R_1R_3}{R_2}$
-    \item $R_c=\dfrac{R_1R_2+R_2R_3+R_1R_3}{R_3}$
+    \item $R_a=\dfr{R_1R_2+R_2R_3+R_1R_3}{R_1}$
+    \item $R_b=\dfr{R_1R_2+R_2R_3+R_1R_3}{R_2}$
+    \item $R_c=\dfr{R_1R_2+R_2R_3+R_1R_3}{R_3}$
 \end{itemize}
 
     \end{center}
@@ -672,13 +683,13 @@ $$e_0=e_{0_1}+e_{0_2}$$
 
     \item \textbf{Delta de Dirac:} Inicialmente, define-se um pulso unitário $p(t)$ em torno da origem e com área unitária a partir de uma soma de saltos deslocados no tempo, tal que
     \begin{equation}
-         p(t) = \dfrac{1}{2a}(u(t+a) - u(t-a)). \label{eq:pulso}
+         p(t) = \dfr{1}{2a}(u(t+a) - u(t-a)). \label{eq:pulso}
     \end{equation}
 
     Ao diminuir-se o valor de $a$, percebe-se que o intervalo de tempo em que $p(t)$ ocorre também diminui. No entanto, a restrição da área unitária implica aumento do valor da função para $t \in [-a,a]$. Ao tomar-se o limite em que $a$ tende a zero de $p(t)$, o intervalo de tempo torna-se infinitesimal e a função tende ao infinito.
     Define-se, então, o \textbf{Delta de Dirac} como
     \begin{equation}
-        \operatornamewithlimits{lim}_{a \to 0} \dfrac{1}{2a}(u(t+a) - u(t-a)) = \delta(t) =
+        \operatornamewithlimits{lim}_{a \to 0} \dfr{1}{2a}(u(t+a) - u(t-a)) = \delta(t) =
         \begin{cases}
             \infty, &\quad t=0 \\
             0, &\quad t\neq 0 \\
@@ -716,13 +727,13 @@ $$e_0=e_{0_1}+e_{0_2}$$
     Informalmente, considera-se o Delta de Dirac como a derivada da função salto. Intuitivamente, percebe-se que em $t=0$ a taxa de variação de $u(t)$ é infinita, e para qualquer $t \neq 0$ a função é constante. Mais especificamente, relembrando que a definição de derivada é dada por
 
     \begin{equation}
-        \dfrac{d}{dt}f(t) = \operatornamewithlimits{lim}_{h \to 0} \label{eq:derivada_def} \dfrac{f(t+h)-f(t)}{h},
+        \dfr{d}{dt}f(t) = \operatornamewithlimits{lim}_{h \to 0} \label{eq:derivada_def} \dfr{f(t+h)-f(t)}{h},
     \end{equation}
 
     \noindent verifica-se que a equação \eqref{eq:dirac_def} é exatamente a definição de derivada, com $f(t)=u(t-a)$ e $h = 2a$. Portanto, sabendo que $a$ tende a zero,
 
     \begin{equation*}
-        \delta(t) = \dfrac{d}{dt} u(t).
+        \delta(t) = \dfr{d}{dt} u(t).
     \end{equation*}
 
     \noindent No entanto, o fato da função salto ser descontínua na origem torna mais razoável considerar que
@@ -792,7 +803,7 @@ Além disso, existem alguns prefixos de unidades comuns na análise de circuitos
 Uma importante ferramenta para conferir respostas em circuitos elétricos (e na engenharia, de modo geral) é a chamada \textbf{análise dimensional}, que consiste em, como diz o nome, analisar as dimensões de alguma equação, tendo como princípio que, se ambos os lados são iguais, ambos os lados devem possuir a exata mesma unidade. Tomando como exemplo a fórmula da potência útil $P = Vi$ e utilizando as definições de tensão e corrente da Seção \ref{subsec:variaveis}, tem-se que
 
 \begin{equation}
-    P = Vi = \dfrac{dE}{dq} \dfrac{dq}{dt} = \left[\dfrac{J}{C}\dfrac{C}{s}\right] = \left[\dfrac{J}{s}\right] = [W],
+    P = Vi = \dfr{dE}{dq} \dfr{dq}{dt} = \left[\dfr{J}{C}\dfr{C}{s}\right] = \left[\dfr{J}{s}\right] = [W],
 \end{equation}
 
 \noindent em que [$\cdot$] representa unidades de medida. Verifica-se que, de fato, existe equivalência de unidades na equação. Caso houvesse disparidade, concluir-se-ía que a equação está incorreta.
@@ -1058,7 +1069,7 @@ Deste modo, conseguimos simplificar a configuração do circuito elétrico, faci
 \begin{minipage}[c][4cm][c]{\dimexpr0.5\textwidth-0.5\Colsep\relax}
     \begin{center}
         \begin{tikzpicture}[scale=0.9,transform shape]\draw
-            (0,3) to[V,l_=$\dfrac{R_2}{R_1+R_2}e_i$] (0,0)
+            (0,3) to[V,l_=$\dfr{R_2}{R_1+R_2}e_i$] (0,0)
             (0,3) to[R,l=$(R_1//R_2)+R_3$] (3,3) node[label={right:$a$}]{}
             (3,3) to[C,l=$C$,v=$e_0$,*-*] (3,0) node[label={right:$b$}]{}
             (0,0) -- (3,0)
@@ -1130,9 +1141,9 @@ Tomando-se o mesmo exemplo,
         \end{center}
     \end{minipage}
     \begin{minipage}[c][4cm][c]{\dimexpr0.5\textwidth-0.5\Colsep\relax}
-        $$V=\dfrac{\dfrac{R_2R_3}{R_2+R_3}}{R_1+\dfrac{R_2R_3}{R_2+R_3}}ei$$
+        $$V=\dfr{\dfr{R_2R_3}{R_2+R_3}}{R_1+\dfr{R_2R_3}{R_2+R_3}}ei$$
         Como a tensão para componentes em paralelos é a mesma que cai em seu equivalente, temos que
-        $$I_N=\frac{V}{R_3}=\dfrac{\dfrac{R_2}{R_2+R_3}}{R_1+\dfrac{R_2R_3}{R_2+R_3}}ei$$
+        $$I_N=\frac{V}{R_3}=\dfr{\dfr{R_2}{R_2+R_3}}{R_1+\dfr{R_2R_3}{R_2+R_3}}ei$$
     \end{minipage}
     \end{minipage}
 
@@ -1158,7 +1169,7 @@ Tomando-se o mesmo exemplo,
     \begin{minipage}[c][4cm][c]{\dimexpr0.7\textwidth-0.5\Colsep\relax}
         \begin{center}
             \begin{tikzpicture}[scale=0.9,transform shape]\draw
-                (0,0) to[I,l=$\dfrac{\dfrac{R_2}{R_2+R_3}}{R_1+\dfrac{R_2R_3}{R_2+R_3}}ei$] (0,3)
+                (0,0) to[I,l=$\dfr{\dfr{R_2}{R_2+R_3}}{R_1+\dfr{R_2R_3}{R_2+R_3}}ei$] (0,3)
                 (0,3) -- (3.5,3)
                 (3.5,3) to[R,l_=$(R_1//R_2)+R_3$] (3.5,0)
                 (3.5,3) -- (6,3)
@@ -1513,13 +1524,13 @@ Segue um exemplo clássico de aplicação dessa técnica. Apesar de não ser o e
 \noindent O valor de $I$ fica, então,
 
 \begin{equation}
-    I = \dfrac{R_{f} + R_b + (1+\beta)(R_e + r)}{R_{f}+r}. \label{eq:I_Rth_Fontecontrolada}
+    I = \dfr{R_{f} + R_b + (1+\beta)(R_e + r)}{R_{f}+r}. \label{eq:I_Rth_Fontecontrolada}
 \end{equation}
 
 \noindent Por fim, ao fazer a malha percorrendo o potencial do ponto $o$ até o do ponto $b$, passando por $R_b$ e por $R_e$, obtém-se uma equação para $I\cdot R_{th}$. Uma vez que a corrente $I$ é dada por \eqref{eq:I_Rth_Fontecontrolada}, pode-se determinar $R_{th}$, que resulta em
 
 \begin{center}
-    $R_{th} = \dfrac{(R_{f}+r)(R_b + (1+\beta)R_e)}{R_{f}+R_b+(1+\beta)(R_e+r)}$.
+    $R_{th} = \dfr{(R_{f}+r)(R_b + (1+\beta)R_e)}{R_{f}+R_b+(1+\beta)(R_e+r)}$.
 \end{center}
 
 \noindent Note que o resistor $R_c$ não influencia nos valores de $I$ e $R_{th}$, pois está em série com a fonte controlada de corrente. Convém, portanto, analisar um caso mais completo, em que adiciona-se uma resistência $R_o$ entre os pontos $e$ e $c$ (representando, por exemplo, a não idealidade da fonte controlada), de modo que o resistor $R_c$ não mais seja uma redundância. Assim, o número de variáveis envolvidas no cálculo da resistência de Thévenin aumenta, consequentemente aumentando a complexidade do problema.
@@ -1568,7 +1579,7 @@ Segue um exemplo clássico de aplicação dessa técnica. Apesar de não ser o e
             (3,2) to[R,l=$R_e$,v=$ $,f=$1+i_x$] (3,-1)
             (3,2) -- (4,2)
             (4,2) to[V,l_=$\beta R_o$] (4,4)
-            (6,4) to[short,f_=\mbox{$i_x=\dfrac{(1-I)R_{f}+R_b+\beta R_o}{R_o+R_c}$}] (4,4)
+            (6,4) to[short,f_=\mbox{$i_x=\dfr{(1-I)R_{f}+R_b+\beta R_o}{R_o+R_c}$}] (4,4)
             (8,4) to[R,l=$R_o + R_c$,v=$ $] (6,4)
             (8,4) to[R,l=$r$,v=$ $,-*] (8,2)
             (8,2) to[short,f_=$I-(1+i_x)$,-*] (8,-1)
@@ -1588,7 +1599,7 @@ Segue um exemplo clássico de aplicação dessa técnica. Apesar de não ser o e
 \noindent Alternativamente, a corrente $i_x$ pode ser reescrita em função de $I$ como a equação de uma reta, isto é, $i_x = a_1I + a_0$, sendo $a_1$ e $a_0$ definidos pela equação
 
 \begin{equation}
-    i_x=-\dfrac{R_{f}}{R_o+R_c}I + \dfrac{R_{f}+R_b+\beta R_o}{R_o+R_c}, \label{eq:ix_Rth_fonte_arbitraria}
+    i_x=-\dfr{R_{f}}{R_o+R_c}I + \dfr{R_{f}+R_b+\beta R_o}{R_o+R_c}, \label{eq:ix_Rth_fonte_arbitraria}
 \end{equation}
 
 \noindent o que vem a ser particularmente útil para, além de simplificar a notação, facilitar os cálculos subsequentes, já que busca-se isolar a corrente $I$. Faz-se, então, a malha contendo $R_e$, $\beta R_o$, $R_o + R_c$ e $r$. Note que, apesar de não interferir no resultado final, é uma boa ideia escrever a equação de modo que os termos de $i_x$ sejam todos negativos, já que a dependência em $I$ de $i_x$ é dada pelo coeficiente $a_1 < 0$. Assim, ao substituir a expressão de $i_x$ na equação, todos os termos com $I$ serão positivos. Dessa forma, tem-se a seguinte igualdade:
@@ -1600,31 +1611,31 @@ Segue um exemplo clássico de aplicação dessa técnica. Apesar de não ser o e
 \noindent Separando $i_x$ em função de seus componentes $a_1$ e $a_0$, pode-se isolar $I$, resultando em
 
 \begin{equation*}
-    I=\dfrac{-\beta R_o + a_0 (R_e+R_o+R_c+r) + R_e+r}{a_1 (R_e+R_o+R_c+r)+r}.
+    I=\dfr{-\beta R_o + a_0 (R_e+R_o+R_c+r) + R_e+r}{a_1 (R_e+R_o+R_c+r)+r}.
 \end{equation*}
 
 \noindent Aplicando a equação \eqref{eq:ix_Rth_fonte_arbitraria},
 
 \begin{equation}
-    I=\dfrac{-\beta R_o + \dfrac{(R_f+R_b+\beta R_o)(R_e+R_o+R_c+r)}{R_o+R_c} + R_e+r}{\dfrac{R_{f}(R_e+R_o+R_c+r)}{R_o+R_c}+r}. \label{eq:I_Rth_fonte_arbitraria}
+    I=\dfr{-\beta R_o + \dfr{(R_f+R_b+\beta R_o)(R_e+R_o+R_c+r)}{R_o+R_c} + R_e+r}{\dfr{R_{f}(R_e+R_o+R_c+r)}{R_o+R_c}+r}. \label{eq:I_Rth_fonte_arbitraria}
 \end{equation}
 
 \noindent Por fim, uma vez que conhece-se $I$, é possível determinar $R_{th}$ usando a malha contendo a própria fonte $I$, $R_b$ e $R_e$, dada por
 
 \begin{equation*}
-    R_{th} = \dfrac{1}{I} [R_b + R_e(1+i_x)].
+    R_{th} = \dfr{1}{I} [R_b + R_e(1+i_x)].
 \end{equation*}
 
 \noindent Escrevendo $i_x$ em função de seus componentes $a_1$ e $a_0$,
 
 \begin{equation*}
-    R_{th} = a_1 R_e + \dfrac{1}{I} [R_b + R_e(1+a_0)].
+    R_{th} = a_1 R_e + \dfr{1}{I} [R_b + R_e(1+a_0)].
 \end{equation*}
 
 \noindent Aplicando, agora, as equações \eqref{eq:ix_Rth_fonte_arbitraria} e \eqref{eq:I_Rth_fonte_arbitraria},
 
 \begin{equation}
-    R_{th}= -\dfrac{R_{f}R_e}{R_o+R_c} + \dfrac{\left(\dfrac{R_{f}(R_e+R_o+R_c+r)}{R_o+R_c}+r\right)\left(R_b+R_e + \dfrac{R_e(R_{f}+R_b+\beta R_o)}{R_o + R_c}\right)}{-\beta R_o + \dfrac{(R_f+R_b+\beta R_o)(R_e+R_o+R_c+r)}{R_o+R_c} + R_e+r}.
+    R_{th}= -\dfr{R_{f}R_e}{R_o+R_c} + \dfr{\left(\dfr{R_{f}(R_e+R_o+R_c+r)}{R_o+R_c}+r\right)\left(R_b+R_e + \dfr{R_e(R_{f}+R_b+\beta R_o)}{R_o + R_c}\right)}{-\beta R_o + \dfr{(R_f+R_b+\beta R_o)(R_e+R_o+R_c+r)}{R_o+R_c} + R_e+r}.
 \end{equation}
 
 \subsubsection{Explosão de Fonte}
@@ -1644,9 +1655,11 @@ Explosão de fonte é uma técnica que permite ``deslocar'' uma fonte sem altera
             (0,4) to[short,-*] (2,4) node[label={above:$a$}]{}
             (0,0) to[short,-*] (2,0) node[label={above:$c$}]{}
             (2,0) -- (4,0)
-            (2,2) to[R,l=$R_b$] (4,2)
-            (2,4) to[R,l=$R_a$] (4,4)
+            (2,2) to[C,l=$C$] (4,2)
+            (2,4) to[R,l=$R$] (4,4)
             (4,0) -- (4,4)
+            (4,4) to[short,-*] (5,4)
+            (4,0) to[short,-*] (5,0)
         ;\end{tikzpicture}
     \end{center}
 \end{minipage} \hfill
@@ -1662,9 +1675,11 @@ Explosão de fonte é uma técnica que permite ``deslocar'' uma fonte sem altera
             (2,4) node[label={above:$a$}]{} to[V,l=$V$,*-] (0,4)
             (0,0) to[short,-*] (2,0) node[label={above:$c$}]{}
             (2,0) -- (4,0)
-            (2,2) to[R,l=$R_b$] (4,2)
-            (2,4) to[R,l=$R_a$] (4,4)
+            (2,2) to[C,l=$C$] (4,2)
+            (2,4) to[R,l=$R$] (4,4)
             (4,0) -- (4,4)
+            (4,4) to[short,-*] (5,4)
+            (4,0) to[short,-*] (5,0)
         ;\end{tikzpicture}
     \end{center}
 \end{minipage}
@@ -1675,14 +1690,14 @@ Explosão de fonte é uma técnica que permite ``deslocar'' uma fonte sem altera
 
 Nota-se em ambos os circuitos que os pontos $a$ e $b$ estão sob o potencial positivo de $V$ e que $c$ está na referência. Todas as tensões e correntes são exatamente as mesmas, portanto os circuitos são equivalentes.
 
-Fosse relevante, seria possível transformar as fontes de tensão, agora em série com os resistores, em fontes de correntes em paralelo com suas respectivas cargas. É claro que, neste caso, dada a simplicidade do circuito original, tal simplificação parece redundante e desnecessária, mas, em eventuais e mais complexos problemas, a explosão de fonte pode ser de extrema utilidade.
+Fosse relevante, seria possível transformar a fonte de tensão, agora em série com o resistor $R$, em uma fonte de corrente em paralelo sua respectiva carga.
 
 \vspace{2mm}
 
 \textbf{Fonte de corrente:} Uma fonte de corrente pode ser ``explodida'' em uma malha, desde que as mesmas correntes entrem e saiam de todos os nós.
 
 \begin{center}
-\noindent\begin{minipage}{0.8\textwidth}
+\noindent\begin{minipage}{0.9\textwidth}
 \begin{minipage}[c][5cm][c]{\dimexpr0.45\textwidth-0.5\Colsep\relax}
     \begin{center}
         \begin{tikzpicture}[scale=0.9,transform shape]\draw
@@ -1691,6 +1706,10 @@ Fosse relevante, seria possível transformar as fontes de tensão, agora em sér
             (2,2) to[R,l=$R_b$] (4,2)
             (4,0) -- (4,2)
             (0,0) -- (0,2)
+            (0,0) to[short,-*] (-1,0)
+            (0,2) to[short,-*] (-1,2)
+            (4,2) to[short,-*] (5,2)
+            (4,0) to[short,-*] (5,0)
         ;\end{tikzpicture}
     \end{center}
 \end{minipage} \hfill
@@ -1708,6 +1727,10 @@ Fosse relevante, seria possível transformar as fontes de tensão, agora em sér
             (2,2) to[R,l=$R_b$] (4,2)
             (4,0) -- (4,2)
             (0,0) -- (0,2)
+            (0,0) to[short,-*] (-1,0)
+            (0,2) to[short,-*] (-1,2)
+            (4,2) to[short,-*] (5,2)
+            (4,0) to[short,-*] (5,0)
         ;\end{tikzpicture}
     \end{center}
 \end{minipage}
@@ -1718,7 +1741,7 @@ Na segunda figura, percebe-se, pelo nó $b$, que a corrente no fio adicionado é
 
 Para um caso com mais resistores, o processo é exatamente o mesmo. Percebe-se que é possível estender este raciocínio para $n$ resistores e que as correntes nos fios adicionados serão todas nulas. A figura abaixo ilustra uma explosão de fonte de corrente para $n=3$ resistores.
 
-\noindent\begin{minipage}{0.95\textwidth}
+\noindent\begin{minipage}{\textwidth}
 \begin{minipage}[c][3cm][c]{\dimexpr0.4\textwidth-0.5\Colsep\relax}
     \begin{center}
         \begin{tikzpicture}[scale=0.9,transform shape]\draw
@@ -1726,6 +1749,10 @@ Para um caso com mais resistores, o processo é exatamente o mesmo. Percebe-se q
             (0,2) to[R,l=$R_b$,-*] (4,2) node[label={above:$b$}]{}
             (4,0) to[R,l=$R_c$,-*] (4,2)
             (0,0) to[R,l=$R_a$,-*] (0,2) node[label={above:$a$}]{}
+            (0,0) to[short,-*] (-1,0)
+            (0,2) to[short,-*] (-1,2)
+            (4,2) to[short,-*] (5,2)
+            (4,0) to[short,-*] (5,0)
         ;\end{tikzpicture}
     \end{center}
 \end{minipage} \hfill
@@ -1743,6 +1770,10 @@ Para um caso com mais resistores, o processo é exatamente o mesmo. Percebe-se q
             (0,2) to[R,l=$R_b$] (6,2)
             (6,0) to[R,l=$R_c$] (6,2)
             (0,0) to[R,l=$R_a$] (0,2)
+            (0,0) to[short,-*] (-1,0)
+            (0,2) to[short,-*] (-1,2)
+            (6,2) to[short,-*] (7,2)
+            (6,0) to[short,-*] (7,0)
         ;\end{tikzpicture}
     \end{center}
 \end{minipage}
@@ -1806,9 +1837,36 @@ Para um caso com mais resistores, o processo é exatamente o mesmo. Percebe-se q
     \end{center}
 \end{minipage} \hfill
 \begin{minipage}[c][7cm][c]{\dimexpr0.4\textwidth-0.5\Colsep\relax}
-    Analisando os potenciais do circuito, percebe-se que o ramo que contém o capacitor e a fonte está em paralelo com o ramo do resistor $R_2$ (potenciais $e_i$ em um terminal e $0$ em outro), o que permite rearranjar o circuito sem afetar os valores de tensão e corrente no mesmo.
+    Note que é possível separar o referencial comum das fontes $e_i$ em dois fios, sem alterar seus potenciais negativos (o motivo será evidenciado a seguir). O diagrama fica, então,
 \end{minipage}
 \end{minipage}
+
+\begin{center}
+    \begin{tikzpicture}[scale=0.9,transform shape]
+        \draw
+        (0,4) -- (0,0)
+        (2,4) to[V,l=$e_i$,*-] (0,4)
+        (2,4) to[open,v=$v$] (2,2)
+        (2,2) to[short,*-] (3,2)
+        (3,2) to[R,l=$R_1$] (3,0)
+        (3,2) -- (4,2)
+        (4,4) to[I,l_=$\mu v$] (4,2)
+        (4,4) -- (6,4)
+        (6,4) to[R,l=$R_0$] (6,2)
+        (4,2) -- (6,2)
+        (6,4) -- (8,4)
+        (8,4) to[R,l=$R_2$,v=$e_0$] (8,0)
+        (0,0) -- (8,0)
+        (2,6) to[V,l=$e_i$] (-2,6)
+        (2,6) to[C,l=$C$] (8,6)
+        (8,6) -- (8,4)
+        (-2,6) -- (-2,0)
+        (0,0) -- (-2,0)
+        ;
+    \end{tikzpicture}
+\end{center}
+
+\noindent Assim, fica mais fácil perceber que o ramo que contém a fonte $e_i$ e o capacitor está em paralelo com o resistor $R_2$. De fato, seus terminais são exatamente os mesmos. É possível, portanto, rearranjar a configuração dos componentes de forma a manter os valores de tensão e corrente, isto é, em um circuito equivalente.
 
 \begin{center}
     \begin{tikzpicture}[scale=0.9,transform shape]\draw
@@ -1930,8 +1988,8 @@ A partir do conceito da conservação de energia, é possível equacionar a pot�
 
 \noindent o que nos permite fazer um balanço de potências, ou seja, calcular as potências individuais de cada componente e somá-las, visto que a energia total de um sistema será sempre conservada. Naturalmente, a potência é separada em \textbf{fornecida} e \textbf{dissipada}, tornando prático definir uma convenção de sinais para $P_k$, sendo que
 \begin{itemize}
-    \item \hspace{0.2cm} $P_k > 0$: a potência é \textbf{dissipada} quando as cargas elétricas passam de um ponto de \textbf{maior} potencial elétrico para um de \textbf{menor} potencial elétrico. Em outras palavras, quando a corrente flui do terminal polarizado positivamente $(+)$ para o polarizado negativamente $(-)$, pode-se dizer que o componente ``consumiu'' potência do sistema.
-    \item \hspace{0.2cm} $P_k < 0$: A potência é \textbf{fornecida} quando as cargas elétricas passam de um ponto com \textbf{menor} potencial elétrico $(-)$ para um de \textbf{maior} potencial elétrico $(+)$. Neste caso, pode-se dizer que o elemento ``forneceu'' potência elétrica para o sistema.
+    \item \hspace{0.2cm} $P_k > 0$: a potência é \textbf{dissipada} quando as cargas elétricas passam de um ponto de \textbf{maior} potencial elétrico para um de \textbf{menor} potencial elétrico. Em outras palavras, quando a corrente flui do terminal polarizado positivamente $(+)$ para o polarizado negativamente $(-)$, pode-se dizer que o componente \textbf{consumiu} potência do sistema.
+    \item \hspace{0.2cm} $P_k < 0$: A potência é \textbf{fornecida} quando as cargas elétricas passam de um ponto com \textbf{menor} potencial elétrico $(-)$ para um de \textbf{maior} potencial elétrico $(+)$. Neste caso, pode-se dizer que o elemento \textbf{orneceu} potência elétrica para o sistema.
 \end{itemize}
 
 Em geral, utiliza-se do balanço de potência para circuitos resistivos, já que para capacitores e indutores a potência pode (e normalmente vai) variar no tempo. Ainda assim, essa técnica mostra-se útil para rapidamente conferir se a resolução do circuito foi feita de forma correta, já que a energia deve sempre ser conservada em um circuito elétrico.
@@ -2023,19 +2081,19 @@ Considerando uma rede elétrica linear contendo apenas resistores e fontes que a
 \noindent Assim, é possível calcular a potência dissipada na carga através da relação $P = Vi$. Além disso, por divisor de tensão e pela Lei de Ohm, as expressões de tensão e corrente podem ser desenvolvidas de forma que
 
 \begin{equation}
-    P = \dfrac{R_L}{R_L+R_{th}}E_{th} \dfrac{1}{R_L+R_{th}}E_{th} = \dfrac{R_L}{(R_L+R_{th})^2}E_{th}^2. \label{eq:maxtransfpot}
+    P = \dfr{R_L}{R_L+R_{th}}E_{th} \dfr{1}{R_L+R_{th}}E_{th} = \dfr{R_L}{(R_L+R_{th})^2}E_{th}^2. \label{eq:maxtransfpot}
 \end{equation}
 
 \noindent Como a potência em resistores é sempre dissipada, bem como sua resistência sempre positiva, dado um equivalente de Thévenin, conclui-se que existe um valor máximo de potência na carga para $0 < R_L < \infty$ no ponto que satisfaz a equação diferencial
 
 \begin{equation*}
-    \dfrac{\partial}{\partial R_L}P(R_L) = 0.
+    \dfr{\partial}{\partial R_L}P(R_L) = 0.
 \end{equation*}
 
 \noindent Derivando a expressão \eqref{eq:maxtransfpot}, tem-se
 
 \begin{equation*}
-    \left(\dfrac{1}{(R_L+R_{th})^2} - \dfrac{2R_L}{(R_L+R_{th})^3}\right)E_{th}^2 = 0.
+    \left(\dfr{1}{(R_L+R_{th})^2} - \dfr{2R_L}{(R_L+R_{th})^3}\right)E_{th}^2 = 0.
 \end{equation*}
 
 \noindent Por ser uma constante, é possível dividir ambos os lados por $E_{th}^2$. Multiplicando, também, ambos os lados por $(R_L+R_{th})^3$, resulta em
@@ -2240,13 +2298,13 @@ A aplicação de tensão na porta inversora causa um ganho proporcional e com si
 \end{center}
 
 \begin{equation*}
-    i_{R_i} = i_{R_f} = i = \dfrac{V_i}{R_i}.
+    i_{R_i} = i_{R_f} = i = \dfr{V_i}{R_i}.
 \end{equation*}
 
 \noindent A tensão no resistor de realimentação $R_f$ é, portanto,
 
 \begin{equation*}
-    V_{R_f} = R_f i = \dfrac{R_f}{R_i} V_i.
+    V_{R_f} = R_f i = \dfr{R_f}{R_i} V_i.
 \end{equation*}
 
 \noindent Basta, então, relacionar a tensão em $R_f$ com seus potenciais (respeitando a polarização), resultando em
@@ -2258,7 +2316,7 @@ A aplicação de tensão na porta inversora causa um ganho proporcional e com si
 \noindent o que implica
 
 \begin{equation*}
-    V_o = -\dfrac{R_f}{R_i} V_i \implies \dfrac{V_o}{V_i} = -\dfrac{R_f}{R_i}.
+    V_o = -\dfr{R_f}{R_i} V_i \implies \dfr{V_o}{V_i} = -\dfr{R_f}{R_i}.
 \end{equation*}
 
 \textbf{Observação:} Ao relacionar os potenciais com a tensão, foi feita implicitamente a malha que passa por $V_i$, pelo curto virtual, por $V_{R_f}$ e, finalmente, por $V_o$. Caso o leitor não esteja acostumado com a notação potencial, em que as fontes de tensão são omitidas, uma breve explicação foi dada na Seção \ref{subsec:notpot}.
@@ -2296,19 +2354,19 @@ A aplicação de tensão na porta não inversora causa um ganho proporcional à 
 \end{center}
 
 \begin{equation*}
-    i = \dfrac{V_i}{R_i}.
+    i = \dfr{V_i}{R_i}.
 \end{equation*}
 
 \noindent Analisando, então, a tensão no resistor $R_f$, sabendo que seus potenciais à esquerda e à direita são, respectivamente, $V_i$ e $V_o$, tem-se que
 
 \begin{equation*}
-    V_o - V_i = V_{R_f} = \dfrac{R_f}{R_i} V_i.
+    V_o - V_i = V_{R_f} = \dfr{R_f}{R_i} V_i.
 \end{equation*}
 
 \noindent Isolando a tensão de saída $V_o$, resulta em
 
 \begin{equation*}
-    V_o = \left(1+\dfrac{R_f}{R_i}\right) V_i \implies \dfrac{V_o}{V_i} = 1+\dfrac{R_f}{R_i}.
+    V_o = \left(1+\dfr{R_f}{R_i}\right) V_i \implies \dfr{V_o}{V_i} = 1+\dfr{R_f}{R_i}.
 \end{equation*}
 
 \subsubsection{Configuração Seguidor de Tensão}
@@ -2374,7 +2432,7 @@ Percebe-se que os resistores $R_2, R_3, \dots, R_n$ encontram-se aterrados em am
 Generalizando, a contribuição de uma fonte genérica $V_n$ é
 
 \begin{equation}
-    V_{o_n} = - \dfrac{R_f}{R_n}V_n,
+    V_{o_n} = - \dfr{R_f}{R_n}V_n,
 \end{equation}
 
 \noindent tornando evidente que a soma de todas as contribuições resulta na expressão \eqref{eq:ampop_somador}.
@@ -2396,7 +2454,7 @@ Trabalha como amplificador da tensão diferencial $V_{d}=V_{+}-V_{-}$ entre os t
 
 Usando o teorema da superposição,
 \begin{equation*}
-    V_{o}=\frac{1+\dfrac{R_{2}}{R_{1}}}{1+\dfrac{R_{3}}{R_{4}}}V_{2} - \dfrac{R_{2}}{R_{1}}V_{1}
+    V_{o}=\frac{1+\dfr{R_{2}}{R_{1}}}{1+\dfr{R_{3}}{R_{4}}}V_{2} - \dfr{R_{2}}{R_{1}}V_{1}
 \end{equation*}
 No caso particular em que $R_{1}=R_{3}$ e $R_{2}=R_{4}$
 \begin{equation}
@@ -2983,7 +3041,7 @@ Uma importante ferramenta para resolução de circuitos no domínio do tempo é 
 
 \subsubsection{Equacionamento}
 \label{subsubsec:equacionamento}
-Usa-se as equações que modelam os elementos reativos (relações \textbf{VI}) para relacionar a variável de saída com a variável de entrada. Considere o circuito:
+Usa-se as equações que modelam os elementos reativos (relações \textbf{VI}) para relacionar a variável de saída com a variável de entrada. Considere o circuito a seguir, sendo $R_1=1\Omega$, $R_2=2\Omega$, $C_1=1F$, $C_2=0.5F$ e $e_i(t) = 10u(t)$.
 
 \begin{center}
     \begin{tikzpicture}\draw
@@ -2997,7 +3055,7 @@ Usa-se as equações que modelam os elementos reativos (relações \textbf{VI}) 
     \end{tikzpicture}
 \end{center}
 
-\noindent Quer-se encontrar, literalmente (i.e. sem subtituir os valores dos componentes), a tensão no capacitor $e_o(t)$. O primeiro passo é definir as polaridades das tensões ou os sentidos das correntes no circuito. Neste caso, arbitrou-se as tensões conforme a figura abaixo. Vale ressaltar que, em função de simplificar a notação, a dependência temporal das variáveis será omitida, o que não significa que ela é inexistente.
+\noindent Quer-se encontrar, literalmente (i.e. sem subtituir os valores dos componentes), a tensão no capacitor $e_o(t)$. O primeiro passo é definir as polaridades das tensões ou os sentidos das correntes no circuito. Neste caso, arbitrou-se as tensões conforme a figura abaixo. Vale ressaltar que, em função de simplificar a notação, a dependência temporal das variáveis de estado (tensões e correntes) será omitida, o que não significa que ela é inexistente.
 
 \begin{center}
     \begin{tikzpicture}
@@ -3013,22 +3071,22 @@ Usa-se as equações que modelam os elementos reativos (relações \textbf{VI}) 
     \end{tikzpicture}
 \end{center}
 
-\noindent Note que a polarização das tensões pode ser escolhida de forma arbitrária, desde que seja seguida integralmente até o final da questão. Além disso, implicitamente, pelo princípio de polarização dos passivos, as direções das correntes também foram definidas. A seguir, equaciona-se a malha à esquerda, a qual passa por $e_i(t)$, $V_{R_1}(t)$ e $e_0(t)$.
+\noindent Note que a polarização das tensões pode ser escolhida de forma arbitrária, desde que seja seguida integralmente até o final da questão. Além disso, implicitamente, pelo princípio de polarização dos passivos, as direções das correntes também foram definidas. A seguir, equaciona-se a malha à esquerda, a qual passa por $e_i$, $V_{R_1}$ e $e_o$.
 
 \begin{equation*}
-    e_{i}(t) = V_{R_{1}}(t) + e_{o}(t).
+    e_{i} = V_{R_{1}} + e_{o}.
 \end{equation*}
 
 \noindent O objetivo é escrever todas as tensões e/ou correntes em função apenas da entrada e da saída. Por isso, isola-se a tensão no resistor $R_1$, de forma que
 
 \begin{equation*}
-    V_{R_{1}}(t) = e_{i}(t) - e_{o}(t).
+    V_{R_{1}} = e_{i} - e_{o}.
 \end{equation*}
 
 \noindent Portanto, pela relação VI, a corrente que percorre $R_1$ é
 
 \begin{equation}
-    i_{R_1} = \dfrac{e_i(t)-e_o(t)}{R_1}. \label{eq:ex_ir1}
+    i_{R_1} = \dfr{e_i-e_o}{R_1}. \label{eq:ex_ir1}
 \end{equation}
 
 \noindent Assim, representando as tensões e correntes no diagrama elétrico, tem-se
@@ -3050,7 +3108,7 @@ Usa-se as equações que modelam os elementos reativos (relações \textbf{VI}) 
 \noindent Lembrando que, pela relação VI, a corrente no capacitor $i_{C_1}$ é dada por
 
 \begin{equation}
-    i_{C_1} = C_1 \dfrac{de_o}{dt}, \label{eq:ex_ic1}
+    i_{C_1} = C_1 \dfr{de_o}{dt}, \label{eq:ex_ic1}
 \end{equation}
 
 \noindent o que permite equacionar o nó do circuito, isto é
@@ -3062,10 +3120,10 @@ Usa-se as equações que modelam os elementos reativos (relações \textbf{VI}) 
 \noindent Substituindo as expressões \eqref{eq:ex_ir1} e \eqref{eq:ex_ic1}, encontra-se o valor da corrente $i_{R_2}$.
 
 \begin{equation}
-    i_{R_2} = \dfrac{e_i-e_o}{R_1} - C_1 \dfrac{de_o}{dt}. \label{eq:ex_ir2}
+    i_{R_2} = \dfr{e_i-e_o}{R_1} - C_1 \dfr{de_o}{dt}. \label{eq:ex_ir2}
 \end{equation}
 
-\noindent Sabendo que essa corrente é comum para $R_2$ e $C_2$, é possível, então, equacionar a malha à direita, a qual contém $C_1$, $R_2$ e $C_2$, ou seja,
+\noindent Sabendo que essa corrente é comum para $R_2$ e $C_2$, é possível, então, equacionar a malha à direita, a qual contém $e_o$, $V_{R_2}$ e $V_{C_2}$, ou seja,
 
 \begin{equation*}
     e_o = V_{R_2} + V_{C_2}.
@@ -3074,13 +3132,13 @@ Usa-se as equações que modelam os elementos reativos (relações \textbf{VI}) 
 \noindent Aplicando as relações VI,
 
 \begin{equation*}
-    e_o = R_2i_{R_2} + \dfrac{1}{C_2}\int i_{R_2}dt.
+    e_o = R_2i_{R_2} + \dfr{1}{C_2}\int i_{R_2}dt.
 \end{equation*}
 
 \noindent Substituindo o valor da corrente, de \eqref{eq:ex_ir2},
 
 \begin{equation}
-    e_o = R_2\left[\dfrac{e_i-e_o}{R_1}-C_1 \deo{}\right] + \dfrac{1}{C_2} \int \left[\dfrac{e_i-e_o}{R_1} - C_1 \deo{}\right]dt \label{eq:ex_dif_int}.
+    e_o = R_2\left[\dfr{e_i-e_o}{R_1}-C_1 \deo{}\right] + \dfr{1}{C_2} \int \left[\dfr{e_i-e_o}{R_1} - C_1 \deo{}\right]dt \label{eq:ex_dif_int}.
 \end{equation}
 
 \noindent Em \eqref{eq:ex_dif_int} obteve-se uma \textbf{equação difero-integral}. Para resolvê-la, deve-se reduzí-la a uma equação puramente diferencial, ou seja, deriva-se ambos os lados da equação com respeito ao tempo. Dessa forma,
@@ -3089,32 +3147,42 @@ Usa-se as equações que modelam os elementos reativos (relações \textbf{VI}) 
     \deo{} = R_2\l[\dfr{1}{R_1}\dei{}-\dfr{1}{R_1}\deo{}-C_1 \deo{2}\r] + \dfr{1}{C_2}\l[\dfr{e_i-e_o}{R_1} - C_1 \deo{}\r].
 \end{equation*}
 
-Finalmente, escreve-se a expressão de forma que a variável de saída $e_{o}$ e a variável de entrada $e_{i}$ estejam em lados opostos da expressão.
+\noindent Finalmente, escreve-se a expressão de forma que a variável de saída $e_{o}$ e a variável de entrada $e_{i}$ e suas respectivas derivadas estejam em lados opostos da expressão.
 
 \begin{gather}
-    \frac{de_{o}(t)}{dt} = R_{2} \left[ \frac{1}{R_{1}} \frac{ de_{i}(t) }{ dt } - \frac{1}{R_{1}} \frac{ de_{o}(t) }{ dt } - C_{1}\frac{ d^2e_{o}(t) }{ dt^2 } \right] + \frac{ 1 }{ C_{2} } \left[ \frac{ e_{i}(t) }{ R_{1} } - \frac{ e_{o}(t) }{ R_{1} } - C_{1}\frac{ de_{o}(t) }{ dt } \right] \nonumber \\
-    \frac{de_{o}(t)}{dt} = \frac{R_{2}}{R_{1}} \frac{ de_{i}(t) }{ dt } - \frac{R_{2}}{R_{1}} \frac{ de_{o}(t) }{ dt } - R_{2}C_{1}\frac{ d^2e_{o}(t) }{ dt^2 } + \frac{ e_{i}(t) }{ R_{1}C_{2} } - \frac{ e_{o}(t) }{ R_{1}C_{2} } - \frac{C_{1}}{C_{2}} \frac{ de_{o}(t) }{ dt } \nonumber \\
-    R_{2}C_{1}\frac{ d^2e_{o}(t) }{ dt^2 } + \frac{R_{2}}{R_{1}} \frac{ de_{o}(t) }{ dt }  + \frac{de_{o}(t)}{dt} + \frac{C_{1}}{C_{2}} \frac{ de_{o}(t) }{ dt } + \frac{ e_{o}(t) }{ R_{1}C_{2} } = \frac{R_{2}}{R_{1}} \frac{ de_{i}(t) }{ dt } + \frac{ e_{i}(t) }{ R_{1}C_{2} } \nonumber \\
-    \frac{ d^2e_{o}(t) }{ dt^2 } + \left(\frac{1}{R_{1}C_{1}} + \frac{1}{R_{2}C_{1}} + \frac{1}{R_{2}C_{2}} \right) \frac{ de_{o}(t) }{ dt } + \frac{ 1 }{ R_{1}R_{2}C_{1}C_{2} }e_{o}(t) = \frac{1}{R_{1}C_{1}} \frac{ de_{i}(t) }{ dt } + \frac{ 1 }{ R_{1}R_{2}C_{1}C_{2} }e_{i}(t) \label{eq:edol_exemplo}
+    \deo{} = R_2 \l[\dfr{1}{R_1} \dei{} - \dfr{1}{R_1}\deo{} - C_1 \deo{2}\r] + \dfr{1}{C_2}\l[\dfr{e_i}{R_1} - \dfr{e_o}{R_1} - C_1 \deo{}\r] \nonumber
+    \\
+    \deo{} = \dfr{R_2}{R_1}\dei{}-\dfr{R_2}{R_1}\deo{} - R_2C_1 \deo{2} + \dfr{1}{R_1C_2}e_i - \dfr{1}{R_1C_2} e_o - \dfr{C_1}{C_2}\deo{} \nonumber
+    \\
+    R_2C_1 \deo{2} + \dfr{R_2}{R_1} \deo{} + \deo{} + \dfr{C_1}{C_2} \deo{} + \dfr{1}{R_1C_2}e_o = \dfr{R_2}{R_1} \dei{} + \dfr{1}{R_1C_2}e_i \nonumber
+    \\
+    \deo{2} + \l(\dfr{1}{R_1C_1} + \dfr{1}{R_2C_1} + \dfr{1}{R_2C_2}\r)\deo{} + \dfr{1}{R_1R_2C_1C_2}e_o = \dfr{1}{R_1C_1}\dei{} + \dfr{1}{R_1R_2C_1C_2}e_i. \label{eq:edol_exemplo}
 \end{gather}
 
-A equação \eqref{eq:edol_exemplo} é uma equação diferencial ordinária linear com coeficientes constantes de ordem 2 cuja incógnita é a função $e_{o}(t)$. Para o circuito em questão, substituindo os valores, tem-se
+A expressão \eqref{eq:edol_exemplo} é uma equação diferencial ordinária linear com coeficientes constantes de ordem 2 cuja incógnita é a função $e_{o}(t)$. Para o circuito em questão, substituindo os valores, tem-se
 
 \begin{equation}
-    \frac{ d^2e_{o}(t) }{ dt }+ 2.5 \frac{ de_{o}(t) }{ dt } + e_{o}(t) = 10
+    \deo{2}+ 2.5 \deo{} + e_o = 10.
 \end{equation}
+
+\noindent Já que para $t<0$ a fonte é nula, a resposta temporal do circuito é dada pela resposta para $t \geqslant 0$. Por isso, a entrada $e_i(t)=10u(t)$ foi substituída por $e_i(t)=10$ na equação diferencial, de forma que $e_o(t)$ represente a tensão no capacitor após a fonte ligar.
 
 \subsubsection{Condições Iniciais em Resposta ao Estado Zero}
 \label{subsubsec:condinics}
 
-Uma equação diferencial possui uma infinidade de soluções, chamadas \textbf{família de soluções}. Entretanto, em nosso caso, procura-se a resposta para apenas um circuito elétrico específico. Ou seja, devem ser encontradas as \textbf{condições iniciais} do sistema, para especificar qual a única solução dentro da família que corresponde a $e_{o}(t)$. Uma EDOL de ordem 2 precisa de duas condições iniciais, uma envolvendo $e_{o}$ e outra envolvendo $\displaystyle{\frac{de_{o}}{dt}}$. É comum considerar as condições no tempo $t=0$. \\
-Considerando o circuito no tempo inicial $t=0$, na resposta ao estado zero, os capacitores e indutores estão descarregados, portanto podem ser modelados como, respectivamente, curto circuitos e circuitos abertos.
+Uma equação diferencial possui uma infinidade de soluções, as chamadas \textbf{família de soluções}. Entretanto, em nosso caso, procura-se a resposta para apenas um circuito elétrico específico. A distinção entre cada possível resposta é definida pelas \textbf{condições iniciais} (CONDINIC) do sistema. Como a EDOL é de segunda ordem, serão necessárias duas condições iniciais: uma envolvendo a função $e_o$ e outra envolvendo sua derivada. Em geral, considera-se o instante em que a fonte de entrada é ligada, que corresponte, na maioria das vezes, no tempo $t=0$.
+
+A menos que especificado, assume-se que os componentes reativos não possuem carga em um diferencial de tempo anterior ao instante inicial da fonte (representado por $t=0^-$). Nesse caso, a função $e_o(t)$ representa a \textbf{resposta ao estado zero}.
+
+A representação dos reativos no instante inicial é dada a partir de seus princípios físicos de funcionamento. O capacitor resiste a variações bruscas de tensão. Por isso, quando descarregado (i.e. $q=CV=0$) pode ser modelado como um curto circuito (impedância nula). O indutor, por sua vez, resiste a saltos de corrente. Assim, possuindo fluxo concatenado nulo, é modelado como um circuito aberto (impedância infinita).
+
+Retomando o exemplo da seção anterior, para $t=0$,
 
 \begin{center}
     \begin{tikzpicture}\draw
         (0,2) to[V_=$e_i(0)$] (0,0)
         (0,2) to[R=$R_1$] (2,2)
-        (2,2) to[short,v=$e_0$] (2,0)
+        (2,2) to[short,v=$e_o(0)$] (2,0)
         (2,2) to[R=$R_2$] (4,2)
         (4,2) to[short] (4,0)
         (0,0) -- (4,0)
@@ -3122,59 +3190,120 @@ Considerando o circuito no tempo inicial $t=0$, na resposta ao estado zero, os c
     \end{tikzpicture}
 \end{center}
 
-\begin{itemize}
-    \item Por inspeção, percebe-se que $e_{o}(0) = 0$.
-    \item Utilizando a relação VI do capacitor, têm-se que $\displaystyle{\frac{ de_{o}(0) }{ dt }= \frac{ i_{ C{_1} } } { C_{1} } } = \frac{ e_{i}(0) }{ R_{1}C_{1} } = 10$
-\end{itemize}
+Pela própria modelagem do capacitor, é evidente que $e_o(0)=0$. Para a condição da derivada, utiliza-se a relação VI do capacitor, que resulta em
 
-Tais condições iniciais, juntamente com a equação diferencial, formam um \textbf{problema de valor inicial (PVI)}. Para encontrar $e_{o}(t)$, basta resolver
+\begin{equation*}
+    i_{C_1}(0) = C_1\dfr{de_o(0)}{dt} \implies \dfr{de_o(0)}{dt} = \dfr{i_{C_1}(0)}{C_1}.
+\end{equation*}
+
+\noindent Como o resistor $R_2$ está em paralelo com um curto circuito, sua tensão é nula, de forma que toda a tensão da fonte cai sobre o resistor $R_1$. Além disso, como $i_{R_2}=0$, as correntes $i_{R_1}$ e $i_{C_1}$ são exatamente iguais. Portanto,
+
+\begin{equation*}
+    \dfr{de_o(0)}{dt} = \dfr{e_i(0)}{R_1C_1} = 10.
+\end{equation*}
+
+\vspace{2mm}
+
+\noindent Tais condições iniciais, juntamente com a equação diferencial, formam um \textbf{problema de valor inicial (PVI)}. Em sumo, para encontrar a solução única $e_o(t)$, basta resolver
 
 \begin{equation}
     \begin{cases}
-        \dfrac{ d^2e_{o}(t) }{ dt }+ 2.5 \dfrac{ de_{o}(t) }{ dt } + e_{o}(t) = 10\\ \\
-        \displaystyle e_{o}(0) = 0, \quad \frac{de_o(0)}{dt}=10
+        \dfr{ d^2e_o(t) }{ dt }+ 2.5 \dfr{ de_o(t) }{ dt } + e_o(t) = 10\\ \\
+        e_o(0) = 0, \quad \dfr{de_o(0)}{dt}=10
     \end{cases}
+    , \quad t \geqslant 0.
 \end{equation}
+
+\noindent Como já mencionado, a dependência do tempo será omitida nos exemplos subsequentes, bem como a condição $t \geqslant 0$, pois, a menos que explicitado, os circuitos serão a partir do instante em que a fonte de alimentação é ligada.
 
 \subsubsection{Resposta Natural}
 \label{subsubsec:natural}
-A resposta natural de um sistema pode ser descrita como a contribuição das \textbf{condições iniciais} (CONDINICS) para a resposta completa. Para tal, considera-se a \textbf{entrada zero} e resolve-se a equação diferencial homogênea associada.
-%Trocar modelo de EDO se necessário
-\begin{equation*}
-    \begin{cases}
-        \dfrac{d^2}{dt^2}y(t)+p\dfrac{d}{dt}y(t)+qy(t)=\textbf{0}\\ \\
-        \displaystyle{y(0)=y_{0}, \quad \frac{d}{dt}y(0)=y_{1}}
-    \end{cases}
-\end{equation*}
+A resposta natural (ou resposta em regime transitório) de um sistema pode ser descrita como a contribuição das condições iniciais para a resposta completa. Para tal, considera-se a \textbf{entrada zero} e resolve-se a equação diferencial homogênea associada.
 
-Observa-se que no caso em que $y(t) = e^{\lambda t}$, é possível escrever a equação homogênea como
-\begin{equation*}
-    (\lambda^{2}+p\lambda+q)\hspace{0.05cm} e^{\lambda t} = 0
-\end{equation*}
-Já que a função $e^{\lambda t}$ não assume valor nulo para qualquer tempo real e $\lambda$ complexo, a única solução possível precisa que
 \begin{equation}
-    \lambda^{2}+p\lambda+q=0
+    \begin{cases}
+        \dfr{d^2}{dt^2}y(t)+p\dfr{d}{dt}y(t)+qy(t)=\textbf{0}\\ \\
+        \displaystyle{y(0)=y_{0}, \quad \frac{d}{dt}y(0)=y_{1}}
+    \end{cases} \label{eq:natural_generica}
 \end{equation}
-O polinômio acima representa a \textbf{equação característica}, elemento importante no momento de definir conceitos como a resposta natural e a estabilidade de um sistema. A equação característica terá sua ordem definida pela equação diferencial homogênea. No caso em questão, uma EDOL de ordem dois possui duas raízes em sua equação característica.
 
-Após encontrar as soluções da equação característica, combina-se linearmente os termos de modo que
-\begin{equation*}
-    \displaystyle y_{n}(t)=C_{1}e^{\lambda_{1}t}+C_{2}e^{\lambda_{2}t}, \qquad \lambda_{1},\lambda_{2} \in \mathbb{C}
-\end{equation*}
-Convém analisar os diferentes casos para $\lambda$.
+\noindent Aqui, $p$ e $q$ são constantes. Para que a soma das parcelas valha zero, $y(t)$ e suas derivadas devem possuir comportamentos similares. Em outras palavras, sendo os coeficientes constantes, não seria possível que, por exemplo, $y(t)=ln(t)$, pois não existem $p$ e $q$ tal que a combinação linear do logarítmo natural e de suas duas primeiras derivadas resolva a equação \eqref{eq:natural_generica}. Esses conceito torna a função $y(t) = e^{\lambda t}$ a melhor candidata para resolver a equação diferencial. Assumindo, então, que a função incógnita é um exponencial, pode-se reescrever a expressão \eqref{eq:natural_generica} como
 
-\itembull{Caso 1:} $\lambda_{1} \neq \lambda_{2}, \quad \lambda_{1},\lambda_{2} \in \mathbb{R} $ \\
-A solução permanece no formato
 \begin{equation*}
-    \displaystyle y_{n}(t)=C_{1}e^{\lambda_{1}t}+C_{2}e^{\lambda_{2}t}
+    (\lambda^{2}+p\lambda+q)\hspace{0.05cm} e^{\lambda t} = 0.
+\end{equation*}
+Já que a função $e^{\lambda t}$ não assume valor nulo para qualquer tempo real e $\lambda$ complexo, é requerido que
+\begin{equation}
+    \lambda^{2}+p\lambda+q=0.
+\end{equation}
+O polinômio acima representa a \textbf{equação característica}, elemento importante no momento de definir conceitos como a resposta natural e a estabilidade de um sistema. A equação característica terá sua ordem definida pela equação diferencial homogênea. No caso em questão, a EDOL é de ordem e dois possui duas raízes em sua equação característica. Convém analisar os diferentes casos para $\lambda$.
+
+\vspace{3mm}
+
+\itembull{Caso 1:} $\lambda_{1} \neq \lambda_{2}, \quad \lambda_{1},\lambda_{2} \in \mathbb{R}$
+
+Neste caso, a solução geral é dada pela combinação linear não trivial de duas soluções exponenciais linearmente independentes $y_{1,2} = C_{1,2}e^{\lambda_{1,2}t}$, ou seja,
+\begin{equation*}
+    \displaystyle y_{n}(t)=C_1y_1(t)+C_2y_2(t) = C_1e^{\lambda_1 t}+C_2e^{\lambda_2 t}
 \end{equation*}
 
-%Provar solução do caso com com teorema de d'Alembert?
-\itembull{Caso 2:} $\lambda_{1} = \lambda_{2} = \lambda, \quad \lambda_{1},\lambda_{2} \in \mathbb{R}$ \\
-Nota-se que as duas exponenciais se tornam linearmente dependentes. Deve-se, portanto, considerar uma outra solução linearmente independente a $y_{1}(t)=e^{\lambda t}$. Através do método de D'Alembert, descobre-se que um outro termo LI é $y_{2}(t)=te^{\lambda t}$, o que resulta em
+\itembull{Caso 2:} $\lambda_{1} = \lambda_{2} = \lambda, \quad \lambda_{1},\lambda_{2} \in \mathbb{R}$
+
+Nota-se que as exponenciais escolhidas no caso anterior se tornam linearmente dependentes. Deve-se, portanto, procurar uma outra solução linearmente independente a $y_{1}(t)=e^{\lambda t}$. Através do método de D'Alembert, assume-se que uma solução LI é
+
+\begin{equation}
+    y_2(t)=w(t)y_1(t) \label{eq:dalembert}.
+\end{equation}
+
+\noindent Para encontrar $w(t)$, aplica-se \eqref{eq:dalembert} em \eqref{eq:natural_generica}, o que resulta em
+
 \begin{equation*}
-    \displaystyle y_{n}(t)=C_{1}e^{\lambda t}+C_{2}te^{\lambda t}
+    \dfr{d^2}{dt^2}(w(t)y_1(t)) + p \dfr{d}{dt}(w(t)y_1(t)) + q(w(t)y_1(t)) = 0.
 \end{equation*}
+
+\noindent Derivando,
+
+\begin{equation*}
+    \dfr{d^2w(t)}{dt^2}y_1(t) + 2 \dfr{dw(t)}{dt}\dfr{dy_1(t)}{dt} + w(t)\dfr{d^2y_1(t)}{dt} + p\l(\dfr{dw(t)}{dt}y_1(t)+w(t)\dfr{dy_1(t)}{dt}\r)+q(w(t)y_1(t)) = 0.
+\end{equation*}
+
+\noindent Juntando os termos comuns em $w(t)$,
+
+\begin{equation}
+    y_1(t)\dfr{d^2w(t)}{dt^2} + \l(2\dfr{dy_1(t)}{dt}+py_1(t)\r)\dfr{dw(t)}{dt} + \l(\dfr{d^2y_1(t)}{dt^2}+p\dfr{dy_1(t)}{dt}+qy_1(t)\r)w(t) = 0. \label{eq:dalembert_2}
+\end{equation}
+
+\noindent Lembrando que, pela fórmula de Bhaskara, para raízes repetidas, é necessario que o discriminante seja $\Delta = p^2 - 4q = 0$. Assim, tem-se que $\lambda = -\frac{p}{2}$. Então, aplicando a função $y_1(t)$ na expressão \eqref{eq:dalembert_2}, resulta em
+
+\begin{equation*}
+    e^{-\frac{p}{2}t}\frac{d^2w(t)}{dt^2} + \l(-2\dfr{p}{2}e^{-\frac{p}{2}t} + pe^{-\frac{p}{2}t}\r)\dfr{dw(t)}{dt} + \l(\dfr{p^2}{4}e^{-\frac{p}{2}t}-p\dfr{p}{2}e^{-\frac{p}{2}t}+qe^{-\frac{p}{2}t} \r)w(t) = 0.
+\end{equation*}
+
+\noindent Fica claro que o termo do meio terá coeficiente zero. Simplificando e colocando a exponencial em evidência, tem-se
+
+\begin{equation*}
+    e^{-\frac{p}{2}t}\l(\dfr{d^2w(t)}{dt^2}+\l(-\dfr{p^2}{4}+q\r)w(t)\r) = 0.
+\end{equation*}
+
+\noindent No entanto, pelo discriminante ser nulo, verifica-se que o coeficiente do termo $w(t)$ também é igual a zero. Como a exponencial nunca assume valor nulo, para que a equação seja satisfeita, é preciso que
+
+\begin{equation}
+    \dfr{d^2w(t)}{dt^2} = 0. \label{eq:dalembert_3}
+\end{equation}
+
+\noindent Portanto, por integração direta, descobre-se que $w(t)=At+B$. Como é necessária apenas uma solução linearmente independentes, escolhe-se $A=1$ e $B=0$ (vale ressaltar que se escolhido $A=0$, $y_2(t)$ estaria incluso na família de soluções de $y_1(t)$, isto é, $y_1(t)$ e $y_2(t)$ seriam linearmente dependentes), de forma que
+
+\begin{equation*}
+    y_2(t) = w(t)y_1(t) = ty_1(t) = te^{\lambda t}.
+\end{equation*}
+
+\noindent A solução geral é, finalmente,
+
+\begin{equation}
+    y_n(t) = C_1y_1(t)+C_2y_2(t) = C_1e^{\lambda t}+C_2te^{\lambda t}.
+\end{equation}
+
+\vspace{3mm}
 
 \itembull{Caso 3:} $\lambda_{1} = \overline{\lambda_{2}}, \quad \lambda_{1},\lambda_{2} \in \mathbb{C}$ \\
 Para encontrar duas funções LI utiliza-se a identidade de Euler, sendo $j$ a unidade imaginária,
@@ -3191,7 +3320,7 @@ Da relação, sendo $\lambda = \sigma \pm j\omega$, encontra-se $y_{1}(t)=e^{\si
 \label{subsubsec:forçada}
 A resposta forçada de um sistema equivale à contribuição da função de entrada para a saída. Para encontrá-la assume-se uma solução de acordo com a função não homogênea $x(t)$, que resolve a equação diferencial
 \begin{equation*}
-    \dfrac{d^2}{dt^2}y(t)+p\frac{d}{dt}y(t)+qy(t)=x(t)\
+    \dfr{d^2}{dt^2}y(t)+p\frac{d}{dt}y(t)+qy(t)=x(t)\
 \end{equation*}
 Parte-se de uma solução particular de acordo com a entrada. A relação entre entrada $x(t)$ e o formato da solução forçada $y_{p}(t)$ se dá de acordo com a tabela
 \begin{center}
@@ -3284,26 +3413,41 @@ $$\mathscr{L}\{f(t)\}=F(s)$$
 %
 \textbf{Imagem ckt tempo -> frequência}
 
-Deste modo, é possível efetuar operações como a Lei de Ohm, Thévenin e divisores de tensão e corrente em um circuito com capacitores e indutores, facilitando a resolução de diversas configurações com representações mais complicadas no tempo. Por exemplo, um circuito de ordem 3, no tempo, é representado por uma equação diferencial ordinária de terceira ordem, a qual precisa de três condições iniciais para ser completamente resolvida. Operando em frequência, o problema é reduzido a um polinômio de terceira ordem, que requere apenas álgebra básica para ser resolvido. \\
-Deste modo, podem ser introduzidos novos métodos de resolução de circuitos.
+Deste modo, é possível efetuar operações como a Lei de Ohm, Thévenin e divisores de tensão e corrente em um circuito com capacitores e indutores, facilitando a resolução de diversas configurações com representações mais complicadas no tempo. Por exemplo, um circuito de ordem 3, no tempo, é representado por uma equação diferencial ordinária de terceira ordem, a qual precisa de três condições iniciais para ser completamente resolvida. Operando em frequência, o problema é reduzido a um polinômio de terceira ordem, que requere apenas álgebra básica para ser resolvido. Deste modo, podem ser introduzidos novos métodos de resolução de circuitos.
 
 \subsection{Diagrama de Fluxo}
 \label{subsec:fluxo}
 O Diagrama de Fluxo é uma representação simbólica de um circuito elétrico. O mesmo relaciona a entrada e as variáveis de estado à(s) saída(s). As unidades básicas do diagrama são:
 \begin{itemize}
-    \item \textbf{Ganho:} multiplicador aplicado à variável em questão. \\
-    %
-    \textbf{Ganho}
-    \item \textbf{Soma:} representa a soma de dois ramos que se encontram. \\
-    %
-    \textbf{Soma}
-    \item \textbf{Amostra:} retira o valor do ponto equivalente e o copia para o ramo atual. Um mesmo ponto pode ser amostrado infinitamente sem sofrer alterações em seu valor. \\
-    %
-    \textbf{Amostra}
+    \item \textbf{Ganho:} multiplicador aplicado à variável em questão.
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.5\textwidth]{img/mason/ganho.png}
+    \end{figure}
+
+    \item \textbf{Soma:} representa a soma de dois ramos que se encontram.
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.5\textwidth]{img/mason/soma.png}
+    \end{figure}
+
+    \item \textbf{Amostra:} cria-se um ramo de valor idêntico ao do ponto amostrado. Um mesmo ponto pode ser amostrado infinitas vezes sem ter seu valor alterado.
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.4\textwidth]{img/mason/amostra.png}
+    \end{figure}
+
 \end{itemize}
-A grande vantagem do diagrama de fluxo é que pode-se relacionar qualquer saída com as entradas do circuito. Considerando o mesmo circuito utilizado como exemplo na seção anterior, um possível diagrama de fluxo é \\
-%
-\textbf{Diagrama da questão da lista}
+A grande vantagem do diagrama de fluxo é que pode-se relacionar qualquer saída com as entradas do circuito. Considerando o mesmo circuito utilizado como exemplo na seção anterior, um possível diagrama de fluxo é
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{img/mason/exemplo.png}
+\end{figure}
+
 A função de transferência $T(s)=\displaystyle{\frac{E_{o}(s)}{E_{i}(s)}}$ é calculada através da \textbf{Regra de Mason},
 $$T(s) = \sum_{k=1}^{N} \frac{M_{k}\Delta_{k}}{\Delta} $$
 Considerando um ``loop'' como um caminho fechado, ou seja, partindo de um ponto, chega-se no mesmo ponto seguindo as setas do diagrama e ``caminho direto'' como a multiplicação dos ganhos de um ponto ao outro, seguindo o sentido das setas,
