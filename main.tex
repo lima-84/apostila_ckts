@@ -18,7 +18,7 @@
 \setlist[itemize]{leftmargin=*}
 
 \usetikzlibrary{matrix,decorations.pathreplacing,calc,arrows,decorations.markings,shapes.misc,external}
-\ctikzset{label/align= straight,diodes/scale=0.7}
+\ctikzset{label/align=straight,diodes/scale=0.7,voltage/shift=3,voltage/american label distance=0.5}
 \tikzexternalize[prefix=tikz/, figure name = ckt\thesubsubsection-]
 \numberwithin{equation}{section}
 \newlength\Colsep
@@ -280,7 +280,7 @@ Gera uma corrente $Ki \hspace{0.25cm}[A]$ ou $Kv$ \hspace{0.25cm}[$\frac{A}{V}$V
         (1, 2) to[european resistor] (1, 0)
         (1, 0) to[short, -*] (0, 0)
         (3, 2) to[short, -*] (4, 2)
-        (3, 0) to[I, l_=$Ki$] (3, 2)
+        (3, 0) to[I, l=$Ki$] (3, 2)
         (3, 0) to[short, -*] (4, 0)
     ;\end{tikzpicture}
     }
@@ -445,9 +445,9 @@ Analogamente aos componentes passivos, é também possível associar fontes de m
     \begin{center}
         \begin{tikzpicture}
             \draw
-            (0,2) to[V_=$e_1$] (0,0)
-            (2,2) to[V_=$e_2$] (0,2)
-            (2,2) to[V=$e_3$,-*] (4,2)
+            (0,2) to[V,l_=$e_1$] (0,0)
+            (2,2) to[V,l_=$e_2$] (0,2)
+            (2,2) to[V,l=$e_3$,-*] (4,2)
             (0,0) to[short,-*] (4,0)
             ;
         \end{tikzpicture}
@@ -460,7 +460,7 @@ Analogamente aos componentes passivos, é também possível associar fontes de m
     \begin{center}
         \begin{tikzpicture}
             \draw
-            (0,2) to[V_=$e_1+e_2-e_3$] (0,0)
+            (0,2) to[V,l_=$e_1+e_2-e_3$] (0,0)
             (0,2) to[short,-*] (2,2)
             (0,0) to[short,-*] (2,0)
             ;
@@ -1012,7 +1012,7 @@ Deste modo, conseguimos simplificar a configuração do circuito elétrico, faci
 \begin{minipage}[c][4cm][c]{\dimexpr0.5\textwidth-0.5\Colsep\relax}
     \begin{center}
     \begin{tikzpicture}[scale=1.5,transform shape, smallR/.style={R, resistors/scale=0.5}, smallV/.style={V, sources/scale=0.65}]
-        \ctikzset{nodes width=0.025,voltage/american font=\tiny}
+        \ctikzset{nodes width=0.025,voltage/american font=\tiny,voltage/shift=0}
         \draw
         node[fourport](btt){}
         (btt.2) to[short,-*] ++(1,0) node[label={right:$_b$}]{}
@@ -1425,12 +1425,12 @@ Tomando-se um novo exemplo, com uma fonte controlada de corrente,
 \end{minipage}
 \end{minipage}
 
-
-
 \noindent\begin{minipage}{\textwidth}
 \begin{minipage}[c][5cm][c]{\dimexpr0.5\textwidth-0.5\Colsep\relax}
     \begin{center}
-        \begin{tikzpicture}[scale=0.9,transform shape]\draw
+        \begin{tikzpicture}[scale=0.9,transform shape]
+            \ctikzset{voltage/shift=2.5,voltage/distance from node=0.7}
+            \draw
             (0,3) -- (0,0)
             (0,3) to[R,l=$1\Omega$,v=$v$,f=$v$] (3,3)
             (3,0) to[I,l=$3v$] (3,3)
@@ -1465,7 +1465,7 @@ Segue um exemplo clássico de aplicação dessa técnica. Apesar de não ser o e
     \begin{center}
         \begin{tikzpicture}[scale=0.9,transform shape]\draw
             (0,2) to[C,l=$C$,-*] (0,4) node[label={left:$b$}]{}
-            (0,2) to[V=$e_i$,-*] (0,-1)
+            (0,2) to[V,l=$e_i$,-*] (0,-1)
             node[label={left:$o$}]{}
             (0,4) to[short,f=$i_b$] (2,4)
             (2,4) to[R,l=$R_b$] (2,2)
@@ -1479,7 +1479,7 @@ Segue um exemplo clássico de aplicação dessa técnica. Apesar de não ser o e
             node[label={$e$}]{}
             (8,4) to[R,l=$R_c$,-*] (6,4) node[label={$c$}]{}
             (8,4) to[R,l=$r$] (8,2)
-            (8,2) to[V=$V_{cc}$] (8,-1)
+            (8,2) to[V,l=$V_{cc}$] (8,-1)
             (0,-1) -- (8,-1)
             (0,4) -- (0,6)
             (0,6) to[R,l=$R_{f}$] (8,6)
@@ -1495,8 +1495,9 @@ Segue um exemplo clássico de aplicação dessa técnica. Apesar de não ser o e
 \noindent\begin{minipage}{0.95\textwidth}
 \begin{minipage}[c][8cm][c]{\dimexpr0.65\textwidth-0.5\Colsep\relax}
     \begin{center}
-        \begin{tikzpicture}[scale=0.9,transform shape]\draw
-
+        \begin{tikzpicture}[scale=0.9,transform shape]
+            \ctikzset{voltage/shift=1,voltage/american label distance=1}
+            \draw
             (0,-1) to[I,l=$I$,v=$I\cdot R_{th}$,-*] (0,4)
             node[label={left:$b$}]{}
             (0,4) to[short,f=$1A$] (2,4)
@@ -1540,7 +1541,7 @@ Segue um exemplo clássico de aplicação dessa técnica. Apesar de não ser o e
     \begin{center}
         \begin{tikzpicture}[scale=0.9,transform shape]\draw
             (0,2) to[C,l=$C$,-*] (0,4) node[label={left:$b$}]{}
-            (0,2) to[V=$e_i$,-*] (0,-1)
+            (0,2) to[V,l=$e_i$,-*] (0,-1)
             node[label={left:$o$}]{}
             (0,4) to[short,f=$i_b$] (2,4)
             (2,4) to[R,l=$R_b$] (2,2)
@@ -1554,7 +1555,7 @@ Segue um exemplo clássico de aplicação dessa técnica. Apesar de não ser o e
             (6,2) to[R,l=$R_o$] (6,4)
             (8,4) to[R,l=$R_c$,-*] (6,4) node[label={$c$}]{}
             (8,4) to[R,l=$r$] (8,2)
-            (8,2) to[V=$V_{cc}$] (8,-1)
+            (8,2) to[V,l=$V_{cc}$] (8,-1)
             (0,-1) -- (8,-1)
             (0,4) -- (0,6)
             (0,6) to[R,l=$R_{f}$] (8,6)
@@ -1570,7 +1571,9 @@ Segue um exemplo clássico de aplicação dessa técnica. Apesar de não ser o e
 \noindent\begin{minipage}{0.96\textwidth}
 \begin{minipage}[c][8cm][c]{\dimexpr0.63\textwidth-0.5\Colsep\relax}
     \begin{center}
-        \begin{tikzpicture}[scale=0.9,transform shape]\draw
+        \begin{tikzpicture}[scale=0.9,transform shape]
+            \ctikzset{voltage/shift=0.5,voltage/american label distance=1}
+            \draw
             (0,-1) to[I,l=$I$,v=$I\cdot R_{th}$,-*] (0,4)
             node[label={left:$b$}]{}
             (0,4) to[short,f=$1A$] (2,4)
@@ -1786,8 +1789,10 @@ Para um caso com mais resistores, o processo é exatamente o mesmo. Percebe-se q
 \noindent\begin{minipage}{0.95\textwidth}
 \begin{minipage}[c][7cm][c]{\dimexpr0.6\textwidth-0.5\Colsep\relax}
     \begin{center}
-        \begin{tikzpicture}[scale=0.9,transform shape]\draw
-            (0,4) to[V=$e_i$] (0,0)
+        \begin{tikzpicture}[scale=0.9,transform shape]
+            \ctikzset{voltage/shift=1,voltage/american label distance=1}
+            \draw
+            (0,4) to[V,l=$e_i$] (0,0)
             (0,4) to[short,-*] (2,4)
             (2,4) to[open,v=$v$] (2,2)
             (2,2) to[short,*-] (3,2)
@@ -1815,7 +1820,9 @@ Para um caso com mais resistores, o processo é exatamente o mesmo. Percebe-se q
 \hspace{0.01cm}
 \begin{minipage}[c][7cm][c]{\dimexpr0.6\textwidth-0.5\Colsep\relax}
     \begin{center}
-        \begin{tikzpicture}[scale=0.9,transform shape]\draw
+        \begin{tikzpicture}[scale=0.9,transform shape]
+            \ctikzset{voltage/shift=1,voltage/american label distance=1}
+            \draw
             (0,4) -- (0,0)
             (2,4) to[V,l=$e_i$,*-] (0,4)
             (2,4) to[open,v=$v$] (2,2)
@@ -1843,6 +1850,7 @@ Para um caso com mais resistores, o processo é exatamente o mesmo. Percebe-se q
 
 \begin{center}
     \begin{tikzpicture}[scale=0.9,transform shape]
+        \ctikzset{voltage/shift=1,voltage/american label distance=1}
         \draw
         (0,4) -- (0,0)
         (2,4) to[V,l=$e_i$,*-] (0,4)
@@ -1869,7 +1877,9 @@ Para um caso com mais resistores, o processo é exatamente o mesmo. Percebe-se q
 \noindent Assim, fica mais fácil perceber que o ramo que contém a fonte $e_i$ e o capacitor está em paralelo com o resistor $R_2$. De fato, seus terminais são exatamente os mesmos. É possível, portanto, rearranjar a configuração dos componentes de forma a manter os valores de tensão e corrente, isto é, em um circuito equivalente.
 
 \begin{center}
-    \begin{tikzpicture}[scale=0.9,transform shape]\draw
+    \begin{tikzpicture}[scale=0.9,transform shape]
+        \ctikzset{voltage/shift=1,voltage/american label distance=1}
+        \draw
         (0,4) -- (0,0)
         (2,4) to[V,l=$e_i$,*-] (0,4)
         (2,4) to[open,v=$v$] (2,2)
@@ -1894,7 +1904,9 @@ Para um caso com mais resistores, o processo é exatamente o mesmo. Percebe-se q
 \noindent Com o circuito escrito nesse formato, pode-se calcular um equivalente de Thévenin, já que tanto a saída $e_0$ quanto o capacitor estão à direita de $a$ e $b$, terminais escolhidos para o Thévenin.
 
 \begin{center}
-    \begin{tikzpicture}\draw
+    \begin{tikzpicture}
+        \ctikzset{voltage/shift=1,voltage/american label distance=1}
+        \draw
         (0,4) to[V,l=$e_i$] (0,0)
         (2,4) to[short,*-] (0,4)
         (2,4) to[open,v=$v$] (2,2)
@@ -1930,7 +1942,9 @@ $$E_{th}=-20V.$$
 \noindent A seguir, para calcular o resistor $R_{th}$, aplica-se uma fonte de $1A$ entre os terminais $a$ e $b$ e mata-se as fontes independentes (neste caso, $e_i$).
 
 \begin{center}
-    \begin{tikzpicture}\draw
+    \begin{tikzpicture}
+        \ctikzset{voltage/shift=1,voltage/american label distance=1}
+        \draw
         (0,1.5) -- (0,0)
         (0,1.5) to[short,*-*] (0,3)
         (0,3) -- (0,4)
@@ -2070,7 +2084,7 @@ Considerando uma rede elétrica linear contendo apenas resistores e fontes que a
 \begin{center}
     \begin{tikzpicture}
         \draw
-            (0,3) to[V_=$E_{th}$] (0,0)
+            (0,3) to[V,l_=$E_{th}$] (0,0)
             (0,3) to[R,l=$R_{th}$,f=$i$] (3,3)
             (3,3) to[R,l=$R_L$,v=$V$] (3,0)
             (0,0) -- (3,0)
@@ -2286,7 +2300,9 @@ A aplicação de tensão na porta inversora causa um ganho proporcional e com si
 \textbf{Dedução:} Como o amplificador operacional está em realimentação negativa, a tensão entre sua entradas é nula. Assim, já que a porta não inversora está aterrada, o potencial na porta inversora será igual a zero. Logo, a tensão que cai no resistor $R_i$ é igual a $V_i$. Tendo que a impedância de entrada do amplificador operacional é infinita, a corrente na porta inversora é nula, de modo que, pela lei dos nós, tem-se que $R_i$ e $R_f$ possuem mesma corrente.
 
 \begin{center}
-    \begin{tikzpicture}\draw
+    \begin{tikzpicture}
+        \ctikzset{voltage/shift=1,voltage/american label distance=1}
+        \draw
         (0,0) node[op amp] (opamp) {}
         (opamp.+) -- (-1.5,-0.49) node[ground] {}
         \curtovirtual
@@ -2342,7 +2358,9 @@ A aplicação de tensão na porta não inversora causa um ganho proporcional à 
 \textbf{Dedução:} A realimentação negativa gera um curto circuito virtual, o que implica o potencial $V_i$ ser propagado para o nó à direita do resistor $R_i$. Assim, $R_i$ será polarizado por $V_i$ e, do fato da impedância de entrada ser infinita, terá uma corrente $i_{R_i} = i_{R_f} = i$, dada pela expressão a seguir.
 
 \begin{center}
-    \begin{tikzpicture}\draw
+    \begin{tikzpicture}
+        \ctikzset{voltage/shift=1,voltage/american label distance=1}
+        \draw
         (0,0) node[op amp] (opamp) {}
         (opamp.+) to [short,-*] (-2,-0.49) node[left] {$V_i$}
         \curtovirtual
@@ -3045,7 +3063,7 @@ Usa-se as equações que modelam os elementos reativos (relações \textbf{VI}) 
 
 \begin{center}
     \begin{tikzpicture}\draw
-        (0,3) to[V_=$e_i$] (0,0)
+        (0,3) to[V,l_=$e_i$] (0,0)
         (0,3) to[R=$R_1$] (3,3)
         (3,3) to[C=$C_1$,v=$e_o$] (3,0)
         (3,3) to[R=$R_2$] (6,3)
@@ -3059,9 +3077,8 @@ Usa-se as equações que modelam os elementos reativos (relações \textbf{VI}) 
 
 \begin{center}
     \begin{tikzpicture}
-        %\ctikzset{voltage/shift=3,voltage/american label distance=0.4,american voltage source/voltage/shift=0}
         \draw
-        (0,3) to[V_=$e_i$] (0,0)
+        (0,3) to[V,l_=$e_i$] (0,0)
         (0,3) to[R,v^=$V_{R_1}$,f>_=$i_{R_1}$] (3,3)
         (3,3) to[C,v=$e_o$,f=$i_{C_1}$] (3,0)
         (3,3) to[R,v^=$V_{R_2}$,f>_=$i_{R_2}$] (6,3)
@@ -3093,9 +3110,8 @@ Usa-se as equações que modelam os elementos reativos (relações \textbf{VI}) 
 
 \begin{center}
     \begin{tikzpicture}
-        \ctikzset{voltage/shift=3,voltage/american label distance=0.4}
         \draw
-        (0,3) to[V_=$e_i$,voltage shift=0] (0,0)
+        (0,3) to[V,l_=$e_i$,voltage shift=0] (0,0)
         (0,3) to[R,v^=$e_i-e_o$,f>_=$i_{R_1}$] (3,3)
         (3,3) to[C,v=$e_o$,f=$i_{C_1}$] (3,0)
         (3,3) to[R,v^=$V_{R_2}$,f>_=$i_{R_2}$] (6,3)
@@ -3179,8 +3195,10 @@ A representação dos reativos no instante inicial é dada a partir de seus prin
 Retomando o exemplo da seção anterior, para $t=0$,
 
 \begin{center}
-    \begin{tikzpicture}\draw
-        (0,2) to[V_=$e_i(0)$] (0,0)
+    \begin{tikzpicture}
+        \ctikzset{voltage/shift=0,voltage/american label distance=0.7}
+        \draw
+        (0,2) to[V,l_=$e_i(0)$] (0,0)
         (0,2) to[R=$R_1$] (2,2)
         (2,2) to[short,v=$e_o(0)$] (2,0)
         (2,2) to[R=$R_2$] (4,2)
