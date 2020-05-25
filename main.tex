@@ -1690,7 +1690,7 @@ Explosão de fonte é uma técnica que permite ``deslocar'' uma fonte sem altera
 
 Nota-se em ambos os circuitos que os pontos $a$ e $b$ estão sob o potencial positivo de $V$ e que $c$ está na referência. Todas as tensões e correntes são exatamente as mesmas, portanto os circuitos são equivalentes.
 
-Fosse relevante, seria possível transformar a fonte de tensão, agora em série com o resistor $R$, em uma fonte de corrente em paralelo sua respectiva carga.
+Fosse relevante, seria possível transformar a fonte de tensão, agora em série com o resistor $R$, em uma fonte de corrente em paralelo com o resistor.
 
 \vspace{2mm}
 
@@ -3210,7 +3210,7 @@ Pela própria modelagem do capacitor, é evidente que $e_o(0)=0$. Para a condiç
     \begin{cases}
         \dfr{ d^2e_o(t) }{ dt }+ 2.5 \dfr{ de_o(t) }{ dt } + e_o(t) = 10\\ \\
         e_o(0) = 0, \quad \dfr{de_o(0)}{dt}=10
-    \end{cases}
+    \end{cases} \label{eq:pvi}
     , \quad t \geqslant 0.
 \end{equation}
 
@@ -3227,7 +3227,7 @@ A resposta natural (ou resposta em regime transitório) de um sistema pode ser d
     \end{cases} \label{eq:natural_generica}
 \end{equation}
 
-\noindent Aqui, $p$ e $q$ são constantes. Para que a soma das parcelas valha zero, $y(t)$ e suas derivadas devem possuir comportamentos similares. Em outras palavras, sendo os coeficientes constantes, não seria possível que, por exemplo, $y(t)=ln(t)$, pois não existem $p$ e $q$ tal que a combinação linear do logarítmo natural e de suas duas primeiras derivadas resolva a equação \eqref{eq:natural_generica}. Esses conceito torna a função $y(t) = e^{\lambda t}$ a melhor candidata para resolver a equação diferencial. Assumindo, então, que a função incógnita é um exponencial, pode-se reescrever a expressão \eqref{eq:natural_generica} como
+\noindent Aqui, $p$ e $q$ são constantes. Para que a soma das parcelas valha zero, $y(t)$ e suas derivadas devem possuir comportamentos similares. Em outras palavras, sendo os coeficientes constantes, não seria possível que, por exemplo, $y(t)=\ln(t)$, pois não existem $p$ e $q$ tal que a combinação linear do logarítmo natural e de suas duas primeiras derivadas resolva a equação \eqref{eq:natural_generica}. Esses conceito torna a função $y(t) = e^{\lambda t}$ a melhor candidata para resolver a equação diferencial, pois suas derivadas também são exponenciais. Assumindo, então, que a função incógnita é um exponencial, pode-se reescrever a expressão \eqref{eq:natural_generica} como
 
 \begin{equation*}
     (\lambda^{2}+p\lambda+q)\hspace{0.05cm} e^{\lambda t} = 0.
@@ -3242,14 +3242,16 @@ O polinômio acima representa a \textbf{equação característica}, elemento imp
 
 \itembull{Caso 1:} $\lambda_{1} \neq \lambda_{2}, \quad \lambda_{1},\lambda_{2} \in \mathbb{R}$
 
-Neste caso, a solução geral é dada pela combinação linear não trivial de duas soluções exponenciais linearmente independentes $y_{1,2} = C_{1,2}e^{\lambda_{1,2}t}$, ou seja,
+Neste caso, a solução geral é dada pela combinação linear não trivial de duas soluções exponenciais linearmente independentes $y_{1,2} = e^{\lambda_{1,2}t}$, ou seja,
 \begin{equation*}
-    \displaystyle y_{n}(t)=C_1y_1(t)+C_2y_2(t) = C_1e^{\lambda_1 t}+C_2e^{\lambda_2 t}
+    y_{n}(t)=C_1y_1(t)+C_2y_2(t) = C_1e^{\lambda_1 t}+C_2e^{\lambda_2 t},
 \end{equation*}
+
+\noindent sendo $C_1$ e $C_2$ constantes.
 
 \itembull{Caso 2:} $\lambda_{1} = \lambda_{2} = \lambda, \quad \lambda_{1},\lambda_{2} \in \mathbb{R}$
 
-Nota-se que as exponenciais escolhidas no caso anterior se tornam linearmente dependentes. Deve-se, portanto, procurar uma outra solução linearmente independente a $y_{1}(t)=e^{\lambda t}$. Através do método de D'Alembert, assume-se que uma solução LI é
+Nota-se que escolhendo as exponenciais como no caso anterior, as mesmas serão linearmente dependentes. Deve-se, portanto, procurar uma outra solução linearmente independente a $y_{1}(t)=e^{\lambda t}$. Através do método de D'Alembert, assume-se que uma solução LI é
 
 \begin{equation}
     y_2(t)=w(t)y_1(t) \label{eq:dalembert}.
@@ -3305,40 +3307,90 @@ Nota-se que as exponenciais escolhidas no caso anterior se tornam linearmente de
 
 \vspace{3mm}
 
-\itembull{Caso 3:} $\lambda_{1} = \overline{\lambda_{2}}, \quad \lambda_{1},\lambda_{2} \in \mathbb{C}$ \\
-Para encontrar duas funções LI utiliza-se a identidade de Euler, sendo $j$ a unidade imaginária,
-\begin{equation}
-    e^{j\omega t}=\cos{(\omega t)}+j\sin{(\omega t)}
-\end{equation}
-Da relação, sendo $\lambda = \sigma \pm j\omega$, encontra-se $y_{1}(t)=e^{\sigma t}\cos{(\omega t)}$ e $y_{2}(t)=e^{\sigma t}\sin{(\omega t)}$. Portanto, a solução natural da EDOL torna-se
+\itembull{Caso 3:} $\lambda_{1} = \overline{\lambda_{2}}, \quad \lambda_{1},\lambda_{2} \in \mathbb{C}$
+
+Sendo as raízes complexas e conjugadas $\lambda = \sigma \pm j\omega$, as exponencials podem ser escritas como segue. Por serem complexas, as funções candidatas serão denominadas $z_{1,2}(t)$ ao invés de $y_{1,2}(t)$.
+
 \begin{equation*}
-    \displaystyle y_{n}(t)=e^{\sigma t}[C_{1}\cos{(\omega t)}+C_{2}\sin{(\omega t)}]
+    z_{1,2}(t)=e^{\lambda_{1,2} t} = e^{(\sigma \pm j\omega) t} = e^{\sigma t}e^{\pm j\omega t},
 \end{equation*}
 
+\noindent sendo $j$ a unidade imaginária. Note que as funções $z_1(t)$ e $z_2(t)$ formam um par conjugado, isto é, $z_1(t)=\overline{z_2(t)}$. Utilizando a identidade de Euler, pode-se expandir a exponencial complexa, resultando em
+
+\begin{equation*}
+    z_{1,2}(t)=e^{\sigma t}[\cos{(\pm \omega t)}+j\sin{(\pm \omega t)}].
+\end{equation*}
+
+\noindent Relembrando que o cosseno é uma função par ($\cos(-x) = \cos(x)$) e que o seno é uma função ímpar ($\sin(-x) = -\sin(x)$), $z_1(t)$ e $z_2(t)$ podem ser escritos como
+
+\begin{equation}
+    z_1(t) = e^{\sigma t}[\cos{(\omega t)}+j\sin{(\omega t)}], \quad
+    z_2(t) = e^{\sigma t}[\cos{(\omega t)}-j\sin{(\omega t)}]. \label{eq:complexos1}
+\end{equation}
+
+\noindent As funções \eqref{eq:complexos1} são, de fato, linearmente independentes. Porém, seria mais conveniente se a solução da equação diferencial fosse composta por funções reais. Por isso, utiliza-se da superposição para combinar $z_{1,2}(t)$ tal que suas partes imaginárias sejam canceladas. Tem-se que
+
+\begin{gather*}
+    y_1(t) = \dfr{z_1(t)+z_2(t)}{2} = e^{\sigma t}\cos(\omega t),
+    \\
+    y_2(t) = \dfr{z_1(t)-z_2(t)}{2j} = e^{\sigma t}\sin(\omega t).
+\end{gather*}
+
+\noindent Portanto, combina-se linearmente $y_1(t)$ e $y_2(t)$ e a solução natural da equação torna-se
+
+\begin{equation}
+    y_n(t) = C_1y_1(t) + C_2y_2(t) = e^{\sigma t}[C_1\cos(\omega t)+C_2\sin(\omega t)].
+\end{equation}
+
+\vspace{4mm}
+
+A tabela abaixo permite fácil consulta aos formatos de solução natural de acordo com as raízes $\lambda$ do polinômio característico. Os valores das constantes serão calculados utilizando as condições iniciais, mas apenas no final da resolução, após inclusa a resposta forçada do sistema.
+
+\begin{center}
+    \begin{tabular}{|c|c|}
+        \hline
+        Raízes & $y_n(t)$
+        \\ \hline
+        $\lambda_1 \neq \lambda_2, \quad \lambda_1,\lambda_2 \in \mathbb{R}$ & $C_1e^{\lambda_1 t}+C_2e^{\lambda_2 t}$
+        \\ \hline
+        $\lambda_1 = \lambda_2 = \lambda, \quad \lambda \in \mathbb{R}$ & $C_1e^{\lambda t}+C_2te^{\lambda t}$
+        \\ \hline
+        $\lambda_1 = \overline{\lambda_2}, \quad \lambda_1,\lambda_2 \in \mathbb{C}$ & $e^{\sigma t}[C_1\cos(\omega t)+C_2\sin(\omega t)]$
+        \\ \hline
+    \end{tabular}
+\end{center}
+
+Se o polinômio característico tiver ordem mais alta, a resposta natural será uma combinação dos casos descritos acima. Por exemplo, se a equação diferencial for de quinta ordem, com raízes $\lambda=\{-3,-2,-2,(-1+j5),(-1-j5)\}$, a solução natural será da forma
+
+\begin{equation*}
+    y_n(t) = C_1e^{-3t} + C_2e^{-2t}+ C_3te^{-2t} + e^{-t}[C_4\cos(5t) + C_5\sin(5t)].
+\end{equation*}
 
 \subsubsection{Resposta Forçada}
 \label{subsubsec:forçada}
 A resposta forçada de um sistema equivale à contribuição da função de entrada para a saída. Para encontrá-la assume-se uma solução de acordo com a função não homogênea $x(t)$, que resolve a equação diferencial
+
 \begin{equation*}
-    \dfr{d^2}{dt^2}y(t)+p\frac{d}{dt}y(t)+qy(t)=x(t)\
+    \dfr{d^2}{dt^2}y_p(t)+p\frac{d}{dt}y_p(t)+qy_p(t)=x(t).
 \end{equation*}
-Parte-se de uma solução particular de acordo com a entrada. A relação entre entrada $x(t)$ e o formato da solução forçada $y_{p}(t)$ se dá de acordo com a tabela
+
+Como quer-se que o lado esquerdo seja igual ao lado direito, faz sentido assumir que uma resposta particular $y_p(t)$ pertence à mesma classe de funções que a entrada $x(t)$. Por isso, costuma-se relacionar $x(t)$ e $y_{p}(t)$ de acordo com a tabela abaixo.
 \begin{center}
         \begin{tabular}{|c|c|c|} \hline
         Formato & $x(t)$ & $y_{p}(t)$ \\ \hline
         Constante & $C$ & $A$ \\ \hline
-        Senoide & $C\cos(\omega t)$ ou $C\sin(\omega t)$ & $A\cos(\omega t) + B\sin(\omega t)$ \\ \hline
+        Senoidal & $C\cos(\omega t)$ ou $C\sin(\omega t)$ & $A\cos(\omega t) + B\sin(\omega t)$ \\ \hline
         Exponencial & $Ce^{at}$ & $Ae^{at}$ \\ \hline
         Polinomial & $C_{n}t^{n} + C_{n-1}t^{n-1} + ... + C_{0}$ & $A_{n}t^{n} + A_{n-1}t^{n-1} + ... + A_{0}$ \\ \hline
     \end{tabular}
 \end{center}
 
-É possível que a entrada seja uma junção de dois tipos diferentes de funções, nestes casos deve-se combinar dois tipos equivalentes de funções particulares. Considere o exemplo em que $x(t) = t \cos(2t)$. A solução particular para esta entrada tem o formato
+É possível que a entrada seja uma junção de dois tipos diferentes de funções. Nesses casos, deve-se combinar dois tipos equivalentes de funções particulares. Considere o exemplo em que $x(t) = t \cos(2t)$. A solução particular para essa entrada tem o formato
 
 \begin{equation*}
     y_{p}(t)=(A_{1}t+A_{0})[A\cos(2t)+B\sin(2t)]
 \end{equation*}
-\\
+
 Então, deve-se substituir $y_{p}(t)$ na equação diferencial não homogênea para que, através da simples comparação dos dois lados da equação, sejam descobertos os valores das constantes de $y_{p}(t)$.
 
 \subsubsection{Resposta Completa}
@@ -3346,50 +3398,69 @@ Então, deve-se substituir $y_{p}(t)$ na equação diferencial não homogênea p
 
 A resposta completa de um sistema é a soma da resposta natural com a resposta forçada. $$y(t)=y_n(t)+y_p(t)$$
 
-\noindent Retornando ao PVI (4.4), separa-se a resposta natural da forçada:
-\begin{center}{Resposta Natural}\end{center}
-\begin{align*}
-    \frac{ d^2e_{o}(t) }{ dt } + 2.5& \frac{ de_{o}(t) }{ dt } + e_{o}(t) = 0 \\
-    \lambda^{2} +& 2.5\lambda + 1 = 0 \\
-    (\lambda+2)&(\lambda+0.5) = 0 \\
-    \lambda_{1}=-2,& \quad \lambda_{2}=-0.5
-\end{align*}
-Logo, o formato da solução natural de $e_{o}(t)$ é
+Retornando ao PVI \eqref{eq:pvi}, separa-se a resposta natural da forçada:
+\vspace{2mm}
+\begin{center}{\textbf{Resposta Natural}}\end{center}
+\begin{gather*}
+    \deo{2} + 2.5\deo{} + e_o = 0
+    \\
+    \lambda^{2} + 2.5\lambda + 1 = 0
+    \\
+    (\lambda+2)(\lambda+0.5) = 0
+    \\
+    \lambda_{1}=-2, \quad \lambda_{2}=-0.5.
+\end{gather*}
+
+\noindent Logo, o formato da solução natural de $e_o$ é
+
 \begin{equation}
-    e_{o_n}(t) = A_{1}e^{-2t}+A_{2}e^{-0.5t}
+    e_{o_n}(t) = A_1e^{-2t}+A_2e^{-0.5t}.
 \end{equation}
 \vspace{0.1cm}
-\begin{center}{Resposta Forçada}\end{center}
-Como o lado direto da equação é constante, $e_{o_p} = A$. Substituindo na equação original (4.4)
-\begin{align}
-    \frac{ d^2 A }{ dt } + 2.5& \frac{ d A }{ dt } + A = 10\nonumber \\
-    A = 10
-\end{align}
-
-A resposta completa é a soma das respostas natural e forçada. De (4.7) e (4.8) obtém-se a família de soluções de $e_{o}(t)$
+\begin{center}{\textbf{Resposta Forçada}}\end{center}
+Como o lado direto da equação é constante, $e_{o_p} = A$. Substituindo na equação original, resulta em
 \begin{equation*}
-    e_{o}(t) = 10 + A_{1}e^{-2t}+A_{2}e^{-0.5t}
+    \frac{d^2A}{dt^2} + 2.5 \frac{dA}{dt} + A = 10.
 \end{equation*}
-Para descobrir as constantes $A_{1}$ e $A_{2}$ equivalentes ao $e_{o}(t)$ em questão aplica-se as condições iniciais.
-\begin{center}{Condição da função}\end{center}
-\begin{align}
-    e_{o}(0) &= 0 \nonumber \\
-    0 = 10 + A_{1}e^{0}+A_{2}e^{0} &= 10 + A_{1} + A_{2} \nonumber \\
-    A_{1} + A_{2} &= -10
-\end{align}
 
-\begin{center}{Condição da derivada da função}\end{center}
-\begin{align}
-    \frac{de_{o}(t)}{dt} &= -2A_{1}e^{-2t}-0.5A_{2}e^{-0.5t} \nonumber \\
-    \frac{de_{o}(0)}{dt} &= 10 = -2A_{1}-0.5A_{2} \nonumber \\
-    10 &= -2A_{1}-0.5A_{2}
-\end{align}
+\noindent Como $A$ é uma constante, suas derivadas são nulas, o que implica
 
-O sistema de equações formado por (4.9) e (4.10) implica $A_{1}  = \displaystyle{-\frac{10}{3}} $ e $A_{2} = \displaystyle{-\frac{20}{3}}$. Portanto
+\begin{equation}
+    e_{o_p}(t) = A = 10.
+\end{equation}
+
+\begin{center}{\textbf{Resposta Completa}}\end{center}
+\noindent A resposta completa é a soma das respostas natural e forçada, isto é,
+\begin{equation*}
+    e_{o}(t) = 10 + A_{1}e^{-2t}+A_{2}e^{-0.5t}.
+\end{equation*}
+
+\noindent Para descobrir as constantes $A_{1}$ e $A_{2}$ que representam a tensão $e_{o}(t)$ em questão, aplica-se as condições iniciais. Utilizando a primeira condição, encontra-se
+\begin{gather}
+    e_{o}(0) = 0 \nonumber \\
+    0 = 10 + A_{1}e^{0}+A_{2}e^{0} = 10 + A_{1} + A_{2} \nonumber \\
+    A_{1} + A_{2} = -10. \label{eq:completa_eo1}
+\end{gather}
+
+\noindent Calculando a derivada de $e_o$,
 
 \begin{equation*}
-    e_{o}(t) = 10 - \frac{10}{3}e^{-2t} - \frac{20}{3}e^{-0.5t}
+    \frac{de_{o}(t)}{dt} = -2A_{1}e^{-2t}-0.5A_{2}e^{-0.5t}.
 \end{equation*}
+
+\noindent Aplicando, agora, a condição,
+
+\begin{gather}
+    \dfr{de_o(0)}{dt} = 10 \nonumber
+    \\
+    10 = -2A_1 - 0.5A_2. \label{eq:completa_eo2}
+\end{gather}
+
+\noindent O sistema de equações formado por \eqref{eq:completa_eo1} e \eqref{eq:completa_eo2} implica $A_{1}  = -\dfr{10}{3} $ e $A_{2} = -\dfr{20}{3}$. Portanto, a resposta final é
+
+\begin{equation}
+    e_o(t) = 10 - \frac{10}{3}e^{-2t} - \frac{20}{3}e^{-0.5t}.
+\end{equation}
 
 \subsubsection{Exemplos}
 \label{subsubsec:exemplosreativos}
@@ -3417,9 +3488,10 @@ Deste modo, é possível efetuar operações como a Lei de Ohm, Thévenin e divi
 
 \subsection{Diagrama de Fluxo}
 \label{subsec:fluxo}
-O Diagrama de Fluxo é uma representação simbólica de um circuito elétrico. O mesmo relaciona a entrada e as variáveis de estado à(s) saída(s). As unidades básicas do diagrama são:
+O Diagrama de Fluxo é uma representação simbólica de um circuito elétrico. O mesmo relaciona a(s) entrada(s) e as variáveis de estado à(s) saída(s). As unidades básicas do diagrama são:
+
 \begin{itemize}
-    \item \textbf{Ganho:} multiplicador aplicado à variável em questão.
+    \item \textbf{Ganho:} multiplicador aplicado à variável em questão. Se nenhum valor for explicitado, o ganho é unitário (não altera a variável).
 
     \begin{figure}[H]
         \centering
