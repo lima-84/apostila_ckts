@@ -507,6 +507,7 @@ Analogamente aos componentes passivos, é também possível associar fontes de m
 \textbf{Observação:} Não é comum utilizar fontes de tensão em paralelo, muito menos fontes de corrente em série, visto que nessas configurações as fontes impõem seus respectivos valores no circuito. De fato, é impossível que as correntes ou tensões assumam dois valores diferentes em um mesmo ponto. Na prática, conectar duas fontes de forma incorreta pode danificar os componentes e, possivelmente, causar faíscas e explosões. Entretanto, uma aplicação é conectar fontes de tensão idênticas em paralelo, de modo que a corrente e, consequentemente, a potência exigidas de cada fonte são menores. Neste material, considera-se que as fontes são ideais, podendo sempre fornecer a potência requerida pela carga.
 
 \subsubsection{Transformação $\Delta-Y$}
+\label{subsubsec:deltay}
 Permite transformar um circuito em configuração $\Delta$ para $Y$ e vice-versa, respeitando às seguintes relações:
 
 \noindent\begin{minipage}{\textwidth}
@@ -606,18 +607,58 @@ As configurações $\Delta$ e $Y$ podem ser rearranjadas em um formato alternati
 \end{minipage}
 \end{minipage}
 
+\subsubsection{Ponte de Wheatstone}
+\label{subsubsec:wheatstone}
+
+A ponte de Wheatstone é um circuito formado por quatro resistores conectados como ilustra a figura abaixo.
+
+\begin{center}
+    \begin{tikzpicture}
+        \draw
+        (0,5) to[V] (0,0)
+        (0,5) -- (4,5)
+        (4,5) -- (4,4.5)
+        (4,4.5) to[R,l_=$R_1$] (2,2.5)
+        (4,4.5) to[R,l=$R_3$] (6,2.5)
+        (2,2.5) to[R,l_=$R_2$] (4,0.5)
+        (6,2.5) to[R,l=$R_4$] (4,0.5)
+        (2,2.5) to[voltmeter] (6,2.5)
+        (4,0.5) -- (4,0)
+        (0,0) -- (4,0)
+        ;
+    \end{tikzpicture}
+\end{center}
+
+\noindent No caso em que $R_1R_4=R_2R_3$, diz-se que a ponte está \textbf{equilibrada} e tem-se como resultado que a tensão medida no instrumento é nula (verificável pelas Leis de Kirchhoff). Assim, pode-se substituir o voltímetro por um curto, possibilitando associar em paralelo os resistores $R_1$ e $R_3$, bem como $R_2$ e $R_4$. É comum encontrar a ponte de Wheatstone rearranjada como segue.
+
+\begin{center}
+    \begin{tikzpicture}
+        \draw
+        (0,4) to[V] (0,0)
+        (0,4) -- (4,4)
+        (2,4) to[R,l_=$R_1$] (2,2)
+        (4,4) to[R,l=$R_3$] (4,2)
+        (2,2) to[R,l_=$R_2$] (2,0)
+        (4,2) to[R,l=$R_4$] (4,0)
+        (2,2) to[voltmeter] (4,2)
+        (0,0) -- (4,0)
+        ;
+    \end{tikzpicture}
+\end{center}
+
+Essa configuração é particularmente útil para medir uma resistência elétrica desconhecida, já que basta, por exemplo, escolher os valores de $R_1$ e $R_3$ e ajustar o valor de $R_2$ até que a tensão no centro seja nula. Então, obtém-se o valor de $R_4$ pela equação do equilíbrio. Outra aplicação é a medição de deformações, tensões e forças através de \textit{strain gauges}.
 
 \subsubsection{Linearidade}
 A relação entre duas variáveis é dita linear quando respeita a seguinte relação
 \begin{itemize}
     \item \textbf{Princípio da Superposição:} $f(a_1 x_{1}+a_2 x_{2})= a_1f(x_{1})+a_2f(x_{2})$, com $a_1$ e $a_2$ constantes.
 \end{itemize}
-O mais pertinente exemplo é a relação entre tensão e corrente nos circuitos reativos. $v(t)=f(i(t))$ ou $i(t)=f(v(t))$. Alguns exemplos,
-    $$v_R(i_R)=Ri_R \implies v_R(i_1+i_2) = R\cdot(i_1+i_2) = Ri_1+Ri_2 = v_R(i_1) + v_R(i_2)$$
-    $$v_C(i_C)=\frac{1}{C}\int_0^ti_Cd\tau \implies v_C(i_1+i_2)=\frac{1}{C}\int_0^t(i_1+i_2)d\tau=\frac{1}{C}\int_0^ti_1d\tau+\frac{1}{C}\int_0^ti_2d\tau=v_C(i_1)+v_C(i_2)$$
-    $$v_L(i_L)=L\frac{di_L}{dt} \implies v_L(i_1+i_2)=L\frac{d}{dt}(i_1+i_2)=L\frac{di_1}{dt}+L\frac{di_2}{dt}=v_L(i_1)+v_L(i_2)$$
+O mais pertinente exemplo é a relação entre tensão e corrente nos circuitos reativos. $V(t)=f(i(t))$ ou $i(t)=f(V(t))$. Alguns exemplos,
+    $$V_R(i_R)=Ri_R \implies V_R(i_1+i_2) = R\cdot(i_1+i_2) = Ri_1+Ri_2 = V_R(i_1) + V_R(i_2)$$
+    $$V_C(i_C)=\frac{1}{C}\int_0^ti_Cd\tau \implies V_C(i_1+i_2)=\frac{1}{C}\int_0^t(i_1+i_2)d\tau=\frac{1}{C}\int_0^ti_1d\tau+\frac{1}{C}\int_0^ti_2d\tau=V_C(i_1)+V_C(i_2)$$
+    $$V_L(i_L)=L\frac{di_L}{dt} \implies V_L(i_1+i_2)=L\frac{d}{dt}(i_1+i_2)=L\frac{di_1}{dt}+L\frac{di_2}{dt}=V_L(i_1)+V_L(i_2)$$
 
-É evidente que o princípio da superposição continua sendo válido para o caso de constantes multiplicando as variáveis $i_1$ e $i_2$.
+\noindent Como os operadores de derivada e integral são lineares, é evidente que o Princípio da Superposição continua sendo válido para o caso de constantes multiplicando as variáveis $i_1$ e $i_2$.
 
 \subsubsection{Superposição em Circuitos Elétricos}
 O Princípio da Superposição possui uma importante aplicação em circuitos elétricos, pois permite que a contribuição de cada fonte seja considerada separadamente, muitas vezes facilitando a resolução de problemas que, de outras formas, levaria a uma solução mais complexa e/ou demorada.
@@ -1991,8 +2032,6 @@ $$R_{th}=500 \Omega.$$
 
 \noindent É evidente que a nova forma do circuito é muito mais simples em comparação à original, tornando fácil encontrar $e_0(t)$. Este exemplo será revisitado e concluído na Seção \ref{sec:reativos}, visto que envolve a resolução de um circuito reativo.
 
-%Here
-
 \subsubsection{Balanço de Potência}
 \label{subsubsec:balancodepot}
 A partir do conceito da conservação de energia, é possível equacionar a potência dos $n$ componentes de um circuito elétrico através da relação
@@ -2182,9 +2221,10 @@ Se o efeito de $V$ polarizar o diodo diretamente ($V>0$), diz-se que o diodo est
 \vspace{2mm}
 
 \textbf{Exemplo 1:} Determine se o diodo está em condução e calcule a tensão $v$. Considere $R=5\Omega$ e os valores das fontes no SI.
-%Here TH ou Delta-Y (prob sec)
+
 \begin{center}
-    \begin{tikzpicture}\draw
+    \begin{tikzpicture}
+        \draw
         (0,2) to[V,l=$80$] (0,0)
         (0,2) to[D,l=$D$] (2,2)
         (2,2) to[R,l=$3R$] (4,2)
@@ -2192,7 +2232,7 @@ Se o efeito de $V$ polarizar o diodo diretamente ($V>0$), diz-se que o diodo est
         (4,2) to[R,l=$R$] (6,2)
         (6,2) to[R,l=$2R$] (6,0)
         (6,2) to[R,l=$2R$] (8,2)
-        (8.15,2) to[open,v=$v$] (8.15,0)
+        (8.5,2) to[open,v=$v$] (8.5,0)
         (8,2) to[R,l=$4R$] (10,2)
         (10,2) to[R,l=$4R$] (10,0)
         (0,2) -- (0,4)
@@ -2202,6 +2242,327 @@ Se o efeito de $V$ polarizar o diodo diretamente ($V>0$), diz-se que o diodo est
         ;
     \end{tikzpicture}
 \end{center}
+
+\noindent Existem diversas abordagens para um problema como este. Pode-se, assumir o estado do diodo e checar posteriormente se há alguma inconsistência no circuito (e.g. diodo não conduzindo com tensão direta). Outra alternativa é realizar transformações $\Delta-Y$ sucessivas e simplificar o circuito. Existe, também a possibilidade de explodir a fonte de corrente, seguido de transformações de fontes. No entanto, o caminho escolhido para a resolução é encontrar um equivalente de Thévenin em relação aos terminais do ramo que contém o diodo e o resistor de $3R$. Logo, abre-se o circuito nos pontos citados.
+
+\begin{center}
+    \begin{tikzpicture}
+        \draw
+        (0,2) to[V,l=$80$] (0,0)
+        (0,2) to[short,-*] (0.3,2)
+        (3.7,2) to[short,*-] (4,2)
+        (0.3,2) to[open,v=$E_{th}$,voltage shift=-2] (3.7,2)
+        (4,2) to[R,l=$2R$] (4,0)
+        (4,2) to[R,l=$R$] (6,2)
+        (6,2) to[R,l=$2R$] (6,0)
+        (6,2) to[R,l=$2R$] (8,2)
+        (8,2) to[R,l=$4R$] (10,2)
+        (10,2) to[R,l=$4R$] (10,0)
+        (0,2) -- (0,4)
+        (10,2) -- (10,4)
+        (10,4) to[I,l=$2$] (0,4)
+        (0,0) -- (10,0)
+        ;
+    \end{tikzpicture}
+\end{center}
+
+\noindent $\mathbf{E_{th}:}$ É importante ressaltar que esse é um circuito completamente diferente do original, o que significa que não se pode encontrar a tensão $v$ nesta etapa. Para encontrar a tensão no resistor de $2R$ (o mais à esquerda) e posteriormente, pela lei das malhas, encontrar $E_{th}$, será utilizada a associação de resistores e, em seguida, o retorno sequencial utlizando as propriedades de série e paralelo. O primeiro passo é associar os resistores agora em série $2R$ e $R$.
+
+\begin{center}
+    \begin{tikzpicture}
+        \draw
+        (0,2) to[V,l=$80$] (0,0)
+        (0,2) to[short,-*] (0.3,2)
+        (4,2) to[R,l=$3R$] (4,0)
+        (4,2) -- (6,2)
+        (6,2) to[R,l=$2R$] (6,0)
+        (6,2) to[R,l=$2R$] (8,2)
+        (8,2) to[R,l=$4R$] (10,2)
+        (10,2) to[R,l=$4R$] (10,0)
+        (0,2) -- (0,4)
+        (10,2) -- (10,4)
+        (10,4) to[I,l=$2$] (0,4)
+        (0,0) -- (10,0)
+        ;
+    \end{tikzpicture}
+\end{center}
+
+\noindent Note que o terminal de interesse foi perdido ao somar os resistores, mas eventualmente encontraremos seu potencial. Agora, pode-se associar em paralelo os resistores de $3R$ e $2R$, ou seja,
+
+\begin{center}
+    \begin{tikzpicture}
+        \draw
+        (0,2) to[V,l=$80$] (0,0)
+        (0,2) to[short,-*] (0.3,2)
+        (3,2) -- (4,2)
+        (3,2) to[R,l=$1.2R$] (3,0)
+        (4,2) to[R,l=$2R$] (6,2)
+        (6,2) to[R,l=$4R$] (8,2)
+        (8,2) to[R,l=$4R$] (8,0)
+        (0,2) -- (0,4)
+        (8,2) -- (8,4)
+        (8,4) to[I,l=$2$] (0,4)
+        (0,0) -- (8,0)
+        ;
+    \end{tikzpicture}
+\end{center}
+
+\noindent Soma-se, então, os três resistores em série, isto é
+
+\begin{center}
+    \begin{tikzpicture}
+        \draw
+        (0,2) to[V,l=$80$] (0,0)
+        (0,2) to[short,-*] (0.3,2)
+        (3.5,2) -- (6,2)
+        (3.5,2) to[R,l=$7.2R$] (3.5,0)
+        (6,2) to[R,l=$4R$] (6,0)
+        (0,2) -- (0,4)
+        (6,2) -- (6,4)
+        (6,4) to[I,l=$2$] (0,4)
+        (0,0) -- (6,0)
+        ;
+    \end{tikzpicture}
+\end{center}
+
+\noindent Em seguida, realiza-se a associação em paralelo, resultando em um simples circuito série. Pela natureza da fonte de corrente, encontra-se a tensão no equivalente.
+
+\begin{center}
+    \begin{tikzpicture}
+        \draw
+        (0,2) to[V,l=$80$] (0,0)
+        (0,2) to[short,-*] (0.3,2)
+        (5,2) to[R,l=$\dfr{18}{7}R$,v<=$\dfr{36}{7}R$] (5,0)
+        (0,2) -- (0,4)
+        (5,2) -- (5,4)
+        (5,4) to[I,l=$2$] (0,4)
+        (0,0) -- (5,0)
+        ;
+    \end{tikzpicture}
+\end{center}
+
+\noindent Conhecendo-se a tensão no resistor equivalente, pela definição de paralelo, conhece-se a tensão nos resistores associados, ou seja,
+
+\begin{center}
+    \begin{tikzpicture}
+        \draw
+        (0,2) to[V,l=$80$] (0,0)
+        (0,2) to[short,-*] (0.3,2)
+        (3.5,2) -- (6,2)
+        (3.5,2) to[R,l=$7.2R$,v<=$\dfr{36}{7}R$] (3.5,0)
+        (6,2) to[R,l=$4R$,v<=$\dfr{36}{7}R$] (6,0)
+        (0,2) -- (0,4)
+        (6,2) -- (6,4)
+        (6,4) to[I,l=$2$] (0,4)
+        (0,0) -- (6,0)
+        ;
+    \end{tikzpicture}
+\end{center}
+
+\noindent Como o resistor de $7.2R$ vem de uma associação série, é seguro afirmar que sua tensão será dividida proporcionalmente à resistência de cada um dos resistores associados. Em outras palavras, a tensão no resistor de $1.2R$ é um divisor de tensão. Também pode-se pensar em termos da corrente do ramo em série ser exatamente a mesma do resistor $7.2R$ e, na sequência, multiplicar por $1.2R$ para obter a tensão.
+
+\begin{center}
+    \begin{tikzpicture}
+        \draw
+        (0,2) to[V,l=$80$] (0,0)
+        (0,2) to[short,-*] (0.3,2)
+        (3,2) -- (4,2)
+        (3,2) to[R,l=$1.2R$,v<=$\dfr{6}{7}R$] (3,0)
+        (4,2) to[R,l=$2R$] (6,2)
+        (6,2) to[R,l=$4R$] (8,2)
+        (8,2) to[R,l=$4R$] (8,0)
+        (0,2) -- (0,4)
+        (8,2) -- (8,4)
+        (8,4) to[I,l=$2$] (0,4)
+        (0,0) -- (8,0)
+        ;
+    \end{tikzpicture}
+\end{center}
+
+\noindent Pela definição de paralelo,
+
+\begin{center}
+    \begin{tikzpicture}
+        \draw
+        (0,2) to[V,l=$80$] (0,0)
+        (0,2) to[short,-*] (0.3,2)
+        (4,2) to[R,l=$3R$,v<=$\dfr{6}{7}R$] (4,0)
+        (4,2) -- (6,2)
+        (6,2) to[R,l=$2R$,v<=$\dfr{6}{7}R$] (6,0)
+        (6,2) to[R,l=$2R$] (8,2)
+        (8,2) to[R,l=$4R$] (10,2)
+        (10,2) to[R,l=$4R$] (10,0)
+        (0,2) -- (0,4)
+        (10,2) -- (10,4)
+        (10,4) to[I,l=$2$] (0,4)
+        (0,0) -- (10,0)
+        ;
+    \end{tikzpicture}
+\end{center}
+
+\noindent
+
+\noindent Utilizando o mesmo raciocínio, a tensão nos resistores associados em série pode ser calculada por um divisor de tensão. Neste caso, o resistor de interesse é o de $2R$, já que pertence à malha que contém a fonte de entrada e $E_{th}$.
+
+\begin{center}
+    \begin{tikzpicture}
+        \draw
+        (0,2) to[V,l=$80$] (0,0)
+        (0,2) to[short,-*] (0.3,2)
+        (3.7,2) to[short,*-] (4,2)
+        (0.3,2) to[open,v=$E_{th}$,voltage shift=-2] (3.7,2)
+        (4,2) to[R,l=$2R$,v<=$\dfr{4}{7}R$] (4,0)
+        (4,2) to[R,l=$R$] (6,2)
+        (6,2) to[R,l=$2R$] (6,0)
+        (6,2) to[R,l=$2R$] (8,2)
+        (8,2) to[R,l=$4R$] (10,2)
+        (10,2) to[R,l=$4R$] (10,0)
+        (0,2) -- (0,4)
+        (10,2) -- (10,4)
+        (10,4) to[I,l=$2$] (0,4)
+        (0,0) -- (10,0)
+        ;
+    \end{tikzpicture}
+\end{center}
+
+\noindent Finalmente, pela malha,
+
+\begin{equation}
+    E_{th} = 80 + \dfr{4}{7}R = \dfr{580}{7} V.
+\end{equation}
+
+\vspace{5mm}
+
+\noindent $\mathbf{R_{th}:}$ Para encontrar o resistor de Thévenin, mata-se as fontes independentes.
+
+\begin{center}
+    \begin{tikzpicture}
+        \draw
+        (0,2) -- (0,1.5)
+        (0,2) to[short,-*] (0.3,2)
+        (0,1.5) to[short,*-*]  (0,0.5)
+        (0,0.5) -- (0,0)
+        (3.7,2) to[short,*-] (4,2)
+        (4,2) to[R,l=$2R$] (4,0)
+        (4,2) to[R,l=$R$] (6,2)
+        (6,2) to[R,l=$2R$] (6,0)
+        (6,2) to[R,l=$2R$] (8,2)
+        (8,2) to[R,l=$4R$] (10,2)
+        (10,2) to[R,l=$4R$] (10,0)
+        (0,2) -- (0,4)
+        (10,2) -- (10,4)
+        (0,4) to[short,-*] (3,4)
+        (10,4) to[short,-*] (7,4)
+        (0,0) -- (10,0)
+        ;
+    \end{tikzpicture}
+\end{center}
+
+\noindent Note que, pelo ato de matar a fonte de corrente, os resistores de $2R, 4R$ e $4R$ agora estão em série. Então, a resistência vista dos terminais do Thévenin é dada pela associação dos resistores, de forma que
+
+\begin{equation}
+    R_{th} = [((4R+4R+2R)//(2R)) + R]//2R = \dfr{8}{7}R = \dfr{40}{7}\Omega.
+\end{equation}
+
+\noindent O circuito equivalente é, portanto,
+
+\begin{center}
+    \begin{tikzpicture}
+        \draw
+        (0,4) to[V,l=$\dfr{580}{7}$] (0,0)
+        (0,4) to[R,l=\hspace{2mm}$\dfr{40}{7}$] (3,4)
+        (3,4) to[D,l=$D$,*-] (3,2)
+        (3,2) to[R,l=$3R$,-*,f>^=$i$,v=$3Ri$] (3,0)
+        (0,0) -- (3,0)
+        ;
+    \end{tikzpicture}
+\end{center}
+
+\noindent Agora, é seguro afirmar que o diodo está em condução, pois enxerga uma tensão que o polariza diretamente. Substituindo o diodo por um curto, a corrente $i$ pode ser calculada pela lei de Ohm, resultando em
+
+\begin{equation*}
+    i = \dfr{\dfr{580}{7}}{\dfr{40}{7}+15} = 4A.
+\end{equation*}
+
+\noindent Retornando ao circuito original, incluindo a corrente recém calculada e definindo a polaridade das tensões:
+
+\begin{center}
+    \begin{tikzpicture}
+        \ctikzset{voltage/shift=0.55}
+        \draw
+        (0,2) to[V,l=$80$] (0,0)
+        (0,2) to[short,*-*,f=$4$] (2,2)
+        (2,2) to[R,v^=$60$] (4,2)
+        (4,2) to[R,v=$ $] (4,0)
+        (4,2) to[R,v^=$ $] (6,2)
+        (6,2) to[R,v=$ $] (6,0)
+        (6,2) to[R,v^=$ $] (8,2)
+        (8,2) to[R] (10,2)
+        (10,2) to[R] (10,0)
+        (0,2) -- (0,4)
+        (10,2) -- (10,4)
+        (10,4) to[I,l=$2$] (0,4)
+        (0,0) -- (10,0)
+        (8.5,2) to[open,v=$v$] (8.5,0)
+        ;
+    \end{tikzpicture}
+\end{center}
+
+\noindent Pela malha com a fonte, descobre-se que a tensão no resistor de $2R$ é igual a $20V$ e, pela lei de Ohm, que sua corrente é $2A$.
+
+\begin{center}
+    \begin{tikzpicture}
+        \ctikzset{voltage/shift=0.55}
+        \draw
+        (0,2) to[V,l=$80$] (0,0)
+        (0,2) to[short,*-*,f=$4$] (2,2)
+        (2,2) to[R,v^=$60$] (4,2)
+        ;
+        \ctikzset{flow/distance=2.2}
+        \draw
+        (4,2) to[R,v=$20$,f>^=$2$] (4,0)
+        (4,2) to[R,v^=$ $] (6,2)
+        (6,2) to[R,v=$ $] (6,0)
+        (6,2) to[R,v^=$ $] (8,2)
+        (8,2) to[R] (10,2)
+        (10,2) to[R] (10,0)
+        (0,2) -- (0,4)
+        (10,2) -- (10,4)
+        (10,4) to[I,l=$2$] (0,4)
+        (0,0) -- (10,0)
+        (8.5,2) to[open,v=$v$] (8.5,0)
+        ;
+    \end{tikzpicture}
+\end{center}
+
+\noindent Pela lei dos nós, a corrente no resistor $R$ deve ser igual a $2A$, o que implica sua tensão ser $10V$. O mesmo processo pode ser repetido para as demais variáveis do circuito.
+
+\begin{center}
+    \begin{tikzpicture}
+        \ctikzset{voltage/shift=0.55}
+        \draw
+        (0,2) to[V,l=$80$] (0,0)
+        (0,2) to[short,*-*,f=$4$] (2,2)
+        (2,2) to[R,v^=$60$] (4,2)
+        ;
+        \ctikzset{flow/distance=2.2}
+        \draw
+        (4,2) to[R,v=$20$,f>^=$2$] (4,0)
+        (4,2) to[R,v^=$10$,f>_=$2$] (6,2)
+        (6,2) to[R,v=$10$,f>^=$1$] (6,0)
+        (6,2) to[R,v^=$10$,f>_=$1$] (8,2)
+        (8,2) to[R,v^=$20$] (10,2)
+        (10,2) to[R,v<=$20$,f<^=$1$] (10,0)
+        (0,2) -- (0,4)
+        (10,2) -- (10,4)
+        (10,4) to[I,l=$2$] (0,4)
+        (0,0) -- (10,0)
+        (8.5,2) to[open,v=$v$] (8.5,0)
+        ;
+    \end{tikzpicture}
+\end{center}
+
+\noindent Quanto à tensão $v$, por qualquer uma de suas malhas, descobre-se que seu valor é nulo, isto é, $v=0$. De fato, a tensão $v$ está no meio de uma ponte de Wheatstone equilibrada (referida na Seção \ref{subsubsec:wheatstone}). Vale mencionar que a condução do diodo poderia ter sido inferida desde o início do exercício, pois ambas as fontes tendem a polarizar diretamente o diodo (pode-se imaginar que as fontes ``empurram'' suas respectivas variáveis no sentido em que o diodo favorece a passagem de corrente). Ainda assim, por questões didáticas, optou-se por encontrar o equivalente de Thévenin do circuito.
 
 \textbf{Exemplo 2:} Encontre a expressão da saída em função da entrada $e_0(e_1)$ para $-\infty < e_1 < \infty$. Dados: $R=10k\Omega$, $e_2=-15V$.
 
@@ -2427,7 +2788,7 @@ A aplicação de $n$ fontes de tensão gera uma ganho inverso à soma ponderada 
     V_o=-\left(\frac{R_{f}}{R_{1}}V_{1}+\frac{R_{f}}{R_{2}}V_{2}+...+\frac{R_{f}}{R_{n}}V_{n}\right)=-\sum_{k=1}^{n}\frac{R_{f}}{R_{k}}V_{k} \label{eq:ampop_somador}
 \end{equation}
 
-\textbf{Dedução:} A expressão acima é facilmente verificada utilizando o teorema da superposição. Calculando a contribuição para $V_o$ da fonte $V_1$ (chamada de $V_{o_1}$), por exemplo, obtém-se o seguinte circuito.
+\textbf{Dedução:} A expressão acima é facilmente verificada utilizando o Princípio da Superposição. Calculando a contribuição para $V_o$ da fonte $V_1$ (chamada de $V_{o_1}$), por exemplo, obtém-se o seguinte circuito.
 
 \begin{center}
     \begin{tikzpicture}\draw
@@ -2470,7 +2831,7 @@ Trabalha como amplificador da tensão diferencial $V_{d}=V_{+}-V_{-}$ entre os t
     \end{tikzpicture}
 \end{center}
 
-Usando o teorema da superposição,
+Usando o Princípio da Superposição,
 \begin{equation*}
     V_{o}=\frac{1+\dfr{R_{2}}{R_{1}}}{1+\dfr{R_{3}}{R_{4}}}V_{2} - \dfr{R_{2}}{R_{1}}V_{1}
 \end{equation*}
@@ -3055,7 +3416,7 @@ Com o conteúdo abordado nos capítulos anteriores, percebe-se que a análise b�
 
 \subsection{Resolução por Equações Diferenciais Ordinárias Lineares a Coeficientes Constantes}
 \label{subsec:edolcc}
-Uma importante ferramenta para resolução de circuitos no domínio do tempo é a resolução por \textbf{equações diferenciais}. Mais especificamente, as do tipo \textbf{ordinárias} (que são diferenciais apenas em relação a uma variável) \textbf{lineares} (definidas por um polinômio linear da função incógnita e de suas derivadas) e a \textbf{coeficientes constantes} (os coeficientes são uma função constante). O método se resume a relacionar a saída e a entrada a partir de uma equação diferencial (EDOL) e separá-la, pelo princípio da superposição, em duas equações mais simples, a \textbf{resposta natural} e a \textbf{resposta forçada}. A solução do problema em questão é a \textbf{resposta completa}, que é uma combinação linear das respostas natural e forçada.
+Uma importante ferramenta para resolução de circuitos no domínio do tempo é a resolução por \textbf{equações diferenciais}. Mais especificamente, as do tipo \textbf{ordinárias} (que são diferenciais apenas em relação a uma variável) \textbf{lineares} (definidas por um polinômio linear da função incógnita e de suas derivadas) e a \textbf{coeficientes constantes} (os coeficientes são uma função constante). O método se resume a relacionar a saída e a entrada a partir de uma equação diferencial (EDOL) e separá-la, pelo Princípio da Superposição, em duas equações mais simples, a \textbf{resposta natural} e a \textbf{resposta forçada}. A solução do problema em questão é a \textbf{resposta completa}, que é uma combinação linear das respostas natural e forçada.
 
 \subsubsection{Equacionamento}
 \label{subsubsec:equacionamento}
@@ -3447,6 +3808,8 @@ Como o lado direto da equação é constante, $e_{o_p} = A$. Substituindo na equ
     e_{o_p}(t) = A = 10.
 \end{equation}
 
+\vspace{2mm}
+
 \begin{center}{\textbf{Resposta Completa}}\end{center}
 \noindent A resposta completa é a soma das respostas natural e forçada, isto é,
 \begin{equation*}
@@ -3493,14 +3856,44 @@ Como o lado direto da equação é constante, $e_{o_p} = A$. Substituindo na equ
 \label{subesc:frequencia}
 Em circuitos elétricos, os problemas descritos como equações diferenciais em função do tempo podem ser levados ao domínio frequência, sendo utilizadas a \textbf{Transformada de Laplace} e suas propriedades. Considerando
 $$\mathscr{L}\{f(t)\}=F(s)$$
-É possível representar uma rede de componentes reativos através de suas impedâncias equivalentes no domínio frequência. Sendo $s$ a variável ``frequência'',
+É possível representar uma rede de componentes reativos através de suas impedâncias equivalentes no domínio frequência. Sendo $s$ a variável frequência,
+
 \begin{itemize}
     \item Resistor $(R)$: representado como uma impedância $R$
     \item Capacitor $(C)$: representado como uma impedância $\displaystyle{\frac{1}{sC}}$
     \item Indutor $(L)$: representado como uma impedância $sL$
 \end{itemize}
 %
-\textbf{Imagem ckt tempo -> frequência}
+\noindent\begin{minipage}{\textwidth}
+\centering
+\begin{minipage}[c][5cm][c]{\dimexpr0.45\textwidth-0.5\Colsep\relax}
+    \begin{center}
+        \begin{tikzpicture}
+            \draw
+            (0,3) to[V,l=$e_i(t)$] (0,0)
+            (0,3) to[R,l=$R$] (3,3)
+            (3,3) to[C,l=$C$] (3,0)
+            (0,0) to[L,l=$L$] (3,0)
+            ;
+        \end{tikzpicture}
+    \end{center}
+\end{minipage} \hfill
+\begin{minipage}[c][5cm][c]{\dimexpr0.1\textwidth-0.5\Colsep\relax}
+    $$\iff$$
+\end{minipage} \hfill
+\begin{minipage}[c][5cm][c]{\dimexpr0.45\textwidth-0.5\Colsep\relax}
+    \begin{center}
+        \begin{tikzpicture}
+            \draw
+            (0,3) to[V,l=$E_i(s)$] (0,0)
+            (0,3) to[R,l=$R$] (3,3)
+            (3,3) to[C,l=$\dfr{1}{sC}$] (3,0)
+            (0,0) to[L,l=$sL$] (3,0)
+            ;
+        \end{tikzpicture}
+    \end{center}
+\end{minipage}
+\end{minipage}
 
 Deste modo, é possível efetuar operações como a Lei de Ohm, Thévenin e divisores de tensão e corrente em um circuito com capacitores e indutores, facilitando a resolução de diversas configurações com representações mais complicadas no tempo. Por exemplo, um circuito de ordem 3, no tempo, é representado por uma equação diferencial ordinária de terceira ordem, a qual precisa de três condições iniciais para ser completamente resolvida. Operando em frequência, o problema é reduzido a um polinômio de terceira ordem, que requere apenas álgebra básica para ser resolvido. Deste modo, podem ser introduzidos novos métodos de resolução de circuitos.
 
@@ -3639,9 +4032,12 @@ No método da \textbf{superposição}, considera-se as variáveis de estado como
 
 \subsubsection{Representação de Estados por Diagrama de Estados}
 \label{subsubsec:est_mason}
-É possível montar a representação de estados utilizando a \textbf{regra de Mason}. De posse de um diagrama de \textbf{estados}, deve-se ``abrir'' os pontos de integração. Por definição, antes da integração a variável é $\dot x$ e depois ela se torna $x$. \\
-%%
-\textbf{Imagem de um diagrama de estados "cortado" nas variáveis de estado e renomeado}
+É possível montar a representação de estados utilizando a \textbf{Regra de Mason}. De posse de um diagrama de \textbf{estados}, deve-se ``abrir'' os pontos de integração. Por definição, antes da integração a variável é $\dot x$ e depois ela se torna $x$.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{img/mason/exemplo_estados}
+\end{figure}
 
 Agora, basta aplicar a regra de Mason em cada um dos termos das matrizes A,B,C,D.
 
