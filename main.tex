@@ -163,7 +163,7 @@ Elemento não reativo que gera oposição à passagem de corrente. Possui uma re
 \vspace{3mm}
 \begin{center}\textbf{Capacitor}\end{center}
 
-\justifying Elemento reativo que armazena energia através de um campo elétrico. Possui uma capacitância $C$ que relaciona sua a carga e sua tensão, isto é, $q=CV$. Em geral, consiste em duas placas metálicas paralelas e idênticas, de modo que o valor da capacitância dependa da área da seção transversal das placas, da distância entre placas e da permissividade do meio. Capacitores resistem a variações bruscas de tensão.
+\justifying Elemento reativo que armazena energia através de um campo elétrico. Possui uma capacitância $C$ que relaciona sua a carga e sua tensão, isto é, $q=CV$. Em geral, consiste em duas placas metálicas paralelas e idênticas, de modo que o valor da capacitância dependa da área da seção transversal das placas, da distância entre placas e da permissividade do meio. Capacitores resistem a variações bruscas de tensão, isto é, possuem certa ``inércia'' de tensão.
 
 \center{
 \begin{tikzpicture}\draw
@@ -185,7 +185,7 @@ Elemento não reativo que gera oposição à passagem de corrente. Possui uma re
 \newpage
 \begin{center}\textbf{Indutor}\end{center}
 
-\justifying Elemento reativo que armazena energia na forma de um campo magnético. Possui uma indutância $L$ que relaciona sua corrente e seu fluxo magnético concatenado, de modo que $\psi=Li$. Em geral, consiste em um fio enrolado sucessivamente. Sua tensão é dada pela \textbf{Lei de Faraday}. Os indutores resistem a variações bruscas de corrente.
+\justifying Elemento reativo que armazena energia na forma de um campo magnético. Possui uma indutância $L$ que relaciona sua corrente e seu fluxo magnético concatenado, de modo que $\psi=Li$. Em geral, consiste em um fio enrolado sucessivamente. Sua tensão é dada pela \textbf{Lei de Faraday}. Os indutores resistem a variações bruscas de corrente (``inércia'' de corrente).
 
 \center{
 \begin{tikzpicture}\draw
@@ -2042,7 +2042,7 @@ A partir do conceito da conservação de energia, é possível equacionar a pot�
 \noindent o que nos permite fazer um balanço de potências, ou seja, calcular as potências individuais de cada componente e somá-las, visto que a energia total de um sistema será sempre conservada. Naturalmente, a potência é separada em \textbf{fornecida} e \textbf{dissipada}, tornando prático definir uma convenção de sinais para $P_k$, sendo que
 \begin{itemize}
     \item \hspace{0.2cm} $P_k > 0$: a potência é \textbf{dissipada} quando as cargas elétricas passam de um ponto de \textbf{maior} potencial elétrico para um de \textbf{menor} potencial elétrico. Em outras palavras, quando a corrente flui do terminal polarizado positivamente $(+)$ para o polarizado negativamente $(-)$, pode-se dizer que o componente \textbf{consumiu} potência do sistema.
-    \item \hspace{0.2cm} $P_k < 0$: A potência é \textbf{fornecida} quando as cargas elétricas passam de um ponto com \textbf{menor} potencial elétrico $(-)$ para um de \textbf{maior} potencial elétrico $(+)$. Neste caso, pode-se dizer que o elemento \textbf{orneceu} potência elétrica para o sistema.
+    \item \hspace{0.2cm} $P_k < 0$: A potência é \textbf{fornecida} quando as cargas elétricas passam de um ponto com \textbf{menor} potencial elétrico $(-)$ para um de \textbf{maior} potencial elétrico $(+)$. Neste caso, pode-se dizer que o elemento \textbf{forneceu} potência elétrica para o sistema.
 \end{itemize}
 
 Em geral, utiliza-se do balanço de potência para circuitos resistivos, já que para capacitores e indutores a potência pode (e normalmente vai) variar no tempo. Ainda assim, essa técnica mostra-se útil para rapidamente conferir se a resolução do circuito foi feita de forma correta, já que a energia deve sempre ser conservada em um circuito elétrico.
@@ -2497,8 +2497,8 @@ Se o efeito de $V$ polarizar o diodo diretamente ($V>0$), diz-se que o diodo est
         (4,2) to[R,v^=$ $] (6,2)
         (6,2) to[R,v=$ $] (6,0)
         (6,2) to[R,v^=$ $] (8,2)
-        (8,2) to[R] (10,2)
-        (10,2) to[R] (10,0)
+        (8,2) to[R,v^=$ $] (10,2)
+        (10,2) to[R,v<=$ $] (10,0)
         (0,2) -- (0,4)
         (10,2) -- (10,4)
         (10,4) to[I,l=$2$] (0,4)
@@ -2524,8 +2524,8 @@ Se o efeito de $V$ polarizar o diodo diretamente ($V>0$), diz-se que o diodo est
         (4,2) to[R,v^=$ $] (6,2)
         (6,2) to[R,v=$ $] (6,0)
         (6,2) to[R,v^=$ $] (8,2)
-        (8,2) to[R] (10,2)
-        (10,2) to[R] (10,0)
+        (8,2) to[R,v^=$ $] (10,2)
+        (10,2) to[R,v<=$ $] (10,0)
         (0,2) -- (0,4)
         (10,2) -- (10,4)
         (10,4) to[I,l=$2$] (0,4)
@@ -3094,7 +3094,7 @@ Em alguns casos, alternativamente, representa-se $V_{1}$ e $I_{1}$ como funçõe
 
 \subsubsection{Resolução de Quadripolos}
 \label{subsubsec:quadripolosgenerico}
-Em sumo, um quadripolo qualquer pode ser representado por qualquer relação entre seus dois terminais. É possível escolher quaisquer parâmetros para equacionar o quadripolo, desde que as relações sejam válidas. Num caso geral, para saídas $y_{n\times1}$ e entradas $x_{n\times1}$, relacionadas linearmente através de uma matriz $M_{n\times n}$
+Em suma, um quadripolo qualquer pode ser representado por qualquer relação entre seus dois terminais. É possível escolher quaisquer parâmetros para equacionar o quadripolo, desde que as relações sejam válidas. Num caso geral, para saídas $y_{n\times1}$ e entradas $x_{n\times1}$, relacionadas linearmente através de uma matriz $M_{n\times n}$
 \begin{equation*}
     %Matriz de saída
     \begin{bmatrix}
@@ -3133,7 +3133,7 @@ Neste caso a melhor escolha é de parâmetros resistivos $r$, pois é válida a 
             (btt1.2) to[short,-*] (2,-0.45)
             (btt1.3) to[short,f<=$I_2$,-*] (2,0.45)
             (btt1.4) to[short,f<_=$I_1$,-*] (-2,0.45)
-            (-2,0.45) to[open,v=$V_1$] (-2,-0.45)
+            (-1.5,0.45) to[open,v=$V_1$] (-1.5,-0.45)
             (2.5,0.45) to[open,v_=$V_2$] (2.5,-0.45)
 
             (0,-3) node[fourport,t=$\textbf{r}_{2}$](btt2){}
@@ -3141,14 +3141,14 @@ Neste caso a melhor escolha é de parâmetros resistivos $r$, pois é válida a 
             (btt2.2) to[short,-*] (2,-3.45)
             (btt2.3) to[short,f<=$I_2$,-*] (2,-2.55)
             (btt2.4) to[short,f<_=$I_1$,-*] (-2,-2.55)
-            (-2,-2.55) to[open,v=$V_3$] (-2,-3.45)
+            (-1.5,-2.55) to[open,v=$V_3$] (-1.5,-3.45)
             (2.5,-2.55) to[open,v_=$V_4$] (2.5,-3.45)
 
             (-2,-0.45) to[short,f_=$I_1$,-*] (-2,-2.55)
             (2,-0.45) to[short,f=$I_2$,-*] (2,-2.55)
 
             (-4,0.45) to[short,f=$I_1$,*-] (-2,0.45)
-            (-4,0.45) to[open,v=$V_0$] (-4,-3.45)
+            (-3.5,0.45) to[open,v=$V_0$] (-3.5,-3.45)
             (-4,-3.45) to[short,f<_=$I_1$,*-] (-2,-3.45)
 
             (4,0.45) to[short,f_=$I_2$,*-] (2,0.45)
@@ -3164,7 +3164,7 @@ Neste caso a melhor escolha é de parâmetros resistivos $r$, pois é válida a 
         (btt.2) to[short,-*] (2,-0.45)
         (btt.3) to[short,f<=$I_2$,-*] (2,0.45)
         (btt.4) to[short,f<_=$I_1$,-*] (-2,0.45)
-        (-2,0.45) to[open,v=$V_0$] (-2,-0.45)
+        (-1.5,0.45) to[open,v=$V_0$] (-1.5,-0.45)
         (2.5,0.45) to[open,v_=$V_5$] (2.5,-0.45)
     ;\end{tikzpicture}
     \end{center}
@@ -3182,7 +3182,7 @@ Neste caso a melhor escolha é a de parâmetros $y$, já que
             (btt1.2) to[short,-*] (2,-0.45)
             (btt1.3) to[short,f<=$I_2$,-*] (2,0.45)
             (btt1.4) to[short,f<_=$I_1$,-*] (-2,0.45)
-            (-2,0.45) to[open,v=$V_1$] (-2,-0.45)
+            (-1.5,0.45) to[open,v=$V_1$] (-1.5,-0.45)
             (2.5,0.45) to[open,v_=$V_2$] (2.5,-0.45)
 
             (0,-3) node[fourport,t=$\textbf{y}_{2}$](btt2){}
@@ -3190,7 +3190,7 @@ Neste caso a melhor escolha é a de parâmetros $y$, já que
             (btt2.2) to[short,-*] (2,-3.45)
             (btt2.3) to[short,f<=$I_4$,-*] (2,-2.55)
             (btt2.4) to[short,f<_=$I_3$,-*] (-2,-2.55)
-            (-2,-2.55) to[open,v=$V_1$] (-2,-3.45)
+            (-1.5,-2.55) to[open,v=$V_1$] (-1.5,-3.45)
             (2.5,-2.55) to[open,v_=$V_2$] (2.5,-3.45)
 
             %(-2,-0.45) to[short,f_=$I_1$,-*] (-2,-2.55)
@@ -3212,7 +3212,7 @@ Neste caso a melhor escolha é a de parâmetros $y$, já que
 
             (-4,0.45) to[short,f=$I_0$,*-] (-3.5,0.45)
             (-3.5,0.45) -- (-2,0.45)
-            (-4,0.45) to[open,v=$V_1$] (-4,-3.45)
+            (-3.5,0.45) to[open,v=$V_1$] (-3.5,-3.45)
             (-4,-3.45) to[short,f<_=$I_0$,*-] (-3.5,-3.45)
             (-3.5,-3.45) -- (-2,-3.45)
 
@@ -3231,7 +3231,7 @@ Neste caso a melhor escolha é a de parâmetros $y$, já que
         (btt.2) to[short,-*] (2,-0.45)
         (btt.3) to[short,f<=$I_5$,-*] (2,0.45)
         (btt.4) to[short,f<_=$I_0$,-*] (-2,0.45)
-        (-2,0.45) to[open,v=$V_1$] (-2,-0.45)
+        (-1.5,0.45) to[open,v=$V_1$] (-1.5,-0.45)
         (2.5,0.45) to[open,v_=$V_2$] (2.5,-0.45)
     ;\end{tikzpicture}
     \end{center}
@@ -3249,7 +3249,7 @@ Neste caso a melhor escolha é parâmetros $h$. É possível equacionar
             (btt1.2) to[short,-*] (2,-0.45)
             (btt1.3) to[short,f<=$I_2$,-*] (2,0.45)
             (btt1.4) to[short,f<_=$I_1$,-*] (-2,0.45)
-            (-2,0.45) to[open,v=$V_1$] (-2,-0.45)
+            (-1.5,0.45) to[open,v=$V_1$] (-1.5,-0.45)
             (2.5,0.45) to[open,v_=$V_2$] (2.5,-0.45)
 
             (0,-3) node[fourport,t=$\textbf{h}_{2}$](btt2){}
@@ -3257,7 +3257,7 @@ Neste caso a melhor escolha é parâmetros $h$. É possível equacionar
             (btt2.2) to[short,-*] (2,-3.45)
             (btt2.3) to[short,f<=$I_4$,-*] (2,-2.55)
             (btt2.4) to[short,f<_=$I_1$,-*] (-2,-2.55)
-            (-2,-2.55) to[open,v=$V_3$] (-2,-3.45)
+            (-1.5,-2.55) to[open,v=$V_3$] (-1.5,-3.45)
             (2.5,-2.55) to[open,v_=$V_2$] (2.5,-3.45)
 
             (-2,-0.45) to[short,f_=$I_1$,-*] (-2,-2.55)
@@ -3279,7 +3279,7 @@ Neste caso a melhor escolha é parâmetros $h$. É possível equacionar
 
             (-4,0.45) to[short,f=$I_1$,*-] (-3.5,0.45)
             (-3.5,0.45) -- (-2,0.45)
-            (-4,0.45) to[open,v=$V_0$] (-4,-3.45)
+            (-3.5,0.45) to[open,v=$V_0$] (-3.5,-3.45)
             (-4,-3.45) to[short,f<_=$I_1$,*-] (-3.5,-3.45)
             (-3.5,-3.45) -- (-2,-3.45)
 
@@ -3298,7 +3298,7 @@ Neste caso a melhor escolha é parâmetros $h$. É possível equacionar
         (btt.2) to[short,-*] (2,-0.45)
         (btt.3) to[short,f<=$I_5$,-*] (2,0.45)
         (btt.4) to[short,f<_=$I_1$,-*] (-2,0.45)
-        (-2,0.45) to[open,v=$V_0$] (-2,-0.45)
+        (-1.5,0.45) to[open,v=$V_0$] (-1.5,-0.45)
         (2.5,0.45) to[open,v_=$V_2$] (2.5,-0.45)
     ;\end{tikzpicture}
     \end{center}
@@ -3316,7 +3316,7 @@ Neste caso a melhor escolha é parâmetros $g$, pois
             (btt1.2) to[short,-*] (2,-0.45)
             (btt1.3) to[short,f<=$I_2$,-*] (2,0.45)
             (btt1.4) to[short,f<_=$I_1$,-*] (-2,0.45)
-            (-2,0.45) to[open,v=$V_1$] (-2,-0.45)
+            (-1.5,0.45) to[open,v=$V_1$] (-1.5,-0.45)
             (2.5,0.45) to[open,v_=$V_2$] (2.5,-0.45)
 
             (0,-3) node[fourport,t=$\textbf{g}_{2}$](btt2){}
@@ -3324,7 +3324,7 @@ Neste caso a melhor escolha é parâmetros $g$, pois
             (btt2.2) to[short,-*] (2,-3.45)
             (btt2.3) to[short,f<=$I_2$,-*] (2,-2.55)
             (btt2.4) to[short,f<_=$I_3$,-*] (-2,-2.55)
-            (-2,-2.55) to[open,v=$V_1$] (-2,-3.45)
+            (-1.5,-2.55) to[open,v=$V_1$] (-1.5,-3.45)
             (2.5,-2.55) to[open,v_=$V_4$] (2.5,-3.45)
 
             %(-2,-0.45) to[short,f_=$I_1$,-*] (-2,-2.55)
@@ -3346,7 +3346,7 @@ Neste caso a melhor escolha é parâmetros $g$, pois
 
             (-4,0.45) to[short,f=$I_0$,*-] (-3.5,0.45)
             (-3.5,0.45) -- (-2,0.45)
-            (-4,0.45) to[open,v=$V_1$] (-4,-3.45)
+            (-3.5,0.45) to[open,v=$V_1$] (-3.5,-3.45)
             (-4,-3.45) to[short,f<_=$I_0$,*-] (-3.5,-3.45)
             (-3.5,-3.45) -- (-2,-3.45)
 
@@ -3365,7 +3365,7 @@ Neste caso a melhor escolha é parâmetros $g$, pois
         (btt.2) to[short,-*] (2,-0.45)
         (btt.3) to[short,f<=$I_2$,-*] (2,0.45)
         (btt.4) to[short,f<_=$I_0$,-*] (-2,0.45)
-        (-2,0.45) to[open,v=$V_1$] (-2,-0.45)
+        (-1.5,0.45) to[open,v=$V_1$] (-1.5,-0.45)
         (2.5,0.45) to[open,v_=$V_5$] (2.5,-0.45)
     ;\end{tikzpicture}
     \end{center}
@@ -3383,7 +3383,7 @@ Neste caso a melhor escolha é parâmetros de transmissão $ABCD$, possibilitand
             (btt.2) to[short,-*] (2,-0.45)
             (btt.3) to[short,f=$I_2$,-*] (2,0.45)
             (btt.4) to[short,f<_=$I_1$,-*] (-2,0.45)
-            (-2,0.45) to[open,v=$V_1$] (-2,-0.45)
+            (-1.5,0.45) to[open,v=$V_1$] (-1.5,-0.45)
             (2,0.45) to[open,v_=$V_2$] (2,-0.45)
 
             (2,0) to[open] (4,0) node[fourport,t=$\textbf{ABCD}_{2}$](btt2){}
@@ -3403,7 +3403,7 @@ Neste caso a melhor escolha é parâmetros de transmissão $ABCD$, possibilitand
         (btt.2) to[short,-*] (2,-0.45)
         (btt.3) to[short,f=$I_4$,-*] (2,0.45)
         (btt.4) to[short,f<_=$I_1$,-*] (-2,0.45)
-        (-2,0.45) to[open,v=$V_1$] (-2,-0.45)
+        (-1.5,0.45) to[open,v=$V_1$] (-1.5,-0.45)
         (2.5,0.45) to[open,v_=$V_4$] (2.5,-0.45)
     ;\end{tikzpicture}
     \end{center}
@@ -3434,7 +3434,7 @@ Usa-se as equações que modelam os elementos reativos (relações \textbf{VI}) 
     \end{tikzpicture}
 \end{center}
 
-\noindent Quer-se encontrar, literalmente (i.e. sem subtituir os valores dos componentes), a tensão no capacitor $e_o(t)$. O primeiro passo é definir as polaridades das tensões ou os sentidos das correntes no circuito. Neste caso, arbitrou-se as tensões conforme a figura abaixo. Vale ressaltar que, em função de simplificar a notação, a dependência temporal das variáveis de estado (tensões e correntes) será omitida, o que não significa que ela é inexistente.
+\noindent Quer-se encontrar, literalmente (i.e. sem subtituir os valores dos componentes), a tensão no capacitor $e_o(t)$. O primeiro passo é definir as polaridades das tensões ou os sentidos das correntes no circuito. Neste caso, arbitrou-se as tensões conforme a figura abaixo. Vale ressaltar que, em função de simplificar a notação, a dependência temporal das variáveis (tensões e correntes) será omitida, o que não significa que ela é inexistente.
 
 \begin{center}
     \begin{tikzpicture}
@@ -3536,7 +3536,7 @@ Usa-se as equações que modelam os elementos reativos (relações \textbf{VI}) 
     \deo{2} + \l(\dfr{1}{R_1C_1} + \dfr{1}{R_2C_1} + \dfr{1}{R_2C_2}\r)\deo{} + \dfr{1}{R_1R_2C_1C_2}e_o = \dfr{1}{R_1C_1}\dei{} + \dfr{1}{R_1R_2C_1C_2}e_i. \label{eq:edol_exemplo}
 \end{gather}
 
-A expressão \eqref{eq:edol_exemplo} é uma equação diferencial ordinária linear com coeficientes constantes de ordem 2 cuja incógnita é a função $e_{o}(t)$. Para o circuito em questão, substituindo os valores, tem-se
+\noindent A expressão \eqref{eq:edol_exemplo} é uma equação diferencial ordinária linear com coeficientes constantes de ordem 2 cuja incógnita é a função $e_{o}(t)$. Quando o coeficiente da derivada de maior ordem da incógnita é unitário, diz-se que a equação está na forma \textbf{mônica}. Para o circuito em questão, substituindo os valores, tem-se
 
 \begin{equation}
     \deo{2}+ 2.5 \deo{} + e_o = 10.
@@ -3583,7 +3583,7 @@ Pela própria modelagem do capacitor, é evidente que $e_o(0)=0$. Para a condiç
 
 \vspace{2mm}
 
-\noindent Tais condições iniciais, juntamente com a equação diferencial, formam um \textbf{problema de valor inicial (PVI)}. Em sumo, para encontrar a solução única $e_o(t)$, basta resolver
+\noindent Tais condições iniciais, juntamente com a equação diferencial, formam um \textbf{problema de valor inicial (PVI)}. Em suma, para encontrar a solução única $e_o(t)$, basta resolver
 
 \begin{equation}
     \begin{cases}
@@ -3593,7 +3593,7 @@ Pela própria modelagem do capacitor, é evidente que $e_o(0)=0$. Para a condiç
     , \quad t \geqslant 0.
 \end{equation}
 
-\noindent Como já mencionado, a dependência do tempo será omitida nos exemplos subsequentes, bem como a condição $t \geqslant 0$, pois, a menos que explicitado, os circuitos serão a partir do instante em que a fonte de alimentação é ligada.
+\noindent Como já mencionado, a dependência do tempo será omitida nos exemplos subsequentes, bem como a condição $t \geqslant 0$, pois, a menos que explicitado, os circuitos serão analisados a partir do instante em que a fonte de alimentação é ligada.
 
 \subsubsection{Resposta Natural}
 \label{subsubsec:natural}
@@ -3606,7 +3606,7 @@ A resposta natural (ou resposta em regime transitório) de um sistema pode ser d
     \end{cases} \label{eq:natural_generica}
 \end{equation}
 
-\noindent Aqui, $p$ e $q$ são constantes. Para que a soma das parcelas valha zero, $y(t)$ e suas derivadas devem possuir comportamentos similares. Em outras palavras, sendo os coeficientes constantes, não seria possível que, por exemplo, $y(t)=\ln(t)$, pois não existem $p$ e $q$ tal que a combinação linear do logarítmo natural e de suas duas primeiras derivadas resolva a equação \eqref{eq:natural_generica}. Esses conceito torna a função $y(t) = e^{\lambda t}$ a melhor candidata para resolver a equação diferencial, pois suas derivadas também são exponenciais. Assumindo, então, que a função incógnita é um exponencial, pode-se reescrever a expressão \eqref{eq:natural_generica} como
+\noindent Aqui, $p$ e $q$ são constantes. Para que a soma das parcelas valha zero, $y(t)$ e suas derivadas devem possuir comportamentos similares. Em outras palavras, sendo os coeficientes constantes, não seria possível que, por exemplo, $y(t)=\ln(t)$, pois não existem $p$ e $q$ tal que a combinação linear do logarítmo natural e de suas duas primeiras derivadas resolva a equação \eqref{eq:natural_generica}. Esse conceito torna a função $y(t) = e^{\lambda t}$ a melhor candidata para resolver a equação diferencial, pois suas derivadas também são exponenciais. Assumindo, então, que a função incógnita é uma exponencial, pode-se reescrever a expressão \eqref{eq:natural_generica} como
 
 \begin{equation*}
     (\lambda^{2}+p\lambda+q)\hspace{0.05cm} e^{\lambda t} = 0.
@@ -3615,7 +3615,7 @@ Já que a função $e^{\lambda t}$ não assume valor nulo para qualquer tempo re
 \begin{equation}
     \lambda^{2}+p\lambda+q=0.
 \end{equation}
-O polinômio acima representa a \textbf{equação característica}, elemento importante no momento de definir conceitos como a resposta natural e a estabilidade de um sistema. A equação característica terá sua ordem definida pela equação diferencial homogênea. No caso em questão, a EDOL é de ordem e dois possui duas raízes em sua equação característica. Convém analisar os diferentes casos para $\lambda$.
+O polinômio acima representa a \textbf{equação característica}, elemento importante no momento de definir conceitos como a resposta natural e a estabilidade de um sistema. A equação característica terá sua ordem definida pela equação diferencial homogênea. No caso em questão, a EDOL é de ordem dois e possui, portanto, duas raízes em sua equação característica. Convém analisar os diferentes casos para $\lambda$.
 
 \vspace{3mm}
 
@@ -3672,7 +3672,7 @@ Nota-se que escolhendo as exponenciais como no caso anterior, as mesmas serão l
     \dfr{d^2w(t)}{dt^2} = 0. \label{eq:dalembert_3}
 \end{equation}
 
-\noindent Portanto, por integração direta, descobre-se que $w(t)=At+B$. Como é necessária apenas uma solução linearmente independentes, escolhe-se $A=1$ e $B=0$ (vale ressaltar que se escolhido $A=0$, $y_2(t)$ estaria incluso na família de soluções de $y_1(t)$, isto é, $y_1(t)$ e $y_2(t)$ seriam linearmente dependentes), de forma que
+\noindent Portanto, por integração direta, descobre-se que $w(t)=At+B$. Como é necessária apenas uma solução linearmente independente, escolhe-se $A=1$ e $B=0$ (vale ressaltar que se escolhido $A=0$, $y_2(t)$ estaria incluso na família de soluções de $y_1(t)$, isto é, $y_1(t)$ e $y_2(t)$ seriam linearmente dependentes), de forma que
 
 \begin{equation*}
     y_2(t) = w(t)y_1(t) = ty_1(t) = te^{\lambda t}.
@@ -3712,7 +3712,7 @@ Sendo as raízes complexas e conjugadas $\lambda = \sigma \pm j\omega$, as expon
 \begin{gather*}
     y_1(t) = \dfr{z_1(t)+z_2(t)}{2} = e^{\sigma t}\cos(\omega t),
     \\
-    y_2(t) = \dfr{z_1(t)-z_2(t)}{2j} = e^{\sigma t}\sin(\omega t).
+    y_2(t) = \dfr{z_1(t)-z_2(t)}{j2} = e^{\sigma t}\sin(\omega t).
 \end{gather*}
 
 \noindent Portanto, combina-se linearmente $y_1(t)$ e $y_2(t)$ e a solução natural da equação torna-se
@@ -3777,7 +3777,7 @@ Então, deve-se substituir $y_{p}(t)$ na equação diferencial não homogênea p
 
 A resposta completa de um sistema é a soma da resposta natural com a resposta forçada. $$y(t)=y_n(t)+y_p(t)$$
 
-Retornando ao PVI \eqref{eq:pvi}, separa-se a resposta natural da forçada:
+Retornando ao PVI \eqref{eq:pvi}, separa-se a resposta natural da resposta forçada:
 \vspace{2mm}
 \begin{center}{\textbf{Resposta Natural}}\end{center}
 \begin{gather*}
