@@ -14,6 +14,7 @@
 \usepackage{multicol} % Multi-colunas
 \usepackage[american,cute inductors,nooldvoltagedirection]{circuitikz} %circuitikz, desenho de circuitos
 \usepackage{float} % Posicionamento das figuras
+\usepackage{pgfplots} % Gráficos
 \usepackage{enumitem} % Setar identação nos itemizes
 \setlist[itemize]{leftmargin=*}
 
@@ -30,6 +31,7 @@
 \let\r\right
 \let\dfr\dfrac
 \newcommand{\itembull}[1]{\noindent\textbf{\small{\textbullet \hspace{1.5mm}#1}}}
+
 
 \title{\begin{center}
     \includegraphics[width=0.45\textwidth]{img/ceeca.png}
@@ -50,7 +52,7 @@
 \section{Prefácio}
 \label{sec:pref}
 
-\subsection{Comentários}
+\subsection{Comentários dos Autores}
 \label{subsec:coment}
 
 Este documento tem como objetivo suprir a base teórica necessária para o aprendizado do método de resolução de circuitos elétricos no domínio do tempo (e brevemente em frequência) sob uma abordagem voltada ao uso combinado e simultâneo das Leis de Kirchhoff.
@@ -58,6 +60,8 @@ Este documento tem como objetivo suprir a base teórica necessária para o apren
 É importante salientar que o presente documento não é, de modo algum, tão completo e/ou matematicamente rigoroso quanto um livro-texto respeitável deve ser, pelo fato de que, dentre outras coisas, o mesmo foi criado em um curto intervalo de tempo e é destinado, principalmente, a auxiliar os alunos das diversas Engenharias, nossos colegas e amigos. Por isso, muitas das deduções matemáticas serão omitidas, bem como alguns fatos/conceitos sobre o funcionamento físico de circuitos elétricos serão considerados verdadeiros, sem maior embasamento experimental ou teórico.
 
 A organização dos tópicos a serem abordados foi escolhida de modo a seguir a ordem lógica de crescente complexidade quanto às suas seções, porém não tanto quanto às suas subseções.
+
+Quaisquer erros encontrados ou sugestões sobre esse material, favor contatar pelo seguinte email: \textbf{ceeca.box@gmail.com}
 
 \newpage
 
@@ -716,11 +720,77 @@ $$e_0=e_{0_1}+e_{0_2}$$
     \end{cases}
     $$
 
-    A função também pode ser denotada em outras bibliografias por $H(t)$ ou $u_{-1}(t)$. Seu principal uso é localizar algum evento no tempo, a exemplo de uma fonte sendo ligada ou uma chave sendo aberta ou fechada. O gráfico abaixo ilustra o comportamento da função $\cos (t)u(t)$ ao longo do tempo
+    A função também pode ser denotada em outras bibliografias por $H(t)$ ou $u_{-1}(t)$. Seu principal uso é localizar algum evento no tempo, a exemplo de uma fonte sendo ligada ou uma chave sendo aberta ou fechada. O gráfico a seguir ilustra o comportamento da função $u(t)$ ao longo do tempo
+
 
     \begin{center}
-        \includegraphics[width=0.95\textwidth]{img/cos(t).png}
+        \begin{tikzpicture}
+
+            \begin{axis}
+                [
+                width=0.75\textwidth,
+                axis lines = center,
+                %grid=both,
+                minor tick num=1,
+                xlabel=$t$,
+                tick align=inside,
+                legend style={at={(0.5,-0.1)},
+                anchor=north,legend columns=2},
+                legend entries={$u(t)$\\},
+                %domain=-2*pi:2*pi,
+                samples=200,
+                every axis y label/.style={rotate=0, black, at={(0.5,1.05)},},
+                every axis x label/.style={rotate=0, black, at={(1.05,0.5)},},
+                ymin=-1.2,
+                ymax=1.2,
+                ]
+                \addplot [domain=-pi:0,red,thick] {0};
+                \addplot[domain=-pi:4*pi,red,thick] coordinates {(0,0)(0,1)};
+                \addplot [domain=0:4*pi,red,thick] {1};
+
+            \end{axis}
+
+        \end{tikzpicture}
     \end{center}
+
+    Também é possível usar a função $u(t)$ com objetivo de modular algum outra função, multiplicando-as. O gráfico a seguir mostra um exemplo disso usando uma função trigonométrica.
+
+    \begin{center}
+        \begin{tikzpicture}
+
+            \begin{axis}
+                [
+                width=0.75\textwidth,
+                axis lines = center,
+                %grid=both,
+                minor tick num=1,
+                xlabel=$t$,
+                tick align=inside,
+                legend style={at={(0.5,-0.1)},
+                anchor=north,legend columns=2},
+                legend entries={$u(t)$\\$\cos(t)u(t)$\\},
+                %domain=-2*pi:2*pi,
+                samples=200,
+                every axis y label/.style={rotate=0, black, at={(0.5,1.05)},},
+                every axis x label/.style={rotate=0, black, at={(1.05,0.5)},},
+                ymin=-1.2,
+                ymax=1.2,
+                ]
+                \addplot [domain=-pi:0,red,thick] {0};
+                \addplot [domain=-pi:0,blue,thick] {0};
+                \addplot[domain=-pi:4*pi,red,thick] coordinates {(0,0)(0,1)};
+                \addplot[domain=-pi:4*pi,blue,thick] coordinates {(0,0)(0,1)};
+                \addplot [domain=0:4*pi,red,thick] {1};
+                \addplot [domain=0:4*pi,blue,thick] {cos(x*360/(2*pi))};
+
+
+            \end{axis}
+
+        \end{tikzpicture}
+    \end{center}
+
+
+
 
     \item \textbf{Delta de Dirac:} Inicialmente, define-se um pulso unitário $p(t)$ em torno da origem e com área unitária a partir de uma soma de saltos deslocados no tempo, tal que
     \begin{equation}
@@ -784,6 +854,40 @@ $$e_0=e_{0_1}+e_{0_2}$$
     \end{equation*}
 
     \noindent embora ambas definições serem utilizadas frequentemente no contexto de circuitos elétricos.
+
+    A figura a seguir ilustra a representação gráfica de um Delta de Dirac.
+
+    \begin{center}
+        \begin{tikzpicture}
+
+            \begin{axis}
+                [
+                width=0.6\textwidth,
+                axis lines = center,
+                %grid=both,
+                minor tick num=1,
+                xlabel=$t$,
+                tick align=inside,
+                legend style={at={(0.5,-0.1)},
+                anchor=north,legend columns=2},
+                legend entries={$\delta(t)$\\},
+                %domain=-2*pi:2*pi,
+                samples=200,
+                every axis y label/.style={rotate=0, black, at={(0.5,1.05)},},
+                every axis x label/.style={rotate=0, black, at={(1.05,0.5)},},
+                xmin=-3,
+                xmax=3,
+                ymin=-1.2,
+                ymax=1.2,
+                ]
+
+                \addplot[domain=-1:1,red,very thick] coordinates {(0,0)(0,1)};
+                \addplot[domain=-1:1,red,very thick,->] coordinates {(0,0)(0,1)};
+
+            \end{axis}
+
+        \end{tikzpicture}
+    \end{center}
 
     \item \textbf{Função Rampa:} consiste em uma reta partindo da origem, com inclinação unitária,
 
@@ -2605,7 +2709,420 @@ Se o efeito de $V$ polarizar o diodo diretamente ($V>0$), diz-se que o diodo est
 \end{minipage}
 \end{center}
 
-Note que ao passar o circuito para notação potencial (referida na Seção \ref{subsec:notpot}), ambas as fontes de tensão foram trocadas por potenciais de mesmas respectivas intensidades, visto que seus valores eram dados em relação à referência nula. Da mesma forma, o terminal do resistor na vertical $R$ que o conectava a $e_1$ e $e_2$ foi substituído pelo próprio terra.
+\textbf{Observação:} Note que ao passar o circuito para notação potencial (referida na Seção \ref{subsec:notpot}), ambas as fontes de tensão foram trocadas por potenciais de mesmas respectivas intensidades, visto que seus valores eram dados em relação à referência nula. Da mesma forma, o terminal do resistor na vertical $R$ que o conectava a $e_1$ e $e_2$ foi substituído pelo próprio terra.
+
+\vspace{5mm}
+
+Uma alternativa de abordagem para resolução desse problema é a de considerar todas combinações possíveis entre os estados dos diodos, dado que cada diodo possui dois estados e existem $N=2$ diodos nesse circuito, o total de combinações a serem analisadas são $2^N=2^2=4$, e, a partir disso, determinar quais delas podem acontecer de fato nesse circuito, para quais valores de $e_1$ acontecem e quais os valores da saída $e_0$ para cada uma delas. Outra abordagem seria a de variar o valor de $e_1$ de $-\infty$ até $\infty$ e, no decorrer desse processo, determinar quais as combinações de estados entre os diodos que ocorrem, bem como a saída $e_0$. Nesse exemplo, será apresentada a primeira abordagem para solucionar o problema.
+
+\vspace{5mm}
+
+\itembull{Hipótese 1:} $\mathbf{D_1}$ e $\mathbf{D_2}$ \textbf{OFF}. Para essa hipótese, as condições verificadoras que a tornam válida são $V_{D_1}<0$ e $V_{D_2}<0$, uma vez que só assim os diodos podem estar no estado de não condução.
+
+\noindent\begin{minipage}{0.95\textwidth}
+\begin{minipage}[c][7cm][c]{\dimexpr0.6\textwidth-0.5\Colsep\relax}
+    \begin{center}
+        \begin{tikzpicture}\draw
+            (-0.5,5.3) to[open,v=$e_1+15$] (6.5,5.3)
+            (0,4) node[label={left:$e_1$}]{} to[R,l=$R_1$,v=$\dfrac{e_1+15}{3}$,*-] (2,4)
+            (2,4) to[short,-*] (2,3.5)
+            (2,4) to[R,l=$R_2$] (4,4)
+            (4,4) to[short,-*] (4,3.5)
+            (4,4) to[R,l=$R_3$,-*] (6,4) node[label={right:$-15V$}]{}
+            (2,2.5) to[open,v=$V_{D_1}$] (2,3.5)
+            (4,3.5) to[open,v=$V_{D_2}$] (4,2.5)
+            (2,2) -- (4,2)
+            (2,2) to[short,-*] (2,2.5)
+            (4,2) to[short,-*] (4,2.5)
+            (3,2) node[label={above:$e_0$}]{} to[R,l=$R_0$,v=$0V$,*-] (3,0) node[tlground]{}
+
+            ;
+        \end{tikzpicture}
+    \end{center}
+\end{minipage} \hfill
+\begin{minipage}[c][7cm][c]{\dimexpr0.4\textwidth-0.5\Colsep\relax}
+    Desse modo, é possível equacionar ambos $V_{D_1}$ e $V_{D_2}$, por, respectivamente, malha que percorre $R_0$, $V_{D_1}$, $R_1$ e, por fim, $e_1$, e a malha que percorre $R_0$, $V_{D_2}$, $R_3$ e, por fim, a fonte de tensão de $-15V$. Então, aplica-se as condições verificadoras. Note que os resistores foram renomeados, mas apenas para facilitar referenciá-los.
+\end{minipage}
+\end{minipage}
+
+\noindent Resultando, para $V_{D_1}$, em
+
+\begin{equation*}
+    V_{D_{1}} = -e_1 + \frac{1}{3}(e_{1}+15)<0
+\end{equation*}
+\begin{equation*}
+    - \frac{2}{3}e_1<-5
+\end{equation*}
+
+
+\begin{equation}
+\label{eq:e1g7.5}
+    e_1>7.5
+\end{equation}
+
+\noindent e para $V_{D_2}$
+
+\begin{equation*}
+    V_{D_2} = -15 + \frac{1}{3}(e_1+15)<0
+\end{equation*}
+\begin{equation*}
+    \frac{1}{3}e_1<10
+\end{equation*}
+
+\begin{equation}
+\label{eq:e1l30}
+    e_1<30
+\end{equation}
+
+\vspace{2mm}
+
+\noindent Portanto, as Equações \eqref{eq:e1g7.5} e \eqref{eq:e1l30} explicitam o intervalo de $e_1$ em que cada um dos diodos está no estado da hipótese, supondo que o outro também esteja. Então, o intervalo em que de fato a hipótese é válida consiste na intersecção desses intervalos.
+
+\begin{equation}
+\label{eq:h1}
+    e_0 = 0, \text{ se }  7.5<e_1<30
+\end{equation}
+
+\textbf{Observação:} No caso em que a interseção entre os conjuntos dos possíveis valores da variável independente, neste caso $e_1$, em que cada um dos diodos assume o estado da hipótese for nula, significa que tal combinação de estados entre os diodos não pode acontecer nesse dado circuito.
+
+\vspace{5mm}
+
+\itembull{Hipótese 2:} $\mathbf{D_1}$ \textbf{ON} e $\mathbf{D_2}$ \textbf{OFF}. Para essa hipótese, as condições verificadoras são $i_{D_1}>0$ e $V_{D_2}<0$.
+
+
+\noindent\begin{minipage}{0.95\textwidth}
+\begin{minipage}[c][7cm][c]{\dimexpr0.6\textwidth-0.5\Colsep\relax}
+    \begin{center}
+        \begin{tikzpicture}\draw
+            (0,4) node[label={left:$e_1$}]{} to[R,l=$R_1$,*-] (2,4)
+            (2,4) to[short,-*] (2,3.5)
+            (2,4) to[R,l=$R_2$] (4,4)
+            (4,4) to[short,-*] (4,3.5)
+            (4,4) to[R,l=$R_3$,-*] (6,4) node[label={right:$-15V$}]{}
+            (2,3.5) to[short,f=$i_{D_1}$] (2,2.5)
+            (4,3.5) to[open,v=$V_{D_2}$] (4,2.5)
+            (2,2) -- (4,2)
+            (2,2) to[short,-*] (2,2.5)
+            (4,2) to[short,-*] (4,2.5)
+            (3,2) node[label={above:$e_0$}]{} to[R,l=$R_0$,*-] (3,0) node[tlground]{}
+
+            ;
+        \end{tikzpicture}
+    \end{center}
+\end{minipage} \hfill
+\begin{minipage}[c][7cm][c]{\dimexpr0.4\textwidth-0.5\Colsep\relax}
+    Faz-se, então, o Thevenin à esquerda de $R_3$.
+\end{minipage}
+\end{minipage}
+
+\noindent\begin{minipage}{0.95\textwidth}
+\begin{minipage}[c][3cm][c]{\dimexpr0.6\textwidth-0.5\Colsep\relax}
+    \begin{center}
+        \begin{tikzpicture}\draw
+            (0,0) node[label={left:$\dfrac{e_1}{2}$}]{} to[R,l=$\frac{3}{2}R$,*-] (2,0)
+            (2,0) to[R,l=$R_3$,*-] (4,0)
+            (4,0) to[short,f=$\dfrac{\dfrac{e_1}{2}+15}{25K}$,-*] (5,0) node[label={right:$-15V$}]{}
+
+            ;
+        \end{tikzpicture}
+    \end{center}
+\end{minipage} \hfill
+\begin{minipage}[c][3cm][c]{\dimexpr0.4\textwidth-0.5\Colsep\relax}
+    Assim, é possível descobrir a corrente que entra na fonte de $-15V$, à qual será denominada como $i_{R_3}$.
+\end{minipage}
+\end{minipage}
+
+\noindent\begin{minipage}{0.95\textwidth}
+\begin{minipage}[c][7cm][c]{\dimexpr0.6\textwidth-0.5\Colsep\relax}
+    \begin{center}
+        \begin{tikzpicture}\draw
+            (0,4) node[label={left:$e_1$}]{} to[R,l=$R_1$,*-] (2,4)
+            (2,4) to[short,-*] (2,3.5)
+            (2,4) to[R,l=$R_2$,f=$i_{R_3}$] (4,4)
+            (4,4) to[short,-*] (4,3.5)
+            (4,4) to[R,l=$R_3$,-*] (6,4) node[label={right:$-15V$}]{}
+            (2,3.5) to[short,f=$i_{D_1}$] (2,2.5)
+            (4,3.5) to[open,v=$V_{D_2}$] (4,2.5)
+            (2,2) -- (4,2)
+            (2,2) to[short,-*] (2,2.5)
+            (4,2) to[short,-*] (4,2.5)
+            (3,0) node[tlground]{} to[R,l_=$R_0$,v_=$-e_0$,-*] (3,2) node[label={above:$e_0$}]{}
+            ;
+        \end{tikzpicture}
+    \end{center}
+\end{minipage} \hfill
+\begin{minipage}[c][7cm][c]{\dimexpr0.4\textwidth-0.5\Colsep\relax}
+    Voltando ao circuito anterior, é possível descobrir a expressão de $i_{D_1}$ em função de $e_1$ descobrindo a tensão $-e_1$, ao fazer a malha que percorre $R_0$,$R_1$ e $e_1$, e dividir pela resistência $R_0$. Para a tensão $V_{D_2}$ se percorre a malha contendo $R_0$,$V_{D_2}$, $R_3$ e fonte de $-15V$. Em ambos os casos, aplica-se as condições verificadoras.
+\end{minipage}
+\end{minipage}
+
+\noindent Resultando, para $i_{D_1}$, em
+
+\begin{equation*}
+    -\dfrac{e_0}{10K} = i_{D_1} = \dfrac{1}{10k}[15-\dfrac{20k}{25k}(\dfrac{e_1}{2}+15)]>0\\
+\end{equation*}
+\begin{equation*}
+    -\dfrac{2e_1}{5}+3>0
+\end{equation*}
+
+\begin{equation}
+    e_1<7.5
+\end{equation}
+
+\noindent e para $V_{D_2}$
+
+\begin{equation*}
+    V_{D_2} = -\dfrac{10k}{25k}(\dfrac{e_1}{2}+15)<0\\
+\end{equation*}
+\begin{equation*}
+    -\dfrac{e_1}{2}-15<0
+\end{equation*}
+
+\begin{equation}
+    e_1>-30
+\end{equation}
+
+\noindent então
+
+\begin{equation}
+\label{eq:h2}
+    e_0 = \dfrac{2e_1}{5}-3, \text{ se }  -30<e_1<7.5
+\end{equation}
+
+\itembull{Hipótese 3:} $\mathbf{D_1}$ \textbf{OFF} e $\mathbf{D_2}$ \textbf{ON}. Para essa hipótese, as condições verificadoras são $V_{D_1}<0$ e $i_{D_2}>0$.
+
+
+\noindent\begin{minipage}{0.95\textwidth}
+\begin{minipage}[c][7cm][c]{\dimexpr0.6\textwidth-0.5\Colsep\relax}
+    \begin{center}
+        \begin{tikzpicture}\draw
+            (0,4) node[label={left:$e_1$}]{} to[R,l=$R_1$,*-] (2,4)
+            (2,4) to[short,-*] (2,3.5)
+            (2,4) to[R,l=$R_2$] (4,4)
+            (4,4) to[short,-*] (4,3.5)
+            (4,4) to[R,l=$R_3$,-*] (6,4) node[label={right:$-15V$}]{}
+            (2,2.5) to[open,v=$V_{D_1}$] (2,3.5)
+            (4,3.5) to[short,f=$i_{D_2}$] (4,2.5)
+            (2,2) -- (4,2)
+            (2,2) to[short,-*] (2,2.5)
+            (4,2) to[short,-*] (4,2.5)
+            (3,2) node[label={above:$e_0$}]{} to[R,l=$R_0$,*-] (3,0) node[tlground]{}
+
+            ;
+        \end{tikzpicture}
+    \end{center}
+\end{minipage} \hfill
+\begin{minipage}[c][7cm][c]{\dimexpr0.4\textwidth-0.5\Colsep\relax}
+    Faz-se, então, o Thevenin à direita de $R_1$.
+\end{minipage}
+\end{minipage}
+
+\noindent\begin{minipage}{0.95\textwidth}
+\begin{minipage}[c][3cm][c]{\dimexpr0.6\textwidth-0.5\Colsep\relax}
+    \begin{center}
+        \begin{tikzpicture}\draw
+            (0,0) node[label={left:$e_1$}]{} to[R,l=$R_1$,*-] (2,0)
+            (2,0) to[short,f=$\dfrac{e_1+7.5}{25K}$,-*] (3,0)
+            (3,0) to[R,l=$\frac{3}{2}R$,-*] (5,0) node[label={right:$-15V$}]{}
+
+            ;
+        \end{tikzpicture}
+    \end{center}
+\end{minipage} \hfill
+\begin{minipage}[c][3cm][c]{\dimexpr0.4\textwidth-0.5\Colsep\relax}
+    Assim, é possível descobrir a corrente que sai da fonte $e_1$, à qual será denominada como $i_{R_1}$.
+\end{minipage}
+\end{minipage}
+
+\noindent\begin{minipage}{0.95\textwidth}
+\begin{minipage}[c][7cm][c]{\dimexpr0.6\textwidth-0.5\Colsep\relax}
+    \begin{center}
+        \begin{tikzpicture}\draw
+            (0,4) node[label={left:$e_1$}]{} to[R,l=$R_1$,f=$i_{R_1}$,*-] (2,4)
+            (2,4) to[short,-*] (2,3.5)
+            (2,4) to[R,l=$R_2$] (4,4)
+            (4,4) to[short,-*] (4,3.5)
+            (4,4) to[R,l=$R_3$,-*] (6,4) node[label={right:$-15V$}]{}
+            (2,2.5) to[open,v=$V_{D_1}$] (2,3.5)
+            (4,3.5) to[short,f=$i_{D_2}$] (4,2.5)
+            (2,2) -- (4,2)
+            (2,2) to[short,-*] (2,2.5)
+            (4,2) to[short,-*] (4,2.5)
+            (3,2) node[label={above:$e_0$}]{} to[R,l=$R_0$,*-] (3,0) node[tlground]{}
+            ;
+        \end{tikzpicture}
+    \end{center}
+\end{minipage} \hfill
+\begin{minipage}[c][7cm][c]{\dimexpr0.4\textwidth-0.5\Colsep\relax}
+    Retornando ao circuito original dentro dessa hipótese, é possível descobrir a expressão de $i_{D_2}$ em função de $e_1$ descobrindo a tensão $e_1$, ao fazer a malha que percorre $R_0$,$R_3$ e a fonte de $-15V$, e dividir pela resistência $R_0$. Para a tensão $V_{D_1}$ se percorre a malha contendo $R_0$,$V_{D_1}$, $R_1$ e fonte $e_1$. Em ambos os casos, aplica-se as condições verificadoras.
+\end{minipage}
+\end{minipage}
+
+\noindent Resultando, para $V_{D_1}$, em
+
+\begin{equation*}
+    \dfrac{e_0}{10K} = i_{D_2} = \dfrac{1}{10k}[e_1-\dfrac{20k}{25k}(\dfrac{e_1}{2}+7.5)]>0
+\end{equation*}
+\begin{equation*}
+    \dfrac{e_1}{5}-6>0
+\end{equation*}
+
+\begin{equation}
+    e_1>30
+\end{equation}
+
+\noindent e para $V_{D_2}$
+
+\begin{equation*}
+    V_{D_1} = -\dfrac{10k}{25k}(\dfrac{e_1}{2}+7.5)<0
+\end{equation*}
+\begin{equation*}
+    -e_1-7.5<0
+\end{equation*}
+
+\noindent então
+
+\begin{equation}
+    e_1>-7.5
+\end{equation}
+
+\begin{equation}
+\label{eq:h3}
+    e_0 = \dfrac{e_1}{5}-6, \text{ se }  e_1>30
+\end{equation}
+
+\itembull{Hipótese 4:} $\mathbf{D_1}$ e $\mathbf{D_2}$ \textbf{ON}. Para essa hipótese, as condições verificadoras são $i_{D_1}>0$ e $i_{D_2}>0$.
+
+
+\begin{center}
+\noindent\begin{minipage}{\textwidth}
+\begin{minipage}[c][5cm][c]{\dimexpr0.45\textwidth-0.5\Colsep\relax}
+    \begin{center}
+        \begin{tikzpicture}[scale=0.9, transform shape]\draw
+            (2,4)  to[R,l_=$R_1$,f_=$i_{D_1}$,-*] (0,4) node[label={left:$e_1$}]{}
+            (2,4) to[short,-*] (2,3.5)
+            (2,4) to[R,l=$R_2$,v=$0V$] (4,4)
+            (4,4) to[short,-*] (4,3.5)
+            (4,4) to[R,l=$R_3$,f<=$i_{D_2}$,-*] (6,4) node[label={right:$e_2$}]{}
+            (2,2.5) to[short,f=$i_{D_1}$] (2,3.5)
+            (4,3.5) to[short,f=$i_{D_2}$] (4,2.5)
+            (2,2) -- (4,2)
+            (2,2) to[short,-*] (2,2.5)
+            (4,2) to[short,-*] (4,2.5)
+            (3,2) node[label={above:$e_0$}]{} to[R,l=$R_0$,f=$i_{D_2}-i_{D_1}$,*-] (3,0)
+            (3,0)  --  (3,-0.5) node[tlground]{}
+            ;
+        \end{tikzpicture}
+    \end{center}
+\end{minipage} \hfill
+\begin{minipage}[c][5cm][c]{\dimexpr0.1\textwidth-0.5\Colsep\relax}
+    $$\iff$$
+\end{minipage} \hfill
+\begin{minipage}[c][5cm][c]{\dimexpr0.45\textwidth-0.5\Colsep\relax}
+    \begin{center}
+        \begin{tikzpicture}\draw
+            (2,4)  to[R,l_=$R_1$,f_=$i_{D_1}$,-*] (0,4) node[label={left:$e_1$}]{}
+            (2,4) to[R,l=$R_3$,f<=$i_{D_2}$,-*] (4,4) node[label={right:$e_2$}]{}
+            (2,4) node[label={above:$e_0$}]{} to[R,l=$R_0$,f=$i_{D_2}-i_{D_1}$,*-] (2,2)
+            (2,2) -- (2,1.5) node[tlground]{}
+
+            ;
+        \end{tikzpicture}
+    \end{center}
+\end{minipage}
+\end{minipage}
+\end{center}
+
+\noindent Nesse caso, uma vez que ambos diodos estão em curto, o resistor $R_2$ é redundante, pois sua corrente e tensão são nulas, dessa forma é possível reescrever o circuito para melhor visualização. As correntes $i_{D_1} = i_{R_1}$ e $i_{D_2} = i_{R_2}$ podem ser obtidas de forma semelhante aos casos anteriores, ao fazer, respectivamente, um Thévenin à direita de $R_1$ e outro à esquerda de $R_3$. Após isso, aplia-se as condições verificadoras em cada uma das expressões. Dessa forma, o cálculo para $i_{D_1}$ fica
+
+\begin{equation*}
+    i_{D_1} = -\dfrac{1}{15k}(e_1+7.5)>0
+\end{equation*}
+\begin{equation*}
+    -e_1-7.5>0
+\end{equation*}
+
+\begin{equation*}
+    e_1<-7.5
+\end{equation*}
+
+\noindent e para $i_{D_2}$
+
+\begin{equation*}
+    i_{D_2} = -\dfrac{1}{15k}(\dfrac{e_1}{2}+15)>0
+\end{equation*}
+
+\begin{equation*}
+    e_1<-30
+\end{equation*}
+
+\noindent A saída $e_0$ pode ser calculada a partir da diferença entre as correntes $i_{D_2}$ e $i_{D_1}$ multiplicada por $R_0$.
+
+\begin{equation*}
+    e_0 = 10k(i_{D_2}-i_{D_1}) = \dfrac{2}{3}[e_1+7.5-\dfrac{e_1}{2}-15]
+\end{equation*}
+
+\noindent então
+
+\begin{equation}
+\label{eq:h4}
+    e_0 = \dfrac{e_1}{3}-5, \text{ se }  e_1<-30
+\end{equation}
+
+\noindent Por fim, a resposta final para a saída $e_0$ em função de $e_1$ é obtida a partir das Expressões \eqref{eq:h1}, \eqref{eq:h2}, \eqref{eq:h3} e \eqref{eq:h4} e é mostrada a seguir.
+
+
+    \begin{center}
+        \[e_0(e_1) =
+        \begin{cases}
+
+            \frac{1}{3}e_1-5,& \text{ se }  e_1<-30, \text{ onde D1 e D2 \textbf{ON}}\\
+
+            \frac{2}{5}e_1-3,& \text{ se }  -30<e_1<7.5, \text{ onde D1 \textbf{ON} e D2 \textbf{OF}}\\
+
+            0,& \text{ se }  7.5<e_1<30, \text{ onde D1 e D2 \textbf{OFF}}\\
+
+            \frac{1}{5}e_1-6,& \text{ se }  e_1>30, \text{ onde D1 \textbf{OFF} e D2 \textbf{ON}}
+
+        \end{cases}
+        \]
+    \end{center}
+
+
+    \begin{center}
+        \begin{tikzpicture}
+
+            \draw [->] (-5,0) -- (5,0) node[right] {$e_1$};
+            \draw [->] (0,-2.5) -- (0,2.5) node[above] {$e_0(e_1)$};
+
+            \fill (-3,0) circle (1pt) node[label={above:$-30$}]{};
+            \fill (0.75,0) circle (1pt) node[label={above:$7.5$}]{};
+            \fill (3,0) circle (1pt) node[label={above:$30$}]{};
+
+            \fill (0,-0.3) circle (1pt);
+            \draw (0,-0.4) node[label={right:$-3$}]{};
+            \fill (0,-1.5) circle (1pt) node[label={right:$-15$}]{};
+
+            \draw [scale=.1,domain=-30:7.5,smooth,variable=\x,black] plot ({\x},{\x*2/5-3});
+            \draw [scale=.1,domain=-48:-30,smooth,variable=\x,black] plot ({\x},{\x/3-5});
+            \draw [scale=.1,domain=-30:7.5,smooth,variable=\x,black] plot ({\x},{\x*2/5-3});
+            \draw [scale=.1,domain=7.5:30,smooth,variable=\x,black] plot ({\x},{0});
+            \draw [scale=.1,domain=30:48,smooth,variable=\x,black] plot ({\x},{\x/5-6});
+
+            \draw[dashed] (0,-1.5) -- (-3,-1.5);
+            \draw[dashed] (-3,-1.5) -- (-3,0);
+
+
+        \end{tikzpicture}
+    \end{center}
+
+
+
+
+
+
+
+
 
 \subsection{Amplificador Operacional Ideal}
 \label{subsec:ampop}
@@ -2920,6 +3437,27 @@ Portanto, por definição, o cálculo dos parâmetros é dado por
             r_{21}=\displaystyle\left.\frac{V_{2}}{I_{1}}\right|_{I_{2}=0} [\Omega] & \quad  r_{22}=\displaystyle\left.\frac{V_{2}}{I_{2}}\right|_{I_{1}=0} [\Omega]
     \end{matrix}$
 \end{center}
+
+Existe também um circuito equivalente ao qual procede diretamente de um quadripolo ao qual os parâmetros são dados, porém também é possível fazer o processo inverso, ao encontrar um circuito com esta mesma topologia, e descobrir os parâmetros diretamente dos valores dos resistores. Neste caso, o circuito equivalente fica como segue:
+
+\begin{center}
+    \begin{tikzpicture}
+        \draw
+        (0,0) to[short,f=$I_1$,*-] (1,0)
+        (1,0) to[R,l=$r_{11}$] (3,0)
+        (3,0) to[V,l_=$r_{12}I_2$] (3,-2)
+        (0,0) to[open,v=$V_1$] (0,-2)
+
+        (8,0) to[short,f_=$I_2$,*-] (7,0)
+        (7,0) to[R,l_=$r_{22}$] (5,0)
+        (5,0) to[V,l=$r_{21}I_1$] (5,-2)
+        (8.5,0) to[open,v=$V_2$] (8.5,-2)
+
+        (0,-2) to[short,*-*] (8,-2)
+        ;
+    \end{tikzpicture}
+\end{center}
+
 \subsubsection{Parâmetros y}
 \label{subsubsec:quadripolosy}
 Os parâmetros admitância ($y$) ou condutância relacionam as correntes $I_{1}$ e $I_{2}$ como combinação linear das tensões $V_{1}$ e $V_{2}$.
@@ -2961,6 +3499,28 @@ Em forma de equação matricial,
     \end{matrix}$
 \end{center}
 
+Neste caso, o circuito equivalente é:
+
+\begin{center}
+    \begin{tikzpicture}
+        \draw
+        (0,0) to[short,f=$I_1$,*-] (1,0)
+        (1,0) to[R,l_=$\dfrac{1}{y_{11}}$] (1,-2)
+        (1,0) -- (3,0)
+        (3,-2) to[I,l=$y_{12}E_2$] (3,0)
+        (0,0) to[open,v=$V_1$] (0,-2)
+
+        (8,0) to[short,f_=$I_2$,*-] (7,0)
+        (7,0) to[R,l=$\dfrac{1}{y_{22}}$] (7,-2)
+        (7,0) -- (5,0)
+        (5,-2) to[I,l_=$y_{21}E_1$] (5,0)
+        (8.8,0) to[open,v=$V_2$] (8.8,-2)
+
+        (0,-2) to[short,*-*] (8,-2)
+        ;
+    \end{tikzpicture}
+\end{center}
+
 \subsubsection{Parâmetros h}
 \label{subsubsec:quadripolosh}
 Os parâmetros híbridos ($h$) são definidos através de combinações mistas (`híbridas') entre corrente e tensão.
@@ -2998,6 +3558,28 @@ Em forma de equação matricial,
             h_{22}=\displaystyle\left.\frac{I_{2}}{V_{2}}\right|_{I_{1}=0} [\Omega^{-1}]
     \end{matrix}$
 \end{center}
+
+Neste caso, o circuito equivalente é:
+
+\begin{center}
+    \begin{tikzpicture}
+        \draw
+        (0,0) to[short,f=$I_1$,*-] (1,0)
+        (1,0) to[R,l=$h_{11}$] (3,0)
+        (3,0) to[V,l_=$h_{12}I_2$] (3,-2)
+        (0,0) to[open,v=$V_1$] (0,-2)
+
+        (8,0) to[short,f_=$I_2$,*-] (7,0)
+        (7,0) to[R,l=$\dfrac{1}{h_{22}}$] (7,-2)
+        (7,0) -- (5,0)
+        (5,-2) to[I,l_=$h_{21}E_1$] (5,0)
+        (8.8,0) to[open,v=$V_2$] (8.8,-2)
+
+        (0,-2) to[short,*-*] (8,-2)
+        ;
+    \end{tikzpicture}
+\end{center}
+
 \subsubsection{Parâmetros g}
 Os parâmetros híbridos inversos ($g$) são a contraparte dos parâmetros híbridos.
 \begin{equation*}
@@ -3034,9 +3616,30 @@ Portanto, por definição, o cálculo dos parâmetros é dado por
     \end{matrix}$
 \end{center}
 
+Neste caso, o circuito equivalente é:
+
+\begin{center}
+    \begin{tikzpicture}
+        \draw
+        (0,0) to[short,f=$I_1$,*-] (1,0)
+        (1,0) to[R,l_=$\dfrac{1}{g_{11}}$] (1,-2)
+        (1,0) -- (3,0)
+        (3,-2) to[I,l=$g_{12}E_2$] (3,0)
+        (0,0) to[open,v=$V_1$] (0,-2)
+
+        (8,0) to[short,f_=$I_2$,*-] (7,0)
+        (7,0) to[R,l_=$g_{22}$] (5,0)
+        (5,0) to[V,l=$g_{21}I_1$] (5,-2)
+        (8.5,0) to[open,v=$V_2$] (8.5,-2)
+
+        (0,-2) to[short,*-*] (8,-2)
+        ;
+    \end{tikzpicture}
+\end{center}
+
 \subsubsection{Parâmetros ABCD}
 \label{subsubsec:quadripolostransm}
-Os parâmetros ABCD, também chamados de parâmetros de transmissão relacionam a tensão e a corrente de uma porta com a da outra. Em outras palavras, \textbf{transmitem} uma tensão e uma corrente de entrada à saída na porta complementar. Este é um caso especial no qual a corrente de saída $I_{2}$ é considerada saindo do quadripolo.
+Os parâmetros ABCD, também chamados de parâmetros de transmissão relacionam a tensão e a corrente de uma porta com a da outra. Em outras palavras, \textbf{transmitem} uma tensão e uma corrente de entrada à saída na porta complementar. Este é um caso especial no qual a corrente de saída $I_{2}$ é considerada saindo do quadripolo, ou seja equaciona-se com $-I_{2}$ utilizando os sentidos arbitrados inicialmente nessa seção.
 
 \begin{equation*}
     V_{2} \hspace{0.2cm} =A \hspace{0.2cm} V_{1}+ B \hspace{0.2cm} I_{1}
