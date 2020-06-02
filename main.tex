@@ -792,6 +792,9 @@ $$e_0=e_{0_1}+e_{0_2}$$
 
 
 
+
+
+
     \item \textbf{Delta de Dirac:} Inicialmente, define-se um pulso unitário $p(t)$ em torno da origem e com área unitária a partir de uma soma de saltos deslocados no tempo, tal que
     \begin{equation}
          p(t) = \dfr{1}{2a}(u(t+a) - u(t-a)). \label{eq:pulso}
@@ -854,6 +857,40 @@ $$e_0=e_{0_1}+e_{0_2}$$
     \end{equation*}
 
     \noindent embora ambas definições serem utilizadas frequentemente no contexto de circuitos elétricos.
+
+    A figura a seguir ilustra a representação gráfica de um Delta de Dirac.
+
+    \begin{center}
+        \begin{tikzpicture}
+
+            \begin{axis}
+                [
+                width=0.6\textwidth,
+                axis lines = center,
+                %grid=both,
+                minor tick num=1,
+                xlabel=$t$,
+                tick align=inside,
+                legend style={at={(0.5,-0.1)},
+                anchor=north,legend columns=2},
+                legend entries={$\delta(t)$\\},
+                %domain=-2*pi:2*pi,
+                samples=200,
+                every axis y label/.style={rotate=0, black, at={(0.5,1.05)},},
+                every axis x label/.style={rotate=0, black, at={(1.05,0.5)},},
+                xmin=-3,
+                xmax=3,
+                ymin=-1.2,
+                ymax=1.2,
+                ]
+
+                \addplot[domain=-1:1,red,very thick] coordinates {(0,0)(0,1)};
+                \addplot[domain=-1:1,red,very thick,->] coordinates {(0,0)(0,1)};
+
+            \end{axis}
+
+        \end{tikzpicture}
+    \end{center}
 
     A figura a seguir ilustra a representação gráfica de um Delta de Dirac.
 
@@ -3115,14 +3152,6 @@ Uma alternativa de abordagem para resolução desse problema é a de considerar 
 
         \end{tikzpicture}
     \end{center}
-
-
-
-
-
-
-
-
 
 \subsection{Amplificador Operacional Ideal}
 \label{subsec:ampop}
