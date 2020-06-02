@@ -52,7 +52,7 @@
 \section{Prefácio}
 \label{sec:pref}
 
-\subsection{Comentários dos Autores}
+\subsection{Comentários}
 \label{subsec:coment}
 
 Este documento tem como objetivo suprir a base teórica necessária para o aprendizado do método de resolução de circuitos elétricos no domínio do tempo (e brevemente em frequência) sob uma abordagem voltada ao uso combinado e simultâneo das Leis de Kirchhoff.
@@ -61,7 +61,7 @@ Este documento tem como objetivo suprir a base teórica necessária para o apren
 
 A organização dos tópicos a serem abordados foi escolhida de modo a seguir a ordem lógica de crescente complexidade quanto às suas seções, porém não tanto quanto às suas subseções.
 
-Quaisquer erros encontrados ou sugestões sobre esse material, favor contatar pelo seguinte email: \textbf{ceeca.box@gmail.com}
+Quaisquer erros encontrados ou sugestões sobre esse material, favor contatar pelo seguinte email: \textbf{\texttt{ceeca.box@gmail.com}}
 
 \newpage
 
@@ -720,7 +720,7 @@ $$e_0=e_{0_1}+e_{0_2}$$
     \end{cases}
     $$
 
-    A função também pode ser denotada em outras bibliografias por $H(t)$ ou $u_{-1}(t)$. Seu principal uso é localizar algum evento no tempo, a exemplo de uma fonte sendo ligada ou uma chave sendo aberta ou fechada. O gráfico a seguir ilustra o comportamento da função $u(t)$ ao longo do tempo
+    A função também pode ser denotada em outras bibliografias por $H(t)$ ou $u_{-1}(t)$. Seu principal uso é localizar algum evento no tempo, a exemplo de uma fonte sendo ligada ou uma chave sendo aberta ou fechada. O gráfico a seguir ilustra o comportamento da função $u(t)$ ao longo do tempo:
 
 
     \begin{center}
@@ -729,31 +729,34 @@ $$e_0=e_{0_1}+e_{0_2}$$
             \begin{axis}
                 [
                 width=0.75\textwidth,
-                axis lines = center,
+                height=0.6\textwidth,
+                axis lines=middle,
+                x label style={at={(axis description cs:1.03,0.32)},anchor=north},
+                y label style={at={(axis description cs:0.2,1.03)},anchor=south},
                 %grid=both,
                 minor tick num=1,
                 xlabel=$t$,
+                ylabel=$u(t)$,
                 tick align=inside,
-                legend style={at={(0.5,-0.1)},
-                anchor=north,legend columns=2},
-                legend entries={$u(t)$\\},
+                %legend style={at={(0.5,-0.1)},anchor=north,legend columns=2},
+                %legend entries={$u(t)$\\},
                 %domain=-2*pi:2*pi,
                 samples=200,
-                every axis y label/.style={rotate=0, black, at={(0.5,1.05)},},
-                every axis x label/.style={rotate=0, black, at={(1.05,0.5)},},
-                ymin=-1.2,
+                %every axis y label/.style={rotate=0, black, at={(0.5,1.05)},},
+                %every axis x label/.style={rotate=0, black, at={(1.05,0.5)},},
+                ymin=-0.5,
                 ymax=1.2,
                 ]
-                \addplot [domain=-pi:0,red,thick] {0};
-                \addplot[domain=-pi:4*pi,red,thick] coordinates {(0,0)(0,1)};
-                \addplot [domain=0:4*pi,red,thick] {1};
+                \addplot [domain=-pi:0,black,very thick] {0};
+                \addplot[domain=-pi:4*pi,black,very thick] coordinates {(0,0)(0,1)};
+                \addplot [domain=0:4*pi,black,very thick] {1};
 
             \end{axis}
 
         \end{tikzpicture}
     \end{center}
 
-    Também é possível usar a função $u(t)$ com objetivo de modular algum outra função, multiplicando-as. O gráfico a seguir mostra um exemplo disso usando uma função trigonométrica.
+    Também é possível usar a função $u(t)$ com objetivo de modular algum outra função, multiplicando-as. O gráfico a seguir mostra um exemplo disso usando uma função trigonométrica:
 
     \begin{center}
         \begin{tikzpicture}
@@ -761,39 +764,26 @@ $$e_0=e_{0_1}+e_{0_2}$$
             \begin{axis}
                 [
                 width=0.75\textwidth,
-                axis lines = center,
-                %grid=both,
+                axis lines = middle,
+                x label style={at={(axis description cs:1.05,0.525)},anchor=north},
+                y label style={at={(axis description cs:0.2,1.03)},anchor=south},
                 minor tick num=1,
                 xlabel=$t$,
+                ylabel=$\cos(t)u(t)$,
                 tick align=inside,
-                legend style={at={(0.5,-0.1)},
-                anchor=north,legend columns=2},
-                legend entries={$u(t)$\\$\cos(t)u(t)$\\},
-                %domain=-2*pi:2*pi,
                 samples=200,
-                every axis y label/.style={rotate=0, black, at={(0.5,1.05)},},
-                every axis x label/.style={rotate=0, black, at={(1.05,0.5)},},
                 ymin=-1.2,
                 ymax=1.2,
                 ]
-                \addplot [domain=-pi:0,red,thick] {0};
-                \addplot [domain=-pi:0,blue,thick] {0};
-                \addplot[domain=-pi:4*pi,red,thick] coordinates {(0,0)(0,1)};
-                \addplot[domain=-pi:4*pi,blue,thick] coordinates {(0,0)(0,1)};
-                \addplot [domain=0:4*pi,red,thick] {1};
-                \addplot [domain=0:4*pi,blue,thick] {cos(x*360/(2*pi))};
+                \addplot [domain=-pi:0,black,very thick] {0};
+                \addplot[domain=-pi:4*pi,black,very thick] coordinates {(0,0)(0,1)};
+                \addplot [domain=0:4*pi,black,very thick] {cos(x*360/(2*pi))};
 
 
             \end{axis}
 
         \end{tikzpicture}
     \end{center}
-
-
-
-
-
-
 
     \item \textbf{Delta de Dirac:} Inicialmente, define-se um pulso unitário $p(t)$ em torno da origem e com área unitária a partir de uma soma de saltos deslocados no tempo, tal que
     \begin{equation}
@@ -858,7 +848,7 @@ $$e_0=e_{0_1}+e_{0_2}$$
 
     \noindent embora ambas definições serem utilizadas frequentemente no contexto de circuitos elétricos.
 
-    A figura a seguir ilustra a representação gráfica de um Delta de Dirac.
+    A figura a seguir ilustra a representação gráfica de um Delta de Dirac:
 
     \begin{center}
         \begin{tikzpicture}
@@ -866,60 +856,22 @@ $$e_0=e_{0_1}+e_{0_2}$$
             \begin{axis}
                 [
                 width=0.6\textwidth,
-                axis lines = center,
-                %grid=both,
+                axis lines = middle,
+                x label style={at={(axis description cs:1.05,0.525)},anchor=north},
+                y label style={at={(axis description cs:0.5,1.03)},anchor=south},
                 minor tick num=1,
                 xlabel=$t$,
+                ylabel=$\delta(t)$,
                 tick align=inside,
-                legend style={at={(0.5,-0.1)},
-                anchor=north,legend columns=2},
-                legend entries={$\delta(t)$\\},
-                %domain=-2*pi:2*pi,
                 samples=200,
-                every axis y label/.style={rotate=0, black, at={(0.5,1.05)},},
-                every axis x label/.style={rotate=0, black, at={(1.05,0.5)},},
                 xmin=-3,
                 xmax=3,
                 ymin=-1.2,
                 ymax=1.2,
                 ]
 
-                \addplot[domain=-1:1,red,very thick] coordinates {(0,0)(0,1)};
-                \addplot[domain=-1:1,red,very thick,->] coordinates {(0,0)(0,1)};
-
-            \end{axis}
-
-        \end{tikzpicture}
-    \end{center}
-
-    A figura a seguir ilustra a representação gráfica de um Delta de Dirac.
-
-    \begin{center}
-        \begin{tikzpicture}
-
-            \begin{axis}
-                [
-                width=0.6\textwidth,
-                axis lines = center,
-                %grid=both,
-                minor tick num=1,
-                xlabel=$t$,
-                tick align=inside,
-                legend style={at={(0.5,-0.1)},
-                anchor=north,legend columns=2},
-                legend entries={$\delta(t)$\\},
-                %domain=-2*pi:2*pi,
-                samples=200,
-                every axis y label/.style={rotate=0, black, at={(0.5,1.05)},},
-                every axis x label/.style={rotate=0, black, at={(1.05,0.5)},},
-                xmin=-3,
-                xmax=3,
-                ymin=-1.2,
-                ymax=1.2,
-                ]
-
-                \addplot[domain=-1:1,red,very thick] coordinates {(0,0)(0,1)};
-                \addplot[domain=-1:1,red,very thick,->] coordinates {(0,0)(0,1)};
+                \addplot[domain=-1:1,black,very thick] coordinates {(0,0)(0,1)};
+                \addplot[domain=-1:1,black,very thick,->] coordinates {(0,0)(0,1)};
 
             \end{axis}
 
@@ -2813,7 +2765,7 @@ Uma alternativa de abordagem para resolução desse problema é a de considerar 
 
 \vspace{2mm}
 
-\noindent Portanto, as Equações \eqref{eq:e1g7.5} e \eqref{eq:e1l30} explicitam o intervalo de $e_1$ em que cada um dos diodos está no estado da hipótese, supondo que o outro também esteja. Então, o intervalo em que de fato a hipótese é válida consiste na intersecção desses intervalos.
+\noindent Portanto, as equações \eqref{eq:e1g7.5} e \eqref{eq:e1l30} explicitam o intervalo de $e_1$ em que cada um dos diodos está no estado da hipótese. Então, o intervalo em que de fato a hipótese é válida consiste na intersecção desses intervalos.
 
 \begin{equation}
 \label{eq:h1}
@@ -2836,7 +2788,7 @@ Uma alternativa de abordagem para resolução desse problema é a de considerar 
             (2,4) to[R,l=$R_2$] (4,4)
             (4,4) to[short,-*] (4,3.5)
             (4,4) to[R,l=$R_3$,-*] (6,4) node[label={right:$-15V$}]{}
-            (2,3.5) to[short,f=$i_{D_1}$] (2,2.5)
+            (2,2.5) to[short,f=$i_{D_1}$] (2,3.5)
             (4,3.5) to[open,v=$V_{D_2}$] (4,2.5)
             (2,2) -- (4,2)
             (2,2) to[short,-*] (2,2.5)
@@ -2852,20 +2804,69 @@ Uma alternativa de abordagem para resolução desse problema é a de considerar 
 \end{minipage}
 \end{minipage}
 
+
+\noindent\begin{minipage}{0.95\textwidth}
+\begin{minipage}[c][3cm][c]{\dimexpr0.6\textwidth-0.5\Colsep\relax}
+    \begin{center}
+        \begin{tikzpicture}\draw
+            (2,4)  to[R,l_=$R_1$,-*] (0,4) node[label={left:$e_1$}]{}
+            (2,4) to[R,l=$R_2$,v=$0V$,f<=$0A$,-*] (4,4) node[label={right:$E_{th}$}]{}
+            (2,4) to[R,l=$R_0$] (2,2) node[tlground]{}
+            ;
+        \end{tikzpicture}
+    \end{center}
+\end{minipage} \hfill
+\begin{minipage}[c][3cm][c]{\dimexpr0.4\textwidth-0.5\Colsep\relax}
+    Para encontrar a tensão de Thévenin em um circuito em notação potencial, aplica-se uma tensão de valor $E_{th}$, ainda desconhecida, no ponto de interesse, em que a corrente fornecida é é $0A$, evidenciando que, pela definição, $E_{th}$ é a tensão a circuito aberto. Dessa forma, nesse caso, como a corrente que passa por $R_2$ é nula, os resistores $R_0$ e $R_1$ ficam em série, por conta da mesma corrente percorrer ambos.
+\end{minipage}
+\end{minipage}
+
+\vspace{2cm}
+
+\noindent Então a tensão $E_{th}$ é justamente, pela malha que percorre $E_{th}$, $R_2$ e $R_0$, a tensão $V_{R_0}$, com o potencial positivo para cima. Uma vez que $R_0$ e $R_1$ estão em série, $V_{R_0}$ é o divisor de tensão da fonte $e_1$ entre os resistores $R_0$ e $R_1$ no resistor $R_0$.
+
+\begin{equation*}
+    E_{th} = V_{R_0} = \dfrac{R_0}{R_0+R_1}e_1 = \dfrac{e_1}{2}
+\end{equation*}
+
+\vspace{2cm}
+
+\noindent\begin{minipage}{0.95\textwidth}
+\begin{minipage}[c][3cm][c]{\dimexpr0.6\textwidth-0.5\Colsep\relax}
+    \begin{center}
+        \begin{tikzpicture}\draw
+            (2,4)  to[R,l_=$R_1$] (0,4)
+            (0,4) -- (0,3.8) node[tlground]{}
+            (2,4) to[R,l=$R_2$,f<=$1A$,-*] (4,4) node[label={right:$R_{th}$}]{}
+            (2,4) to[R,l=$R_0$] (2,2) node[tlground]{}
+            ;
+        \end{tikzpicture}
+    \end{center}
+\end{minipage} \hfill
+\begin{minipage}[c][3cm][c]{\dimexpr0.4\textwidth-0.5\Colsep\relax}
+    Para encontrar o resistor equivalente de Thévenin em um circuito em notação potencial, pode-se utilizar o método previamente mencionado na Seção \ref{subsubsec:thfontecontrolada}, que consiste em aplicar uma fonte de corrente de $1A$ em que a tensão que cai sobre ela é de valor igual a $R_{th}$. O análogo para notação potencial é mostrado no circuito. Vale salientar que, dado que a fonte $e_1$ foi morta para o cálculo do resistor equivalente, os resistores $R_0$ e $R_1$ agora estão em paralelo.
+\end{minipage}
+\end{minipage}
+
+\vspace{2cm}
+
+\begin{equation*}
+    R_{th} = 1A\cdot[(R_0//R_1)+R_2] = \frac{3}{2}R
+\end{equation*}
+
 \noindent\begin{minipage}{0.95\textwidth}
 \begin{minipage}[c][3cm][c]{\dimexpr0.6\textwidth-0.5\Colsep\relax}
     \begin{center}
         \begin{tikzpicture}\draw
             (0,0) node[label={left:$\dfrac{e_1}{2}$}]{} to[R,l=$\frac{3}{2}R$,*-] (2,0)
             (2,0) to[R,l=$R_3$,*-] (4,0)
-            (4,0) to[short,f=$\dfrac{\dfrac{e_1}{2}+15}{25K}$,-*] (5,0) node[label={right:$-15V$}]{}
-
+            (4,0) to[short,f=$\dfrac{\dfrac{e_1}{2}+15}{25k}$,-*] (5,0) node[label={right:$-15V$}]{}
             ;
         \end{tikzpicture}
     \end{center}
 \end{minipage} \hfill
 \begin{minipage}[c][3cm][c]{\dimexpr0.4\textwidth-0.5\Colsep\relax}
-    Assim, é possível descobrir a corrente que entra na fonte de $-15V$, à qual será denominada como $i_{R_3}$.
+    Assim, é possível descobrir a corrente que entra na fonte de $-15V$, a qual será denominada como $i_{R_3}$.
 \end{minipage}
 \end{minipage}
 
@@ -2878,25 +2879,25 @@ Uma alternativa de abordagem para resolução desse problema é a de considerar 
             (2,4) to[R,l=$R_2$,f=$i_{R_3}$] (4,4)
             (4,4) to[short,-*] (4,3.5)
             (4,4) to[R,l=$R_3$,-*] (6,4) node[label={right:$-15V$}]{}
-            (2,3.5) to[short,f=$i_{D_1}$] (2,2.5)
+            (2,2.5) to[short,f=$i_{D_1}$] (2,3.5)
             (4,3.5) to[open,v=$V_{D_2}$] (4,2.5)
             (2,2) -- (4,2)
             (2,2) to[short,-*] (2,2.5)
             (4,2) to[short,-*] (4,2.5)
-            (3,0) node[tlground]{} to[R,l_=$R_0$,v_=$-e_0$,-*] (3,2) node[label={above:$e_0$}]{}
+            (3,0) node[tlground]{} to[R,l=$R_0$,v=$-e_0$,-*] (3,2) node[label={above:$e_0$}]{}
             ;
         \end{tikzpicture}
     \end{center}
 \end{minipage} \hfill
 \begin{minipage}[c][7cm][c]{\dimexpr0.4\textwidth-0.5\Colsep\relax}
-    Voltando ao circuito anterior, é possível descobrir a expressão de $i_{D_1}$ em função de $e_1$ descobrindo a tensão $-e_1$, ao fazer a malha que percorre $R_0$,$R_1$ e $e_1$, e dividir pela resistência $R_0$. Para a tensão $V_{D_2}$ se percorre a malha contendo $R_0$,$V_{D_2}$, $R_3$ e fonte de $-15V$. Em ambos os casos, aplica-se as condições verificadoras.
+    Voltando ao circuito anterior, é possível descobrir a expressão de $i_{D_1}$ em função de $e_1$ descobrindo a tensão $-e_0$, ao fazer a malha que percorre $R_0$,$R_1$ e $e_1$, e dividir pela resistência $R_0$. Para a tensão $V_{D_2}$, percorre-se a malha contendo $R_0$,$V_{D_2}$, $R_3$ e a fonte de $-15V$. Em ambos os casos, aplica-se as condições verificadoras.
 \end{minipage}
 \end{minipage}
 
 \noindent Resultando, para $i_{D_1}$, em
 
 \begin{equation*}
-    -\dfrac{e_0}{10K} = i_{D_1} = \dfrac{1}{10k}[15-\dfrac{20k}{25k}(\dfrac{e_1}{2}+15)]>0\\
+    -\dfrac{e_0}{10k} = i_{D_1} = \dfrac{1}{10k}[15-\dfrac{20k}{25k}(\dfrac{e_1}{2}+15)]>0\\
 \end{equation*}
 \begin{equation*}
     -\dfrac{2e_1}{5}+3>0
@@ -2954,12 +2955,13 @@ Uma alternativa de abordagem para resolução desse problema é a de considerar 
 \end{minipage}
 \end{minipage}
 
+
 \noindent\begin{minipage}{0.95\textwidth}
 \begin{minipage}[c][3cm][c]{\dimexpr0.6\textwidth-0.5\Colsep\relax}
     \begin{center}
         \begin{tikzpicture}\draw
             (0,0) node[label={left:$e_1$}]{} to[R,l=$R_1$,*-] (2,0)
-            (2,0) to[short,f=$\dfrac{e_1+7.5}{25K}$,-*] (3,0)
+            (2,0) to[short,f=$\dfrac{e_1+7.5}{25k}$,-*] (3,0)
             (3,0) to[R,l=$\frac{3}{2}R$,-*] (5,0) node[label={right:$-15V$}]{}
 
             ;
@@ -2967,7 +2969,7 @@ Uma alternativa de abordagem para resolução desse problema é a de considerar 
     \end{center}
 \end{minipage} \hfill
 \begin{minipage}[c][3cm][c]{\dimexpr0.4\textwidth-0.5\Colsep\relax}
-    Assim, é possível descobrir a corrente que sai da fonte $e_1$, à qual será denominada como $i_{R_1}$.
+    Assim, é possível descobrir a corrente que sai da fonte $e_1$, a qual será denominada como $i_{R_1}$.
 \end{minipage}
 \end{minipage}
 
@@ -2991,14 +2993,14 @@ Uma alternativa de abordagem para resolução desse problema é a de considerar 
     \end{center}
 \end{minipage} \hfill
 \begin{minipage}[c][7cm][c]{\dimexpr0.4\textwidth-0.5\Colsep\relax}
-    Retornando ao circuito original dentro dessa hipótese, é possível descobrir a expressão de $i_{D_2}$ em função de $e_1$ descobrindo a tensão $e_1$, ao fazer a malha que percorre $R_0$,$R_3$ e a fonte de $-15V$, e dividir pela resistência $R_0$. Para a tensão $V_{D_1}$ se percorre a malha contendo $R_0$,$V_{D_1}$, $R_1$ e fonte $e_1$. Em ambos os casos, aplica-se as condições verificadoras.
+    Retornando ao circuito original dentro dessa hipótese, é possível descobrir a expressão de $i_{D_2}$ em função de $e_1$ descobrindo a tensão $e_0$, ao fazer a malha que percorre $R_0$,$R_3$ e a fonte de $-15V$, e dividir pela resistência $R_0$. Para a tensão $V_{D_1}$, percorre-se a malha contendo $R_0$,$V_{D_1}$, $R_1$ e fonte $e_1$. Em ambos os casos, aplica-se as condições verificadoras.
 \end{minipage}
 \end{minipage}
 
 \noindent Resultando, para $V_{D_1}$, em
 
 \begin{equation*}
-    \dfrac{e_0}{10K} = i_{D_2} = \dfrac{1}{10k}[e_1-\dfrac{20k}{25k}(\dfrac{e_1}{2}+7.5)]>0
+    \dfrac{e_0}{10k} = i_{D_2} = \dfrac{1}{10k}[e_1-\dfrac{20k}{25k}(\dfrac{e_1}{2}+7.5)]>0
 \end{equation*}
 \begin{equation*}
     \dfrac{e_1}{5}-6>0
@@ -3106,7 +3108,7 @@ Uma alternativa de abordagem para resolução desse problema é a de considerar 
     e_0 = \dfrac{e_1}{3}-5, \text{ se }  e_1<-30
 \end{equation}
 
-\noindent Por fim, a resposta final para a saída $e_0$ em função de $e_1$ é obtida a partir das Expressões \eqref{eq:h1}, \eqref{eq:h2}, \eqref{eq:h3} e \eqref{eq:h4} e é mostrada a seguir.
+\noindent Por fim, a resposta final para a saída $e_0$ em função de $e_1$ é obtida a partir das expressões \eqref{eq:h1}, \eqref{eq:h2}, \eqref{eq:h3} e \eqref{eq:h4} e é mostrada a seguir.
 
 
     \begin{center}
@@ -4477,6 +4479,28 @@ Como o lado direto da equação é constante, $e_{o_p} = A$. Substituindo na equ
 
 \subsubsection{Exemplos}
 \label{subsubsec:exemplosreativos}
+
+\noindent\textbf{Exemplo 1: }Determine, literalmente (isto é, sem substituir nenhum valor), a EDOL para $e_o$, com as respectivas condições iniciais e, em seguida, calcule $e_o(t)$ para $e_i= 1 + 2\cos^2(t)$, $R_1 = R_2 = 2\omega$, $R_3=1\omega$, $C_1 = C_2 = 0.25F$, $C_3 = 0.5F$, $L=1H$, $K = 25 \frac{V}{V}$.
+
+\begin{center}
+    \begin{tikzpicture}
+        \draw
+        (0,3) to[V,l=$e_i$] (0,0)
+        (0,3) to[R,l=$R_1$] (3,3)
+        (3,3) to[L,l=$L$] (3,0)
+        (3,3) -- (5,3)
+        (5,3) to[C,l=$C_1$,v=$e$] (5,0)
+        (7,3) to[V,l=$ke$] (7,0)
+        (7,3) to[R,l=$R_2$] (9,3)
+        (9,3) to[C,l=$C_2$] (11,3)
+        (11,3) to[R,l=$R_3$] (11,0)
+        (11,3) -- (13,3)
+        (13,3) to[C,l=$C_3$,v=$e_o$] (13,0)
+        (0,0) -- (13,0)
+
+        ;
+    \end{tikzpicture}
+\end{center}
 
 \subsubsection{Elementos Reativos com Condições Iniciais: Resposta à Entrada Zero não nula}
 \label{subsubsec:entradazeronaonula}
