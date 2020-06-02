@@ -3366,28 +3366,101 @@ Generalizando, a contribuição de uma fonte genérica $V_n$ é
 \noindent tornando evidente que a soma de todas as contribuições resulta na expressão \eqref{eq:ampop_somador}.
 
 \subsubsection{Configuração Amplificador de Diferenças}
-Trabalha como amplificador da tensão diferencial $V_{d}=V_{+}-V_{-}$ entre os terminais de entrada.
+Trabalha como amplificador da tensão diferencial $V_{d}=V_{2}-V_{1}$ entre os terminais de entrada.
 
 \begin{center}
     \begin{tikzpicture}\draw
         (0,0) node[op amp] (opamp) {}
-        (-1.5,-0.49) to [R,l=$R_3$,-*] (-3.5,-0.49) node[left] {$V_2$}
+        (-1.5,-0.49) to [R,l_=$R_3$,-*] (-3.5,-0.49) node[left] {$V_2$}
         (opamp.+) -- (-1.5,-0.49) to [R,l=$R_4$] (-1.5,-2.0) node[ground] {}
-        (opamp.-) -- (-1.5,0.49) to [R,l=$R_1$,-*] (-3.5,0.49) node[left] {$V_1$}
+        (opamp.-) -- (-1.5,0.49) to [R,l_=$R_1$,-*] (-3.5,0.49) node[left] {$V_1$}
         (opamp.out) -- (1.2,1.5) to [R,l_=$R_2$] (-1.5,1.5) -- (-1.5,0.49)
         (opamp.out) to [short,-*] (1.8,0) node[right] {$V_o$}
         ;
     \end{tikzpicture}
 \end{center}
 
-Usando o Princípio da Superposição,
 \begin{equation*}
     V_{o}=\frac{1+\dfr{R_{2}}{R_{1}}}{1+\dfr{R_{3}}{R_{4}}}V_{2} - \dfr{R_{2}}{R_{1}}V_{1}
 \end{equation*}
 No caso particular em que $R_{1}=R_{3}$ e $R_{2}=R_{4}$
 \begin{equation}
-    V_{o}=\frac{R_{2}}{R_{1}}V_{2}-\frac{R_{2}}{R_{1}}V_{1}=\frac{R_{2}}{R_{1}}V_{d}
+    V_{o}=\frac{R_{2}}{R_{1}}V_{2}-\frac{R_{2}}{R_{1}}V_{1}=\frac{R_{2}}{R_{1}}V_{d} \label{eq:ampop_diferencas}
 \end{equation}
+
+\textbf{Dedução:} Usando o Princípio da Superposição, a tensão $V_o$ pode ser calculada como a soma das contribuições de $V_1$ e $V_2$. Dito isso, escreve-se os circuitos relacionados a cada fonte.
+
+\noindent\begin{minipage}{\textwidth}
+\centering
+\begin{minipage}[c][5cm][c]{\dimexpr0.5\textwidth-0.5\Colsep\relax}
+    \begin{center}
+        \begin{tikzpicture}
+            \draw
+            (0,0) node[op amp] (opamp) {}
+            (-1.5,-0.49) to [R,l_=$R_3$] (-3.5,-0.49) node[tlground,rotate=-90] {}
+            (opamp.+) -- (-1.5,-0.49) to [R,l=$R_4$] (-1.5,-2.0) node[ground] {}
+            (opamp.-) -- (-1.5,0.49) to [R,l_=$R_1$,-*] (-3.5,0.49) node[left] {$V_1$}
+            (opamp.out) -- (1.2,1.5) to [R,l_=$R_2$] (-1.5,1.5) -- (-1.5,0.49)
+            (opamp.out) to [short,-*] (1.8,0) node[right] {$V_{o_1}$}
+            ;
+        \end{tikzpicture}
+    \end{center}
+\end{minipage} \hfill
+\begin{minipage}[c][5cm][c]{\dimexpr0.5\textwidth-0.5\Colsep\relax}
+    \begin{center}
+        \begin{tikzpicture}
+            \draw
+            (0,0) node[op amp] (opamp) {}
+            (-1.5,-0.49) to [R,l_=$R_3$,-*] (-3.5,-0.49) node[left] {$V_2$}
+            (opamp.+) -- (-1.5,-0.49) to [R,l=$R_4$] (-1.5,-2.0) node[ground] {}
+            (opamp.-) -- (-1.5,0.49) to [R,l_=$R_1$] (-3.5,0.49) node[tlground,rotate=-90] {}
+            (opamp.out) -- (1.2,1.5) to [R,l_=$R_2$] (-1.5,1.5) -- (-1.5,0.49)
+            (opamp.out) to [short,-*] (1.8,0) node[right] {$V_{o_2}$}
+            ;
+        \end{tikzpicture}
+    \end{center}
+\end{minipage}
+\end{minipage}
+
+\noindent Note que no primeiro circuito os resistores $R_3$ e $R_4$ possuem tensão (e, portanto, corrente) nula. Por isso, a porta não inversora efetivamente enxerga um potencial nulo, como se estivesse diretamente aterrada. Logo, a contribuição de $V_1$ para $V_o$ é exatamente um amplificador inversor, isto é,
+
+\begin{equation}
+    V_{o_1} = -\dfr{R_2}{R_1} V_1.
+\end{equation}
+
+\noindent Quanto ao segundo circuito, como a impedância de entrada do amplificador é infinita, a corrente dos resistores $R_3$ e $R_4$ é exatamente a mesma, que é a definição de associação em série. Por isso, a tensão equivalente de Thévenin que a entrada não inversora enxerga é dada por um divisor de tensão de $V_2$ em relação a $R_4$. Logo,
+
+\begin{center}
+    \begin{tikzpicture}
+        \draw
+        (0,0) node[op amp] (opamp) {}
+        (opamp.+) to [short,-*] (-2.5,-0.49) node[left] {$\dfr{R_4}{R_3+R_4}V_2$}
+        (opamp.-) -- (-1.5,0.49) to [R,l_=$R_1$] (-3.5,0.49) node[tlground,rotate=-90] {}
+        (opamp.out) -- (1.2,1.5) to [R,l_=$R_2$] (-1.5,1.5) -- (-1.5,0.49)
+        (opamp.out) to [short,-*] (1.8,0) node[right] {$V_{o_2}$}
+        ;
+    \end{tikzpicture}
+\end{center}
+
+\noindent O resistor de Thévenin é a associação em paralelo de $R_3$ e $R_4$. No entanto, como as correntes nas entradas do amplificador operacional são nulas, o resistor foi substituído por um curto circuito. Com o circuito neste formato, fica claro que a contribuição de $V_2$ para $V_o$ é um amplificador não inversor cuja entrada é $E_{th}$. Por isso,
+
+\begin{equation}
+    V_{o_2} = \l(1+\dfr{R_2}{R_1}\r) \l(\dfr{R_4}{R_3+R_4}\r) V_2.
+\end{equation}
+
+\noindent Manipulando um pouco a expressão acima,
+
+\begin{equation}
+    V_{o_2} = \l(1+\dfr{R_2}{R_1}\r) \l(\dfr{R_3+R_4}{R_4}\r)^{-1} V_2 = \l(1+\dfr{R_2}{R_1}\r) \l(1+\dfr{R_3}{R_4}\r)^{-1} V_2.
+\end{equation}
+
+\noindent Finalmente, a tensão de saída pode ser calculada, de forma que
+
+\begin{equation}
+    V_o = \dfr{1+\dfr{R_2}{R_1}}{1+\dfr{R_3}{R_4}}V_2 - \dfr{R_2}{R_1}V_1.
+\end{equation}
+
+\noindent É comum utilizar uma configuração em que $R_1=R_3$ e que $R_2=R_4$, pois o circuito resultante amplifica a diferença de tensão entre $V_2$ e $V_1$, como evidencia a expressão \eqref{eq:ampop_diferencas}.
 
 \subsubsection{Ganho finito em malha aberta}
 \label{subsubsec:ganho finito}
