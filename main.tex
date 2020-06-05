@@ -3460,7 +3460,7 @@ No caso particular em que $R_{1}=R_{3}$ e $R_{2}=R_{4}$
     V_o = \dfr{1+\dfr{R_2}{R_1}}{1+\dfr{R_3}{R_4}}V_2 - \dfr{R_2}{R_1}V_1.
 \end{equation}
 
-\noindent É comum utilizar uma configuração em que $R_1=R_3$ e que $R_2=R_4$, pois o circuito resultante amplifica a diferença de tensão entre $V_2$ e $V_1$, como evidencia a expressão \eqref{eq:ampop_diferencas}.
+\noindent É comum utilizar uma configuração em que $R_1=R_3$ e que $R_2=R_4$, pois o circuito resultante amplifica diretamente a diferença de tensão entre $V_2$ e $V_1$, como evidencia a expressão \eqref{eq:ampop_diferencas}.
 
 \subsubsection{Ganho finito em malha aberta}
 \label{subsubsec:ganho finito}
@@ -4453,6 +4453,8 @@ Se o polinômio característico tiver ordem mais alta, a resposta natural será 
     y_n(t) = C_1e^{-3t} + C_2e^{-2t}+ C_3te^{-2t} + e^{-t}[C_4\cos(5t) + C_5\sin(5t)].
 \end{equation*}
 
+\textbf{Observação:} Fugindo um pouco da notação matemática, é comum em circuitos utilizar o símbolo $A_i$ para denotar a i-ésima constante, já que $C_i$ também pode representar um capacitor. No entanto, como essa e a próxima seção estão mais próximas de equações diferenciais do que de circuitos, decidiu-se utilizar a letra $C$. Deve-se sempre entender o contexto em que as variáveis estão inseridas. Note que o símbolo escolhido para as constantes não é tão importante quanto descobrir seus valores. Mesmo assim, é válida a observação.
+
 \subsubsection{Resposta Forçada}
 \label{subsubsec:forçada}
 A resposta forçada de um sistema equivale à contribuição da função de entrada para a saída. Para encontrá-la assume-se uma solução de acordo com a função não homogênea $x(t)$, que resolve a equação diferencial
@@ -4479,6 +4481,8 @@ Como quer-se que o lado esquerdo seja igual ao lado direito, faz sentido assumir
 \end{equation*}
 
 Então, deve-se substituir $y_{p}(t)$ na equação diferencial não homogênea para que, através da simples comparação dos dois lados da equação, sejam descobertos os valores das constantes de $y_{p}(t)$.
+
+Para um caso em que o lado direito da equação é linearmente dependente de alguma das componentes da resposta natural, pode-se multiplicar a função particular por $t$, resultando em uma resposta linearmente independente (como mostrado na seção anterior).
 
 \subsubsection{Resposta Completa}
 \label{subsubsec:completa}
@@ -4575,6 +4579,264 @@ Como o lado direto da equação é constante, $e_{o_p} = A$. Substituindo na equ
         ;
     \end{tikzpicture}
 \end{center}
+
+\noindent\textbf{Exemplo 2:} O circuito abaixo representa o modelo de um motor de corrente contínua. Encontre, literalmente, a EDOL e as CONDINIC para a corrente de armadura $i_a(t)$. Em seguida, determine o valor da velocidade angular, representada pela tensão $\omega(t)$. Considere $e_i(t)=10u(t)$, $R_a=0.45\Omega$, $L_a=10mH$, $K_a=7\frac{N \hspace{1mm} m}{A}$, $D=0.5\frac{Kg \hspace{1mm} m}{A}$, $J=0.1Kg \hspace{1mm} m^2$ e $K_{\omega} = 0.025V \hspace{1mm} s$.
+
+\begin{center}
+    \begin{tikzpicture}
+        \draw
+        (0,3) to[V,l=$e_i$] (0,0)
+        (0,3) to[R,l=$R_a$,f=$i_a$] (2,3)
+        (2,3) to[L,l=$L_a$] (4,3)
+        (4,3) to[V,l_=$K_{\omega}\omega$] (4,0)
+        (6,0) to[I,l_=$K_a i_a$] (6,3)
+        (6,3) -- (10,3)
+        (8,3) to[R,l=$\dfr{1}{D}$] (8,0)
+        (10,3) to[C,l=$J$,v=$\omega$] (10,0)
+        (0,0) -- (10,0)
+        ;
+    \end{tikzpicture}
+\end{center}
+
+\noindent A primeira coisa a ser constatada é que os componentes do lado direito do circuito representam um sistema mecânico: $K_a i_a$ representa uma força, $D$ é o coeficiente de atrito no eixo do motor, $J$ é o momento de inércia do eixo e $\omega$ sua velocidade angular. Por isso, suas unidades diferem das usualmente encontradas para esses componentes. Em nosso caso, no entanto, pouco importa o que o dito circuito modela, mas sim encontrar os valores de tensão e corrente. Deve-se, portanto, abordar o problema como um circuito qualquer, utilizando, quando necessário, os valores dos componentes mecânicos.
+
+\vspace{1cm}
+
+\noindent Note que ambos os circuitos estão mutuamente relacionados pelas fontes controladas e pelo referencial. Como existem duas incógnitas, são necessárias duas equações diferenciais. Considerando que a corrente $i_a$ define a polaridade das tensões de $R_a$ e $L_a$,
+
+\begin{center}
+    \begin{tikzpicture}
+        \draw
+        (0,3) to[V,l=$e_i$] (0,0)
+        (0,3) to[R,l=$R_a$,f=$i_a$,v=$ $] (2,3)
+        (2,3) to[L,l=$L_a$,v=$ $] (4,3)
+        (4,3) to[V,l_=$K_{\omega}\omega$] (4,0)
+        (0,0) -- (5,0) node[fill=white]{$\dots$}
+        ;
+    \end{tikzpicture}
+\end{center}
+
+\noindent Pela malha,
+
+\begin{equation*}
+    e_i = R_a i_a + L_a \dfr{di_a}{dt} + K_{\omega}\omega.
+\end{equation*}
+
+\noindent Como quer-se encontrar $i_a$, isola-se a tensão $\omega$, resultando em
+
+\begin{equation}
+    \omega = \dfr{e_i - R_a i_a - L_a \dfr{di_a}{dt}}{K_{\omega}}. \label{eq:e2_velocidade_angular}
+\end{equation}
+
+\noindent Olhando, agora, para o lado direito do circuito, é evidente que todos os componentes estão em paralelo. Considerando, também, que a direção das correntes nos passivos é definida pela tensão $\omega$,
+
+\begin{center}
+    \begin{tikzpicture}
+        \draw
+        (0,0) to[I,l_=$K_a i_a$] (0,3)
+        (2,3) to[R,l=$\dfr{1}{D}$,f=$D\omega$] (2,0)
+        (4,3) to[C,l=$J$,v=$\omega$,f=$J \dfr{d\omega}{dt}$] (4,0)
+        (-1,0) node[fill=white]{$\dots$} -- (4,0)
+        (0,3) -- (4,3)
+        ;
+    \end{tikzpicture}
+\end{center}
+
+\noindent Dessa forma, pelo nó do circuito,
+
+\begin{equation}
+    J \dfr{d\omega}{dt} + D \omega = K_a i_a. \label{eq:e2_edol_mista}
+\end{equation}
+
+\noindent Aplicando \eqref{eq:e2_velocidade_angular} em \eqref{eq:e2_edol_mista}, colocando-se a constante $K_{\omega}$ em evidência,
+
+\begin{equation*}
+    \dfr{J}{K_{\omega}} \dfr{d}{dt}\l( e_i - R_a i_a - L_a \dfr{di_a}{dt} \r) + \dfr{D}{K_{\omega}} \l( e_i - R_a i_a - L_a \dfr{di_a}{dt} \r) = K_a i_a
+\end{equation*}
+
+\begin{equation*}
+    \dfr{J}{K_{\omega}} \dei{ } - \dfr{J R_a}{K_{\omega}} \dfr{di_a}{dt} - \dfr{J L_a}{K_{\omega}} \dfr{d^2i_a}{dt^2} + \dfr{D}{K_{\omega}} e_i - \dfr{D R_a}{K_{\omega}} i_a - \dfr{D L_a}{K_{\omega}} \dfr{di_a}{dt} = K_a i_a.
+\end{equation*}
+
+\noindent Em função de facilitar escrever a forma mônica, divide-se ambos os lados da expressão por $\frac{J}{K_{\omega}}$, resultando em
+
+\begin{equation*}
+    \dei{ } - R_a\dfr{di_a}{dt} - L_a\dfr{d^2i_a}{dt^2} + \dfr{D}{J} e_i - \dfr{D R_a}{J} i_a - \dfr{D L_a}{J} \dfr{di_a}{dt} = \dfr{K_a K_{\omega}}{J} i_a.
+\end{equation*}
+
+\noindent Organizando os termos da EDOL,
+
+\begin{equation*}
+    L_a \dfr{d^2i_a}{dt^2} + \l(R_a + \dfr{D L_a}{J}\r)\dfr{di_a}{dt} + \l(\dfr{K_a K_{\omega}}{J} + \dfr{D R_a}{J}\r)i_a = \dei{ } + \dfr{D}{J} ei
+\end{equation*}
+
+\begin{equation}
+    \dfr{d^2i_a}{dt^2} + \l(\dfr{R_a}{L_a} + \dfr{D}{J}\r)\dfr{di_a}{dt} + \l(\dfr{K_a K_{\omega}}{J L_a} + \dfr{D R_a}{J L_a}\r)i_a = \dfr{1}{L_a}\dei{ } + \dfr{D}{J L_a} e_i. \label{eq:e2_edol_monica}
+\end{equation}
+
+\noindent Para verificar se há alguma inconsistência na equação, realiza-se a análise dimensional. As chaves a seguir representam operações com unidades de media (como referido na Seção \ref{subsubsec:unidades}).
+
+\begin{equation*}
+    \l[ \dfr{A}{s^2} + \l( \dfr{\Omega}{H} + \dfr{\dfr{Kg \hspace{1mm} m^2}{s}}{Kg \hspace{1mm} m^2} \r) \dfr{A}{s} + \l( \dfr{\dfr{N \hspace{1mm} m}{A} V \hspace{1mm} s}{Kg \hspace{1mm} m^2 \hspace{1mm} H} + \dfr{\dfr{Kg \hspace{1mm} m^2 \hspace{1mm} \Omega}{s}}{Kg \hspace{1mm} m^2 \hspace{1mm} H} \r)A \r] = \l[ \dfr{1}{H}\dfr{V}{s}  + \dfr{\dfr{Kg \hspace{1mm} m^2 \hspace{1mm}}{s}}{Kg \hspace{1mm} m^2 \hspace{1mm} H}V\r].
+\end{equation*}
+
+\noindent Lembrando que, pela Segunda Lei de Newton, $[N] = [m \hspace{1mm}s^{-2}]$. Simplificando, então,
+
+\begin{equation*}
+    \l[ \dfr{A}{s^2} + \l( \dfr{\Omega}{H} + \dfr{1}{s}\r)\dfr{A}{s} + \l( \dfr{\dfr{1}{A \hspace{1mm} s} V}{H} + \dfr{\Omega}{H \hspace{1mm} s} \r) A \r] = \l[ \dfr{V}{H \hspace{1mm} s}  + \dfr{V}{H \hspace{1mm} s}\r].
+\end{equation*}
+
+\noindent Reorganizando e expandindo os termos,
+
+\begin{equation*}
+    \l[ \dfr{A}{s^2} + \l( \dfr{\Omega \hspace{1mm} A}{H \hspace{1mm} s} + \dfr{A}{s^2}\r) + \l( \dfr{V}{H \hspace{1mm} s} + \dfr{\Omega \hspace{1mm} A}{H \hspace{1mm} s} \r) \r] = \l[ \dfr{V}{H \hspace{1mm} s}  + \dfr{V}{H \hspace{1mm} s}\r].
+\end{equation*}
+
+\noindent Todos os termos devem ter a mesma unidade. Para tal, deve-se ter que
+
+\begin{equation*}
+    \l[\dfr{A}{s^2} \r] = \l[ \dfr{\Omega}{H} \dfr{A}{s} \r] = \l[ \dfr{V}{H \hspace{1mm} s} \r].
+\end{equation*}
+
+\noindent Da relação VI do indutor,
+
+\begin{equation*}
+    V = L \dfr{di}{dt} \implies [V] = \l[ H \dfr{A}{s} \r] \implies [H] = \l[ \dfr{V \hspace{1mm} s}{A} \r].
+\end{equation*}
+
+\noindent Assim, sabendo que, pela Lei de Ohm, $[\Omega] = \l[\frac{V}{A}\r]$, mostra-se que
+
+\begin{equation*}
+    \l[ \dfr{\Omega}{H} \r] = \l[\dfr{\dfr{V}{A}}{\dfr{V \hspace{1mm} s}{A}}\r] = \l[\dfr{1}{s}\r],
+\end{equation*}
+
+\noindent de modo que
+
+\begin{equation*}
+    \l[\dfr{\Omega}{H} \dfr{A}{s}\r] = \l[ \dfr{A}{s^2} \r].
+\end{equation*}
+
+\noindent Ainda pelo VI do indutor, é evidente que
+
+\begin{equation*}
+    \l[\dfr{V}{H \hspace{1mm} s}\r] = \l[\dfr{A}{s^2}\r].
+\end{equation*}
+
+\noindent Portanto, existe consistência dimensional na equação. Note que a análise realizada foi demasiada verbosa em virtude de facilitar o entendimento do leitor. Em geral, é possível checar rapidamente as unidades na própria equação (muitas vezes até mentalmente). Os autores recomendam fortemente a utilização dessa técnica, pois trás certa segurança na hora da montagem da EDOL, já que indica (mas não garante) que a mesma foi feita corretamente.
+
+\vspace{1cm}
+
+\noindent Para encontrar as condições iniciais, escreve-se o circuito para tempo $t=0$. Como nada foi dito, assume-se que os capacitores e indutores estão descarregados.
+
+\begin{center}
+    \begin{tikzpicture}
+        \draw
+        (0,3) to[V,l=$e_i(0)$] (0,0)
+        (0,3) to[R,f=$i_a(0)$] (2,3)
+        (2,3) to[open,*-*,v=$e$] (3.75,3)
+        (3.75,3) -- (4,3)
+        (4,3) to[V,l_=$K_{\omega}\omega(0)$] (4,0)
+        (6,0) to[I,l_=$K_a i_a(0)$] (6,3)
+        (6,3) -- (10,3)
+        (8,3) to[R] (8,0)
+        (10,3) -- (10,2.5)
+        (10,0) -- (10,0.5)
+        (10,2.5) to[short,v=$\omega(0)$,*-*] (10,0.5)
+        (0,0) -- (10,0)
+        ;
+    \end{tikzpicture}
+\end{center}
+
+\noindent Como o indutor é um circuito aberto, a corrente $i_a(0)$ deve ser nula, o que implica a fonte controlada de corrente também ser um circuito aberto. Além disso, a tensão $\omega(0)$ também é nula, de modo que a fonte controlada de tensão é modelada por um curto. Redesenhando o circuito,
+
+\begin{center}
+    \begin{tikzpicture}
+        \draw
+        (0,3) to[V,l=$e_i(0)$] (0,0)
+        (0,3) to[R,f=$0$,v=$0$] (2,3)
+        (2,3) to[open,*-*,v=$e(0)$] (3.75,3)
+        (3.75,3) -- (4,3)
+        (4,3) -- (4,2.5)
+        (4,0) -- (4,0.5)
+        (4,2.5) to[short,*-*] (4,0.5)
+        (6,3) -- (6,2.5)
+        (6,0) -- (6,0.5)
+        (6,0.5) to[open,*-*] (6,2.5)
+        (6,3) -- (10,3)
+        (8,3) to[R] (8,0)
+        (10,3) -- (10,2.5)
+        (10,0) -- (10,0.5)
+        (10,2.5) to[short,v=$0$,*-*] (10,0.5)
+        (0,0) -- (10,0)
+        ;
+    \end{tikzpicture}
+\end{center}
+
+\noindent Para a condição da derivada, utiliza-se a relação VI do indutor, isto é,
+
+\begin{equation*}
+    e = L_a \dfr{di_a}{dt} \implies \dfr{di_a}{dt} = \dfr{e}{L_a}.
+\end{equation*}
+
+\noindent Aplicando $t=0$ e sabendo que, pela malha, $e(0)=e_i(0)$,
+
+\begin{equation*}
+    \dfr{di_a(0)}{dt} = \dfr{e(0)}{L_a} = \dfr{e_i(0)}{L_a}.
+\end{equation*}
+
+\noindent Note que é sempre mais correto encontar a expressão literal antes de aplicar $t=0$. Um exemplo clássico de erro em questões de circuitos elétricos é derivar uma expressão após aplicar $t=0$, o que sempre resultará em $0$, já que toda função aplicada em algum ponto representa algum valor constante, que possui derivada nula. Aplicando-se os valores dos componentes, então, resulta no seguinte problema a ser resolvido:
+
+\begin{equation*}
+    \begin{cases}
+        \dfr{d^2i_a}{dt^2} + 50 \dfr{di_a}{dt} + 400i_a = 5000
+        \\ \\
+        i_a(0) = 0 \qquad \dfr{di_a(0)}{dt} = 1000
+        \\
+    \end{cases}
+    .
+\end{equation*}
+
+\noindent As raízes da equação características são $\lambda_1=-10$ e $\lambda_2=-40$, o que implica a resposta natural (ou resposta transitória) de $i_a(t)$ ter o formato
+
+\begin{equation*}
+    i_{a_n}(t) = A_1e^{-10t} + A_2e^{-40t}.
+\end{equation*}
+
+\noindent Para a resposta forçada (ou resposta particular), como o lado direito da EDOL é constante, $i_{a_p}(t) = A$. Aplicando na equação,
+
+\begin{equation*}
+    \dfr{d^2A}{dt^2} + 50 \dfr{dA}{dt} + 400A = 5000,
+\end{equation*}
+
+\noindent o que implica $A = 12.5$. A resposta completa é, portanto
+
+\begin{equation*}
+    i_a(t) = 12.5 + A_1e^{-10t} + A_2e^{-40t}.
+\end{equation*}
+
+\noindent Pela primeira CONDINIC, tem-se que
+
+\begin{equation}
+    i_a(0) = 0 \implies A_1 + A_2 = -12.5. \label{eq:e2_sis1}
+\end{equation}
+
+\noindent Pela condição da derivada,
+
+\begin{equation}
+    \dfr{di_a(0)}{dt} = 1000 \implies -10A_1 - 40A_2 = 1000 \label{eq:e2_sis2}.
+\end{equation}
+
+Pelo sistema de equações definido por \eqref{eq:e2_sis1} e \eqref{eq:e2_sis2}, os valores das constantes devem ser $A_1 = \frac{50}{3}$ e $A_2 = \frac{-175}{6}$, o que resulta em
+
+\begin{equation}
+    i_a(t) = 12.5 + \dfr{50}{3}e^{-10t} - \dfr{175}{6}e^{-40t}. \label{eq:e2_ia}
+\end{equation}
+
+\noindent Finalmente, conhecendo-se $i_a(t)$, basta utilizar a expressão \eqref{eq:e2_velocidade_angular} para encontrar $\omega$, que gera a seguinte resposta.
+
+\begin{equation}
+    \omega(t) = 175 - 300e^{-10t} + 525e^{-40t}.
+\end{equation}
 
 \subsubsection{Elementos Reativos com Condições Iniciais: Resposta à Entrada Zero não nula}
 \label{subsubsec:entradazeronaonula}
