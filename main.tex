@@ -4116,6 +4116,331 @@ Neste caso a melhor escolha é parâmetros de transmissão $ABCD$, possibilitand
     ;\end{tikzpicture}
     \end{center}
 
+\subsubsection{Exemplos}
+\label{subsubsec:exemplosquadripolos}
+
+\noindent \textbf{Exemplo 1:} Determine os parâmetros híbridos do quadripolo $A$ abaixo
+
+\begin{equation*}
+    \textbf{A:}
+    \begin{cases}
+        E_1 = h_{11}I_1 + h_{12}E_2
+        \\ \\
+        I_2 = h_{21}I_1 + h_{22}E_2
+    \end{cases}
+\end{equation*}
+
+\begin{center}
+    \begin{tikzpicture}
+        \draw
+        (0.5,5) to[open,v_=$E_1$] (0.5,0)
+        (0,5) to[short,f=$I_1$,*-] (2,5)
+        (2,5) to[R,l=$10$,f_=$i$] (2,2.5)
+        (2,2.5) -- (6,2.5)
+        (3,2.5) to[R,l=$0.4$] (3,0)
+        (4,5) to[I,l_=$25i$] (4,2.5)
+        (4,5) -- (6,5)
+        (6,5) to[R,l=$250$] (6,2.5)
+        (6,5) to[short,f<=$I_2$,-*] (8,5)
+        (8.5,5) to[open,v=$E_2$] (8.5,0)
+        (0,0) to[short, *-*] (8,0)
+        ;
+    \end{tikzpicture}
+\end{center}
+
+\noindent Em seguida, dado o quadripolo $B$, escreva o sistema de equações que modela e resolve o circuito do quadripolo $A$ realimentado pelo quadripolo $B$.
+
+\begin{equation*}
+    \textbf{B:}
+    \begin{cases}
+        E_3 = 13I_3 + E_4
+        \\ \\
+        I_4 = -I_3
+    \end{cases}
+\end{equation*}
+
+\begin{center}
+    \begin{tikzpicture}[scale=1.1,transform shape]
+        \draw
+        (0,0) node[fourport,t=$\textbf{A}$](btt1){}
+        (btt1.1) to[short] (-2,-0.45)
+        (btt1.2) to[short] (2,-0.45)
+        (btt1.3) to[short,f<=$I_2$] (2,0.45)
+        (btt1.4) to[short,f<_=$I_1$] (-2,0.45)
+        (-1.5,0.45) to[open,v=$E_1$] (-1.5,-0.45)
+        (2.5,0.45) to[open,v_=$E_2$] (2.5,-0.45)
+
+        (0,-3) node[fourport,t=$\textbf{B}$](btt2){}
+        (btt2.1) to[short] (-2,-3.45)
+        (btt2.2) to[short] (2,-3.45)
+        (btt2.3) to[short,f<=$I_3$] (2,-2.55)
+        (btt2.4) to[short,f<_=$I_4$] (-2,-2.55)
+        (-1.5,-2.55) to[open,v=$E_4$] (-1.5,-3.45)
+        (2.5,-2.55) to[open,v_=$E_3$] (2.5,-3.45)
+
+        (-2,-2.55) -- (-3.2,-2.55)
+        (-3.2,-2.55) -- (-3.2,0.45)
+
+        (2,-0.45) -- (2.9,-0.45)
+        (2.9,-0.45) -- (2.9,-1.65)
+        (2.9,-1.65) to[crossing] (2.9,-3.45)
+
+        (2,-2.55) -- (3.2,-2.55)
+        (3.2,-2.55) -- (3.2,0.45)
+
+        (-4.5,0.45) -- (-3.5,0.45)
+        (-3.5,0.45) -- (-2,0.45)
+        (-4.5,-3.45) -- (-3.5,-3.45)
+        (-3.5,-3.45) -- (-2,-3.45)
+        (-4.5,0.45) to[R,l=$10$] (-4.5,-1.95)
+        (-4.5,-1.95) to[V,l=$e_i$] (-4.5,-3.45)
+
+        (4.5,0.45) -- (3.5,0.45)
+        (3.5,0.45) -- (2,0.45)
+        (4.5,0.45) to[R,l=$60$,v=$e_o$] (4.5,-3.45)
+        (4.5,-3.45) -- (3.5,-3.45)
+        (3.5,-3.45) -- (2,-3.45)
+        ;
+
+        \ctikzset{bipoles/length = 1cm}
+        \draw
+        (-3.2,-2.55) to[R,l=$20$] (-3.2,-3.45)
+        ;
+
+        \draw[dashed]
+        (btt1.1) -- (btt1.2)
+        (btt2.1) -- (btt2.2)
+        ;
+    \end{tikzpicture}
+\end{center}
+
+\noindent O primeiro passo é aplicar a definição dos parâmetros híbridos no circuito do quadripolo $A$. Para isso, utiliza-se da superposição, matando as fontes das variáveis $I_1$ e, em seguida, $E_2$. Atribuindo $I_1=0$.
+
+\begin{center}
+    \begin{tikzpicture}
+        \draw
+        (0,5) to[V,l_=$E_1$] (0,0)
+        (0,5) to[short,f=$0$,*-] (2,5)
+        (2,5) to[R,l=$10$,f_=$0$] (2,2.5)
+        (2,2.5) -- (6,2.5)
+        (3,2.5) to[R,l=$0.4$,v=$E_1$,f=$2.5E_1$] (3,0)
+        (4,5) to[I,l_=$0$] (4,2.5)
+        (4,5) -- (6,5)
+        (6,5) to[R,l=$250$,f=$I_2$] (6,2.5)
+        (6,5) to[short,f<=$I_2$,-*] (8,5)
+        (8,5) to[V,l=$E_2$] (8,0)
+        (0,0) to[short, *-*] (8,0)
+        ;
+    \end{tikzpicture}
+\end{center}
+
+\noindent Como a variável de controle foi zerada, a tensão no resistor de $10\Omega$ é nula. Por isso, a tensão do resistor de $0.4\Omega$ é a própria tensão $E_1$. Pelo mesmo motivo, a corrente do resistor de $250\Omega$ é a própria corrente $I_2$. Assim, pela malha mais à direita,
+
+\begin{equation}
+    E_1 + 250I_2 = E_2. \label{eq:equad_eq1}
+\end{equation}
+
+\noindent Além disso, já que a fonte controlada tem corrente nula (circuito aberto), os resistores de $250\Omega$ e $0.4\Omega$ possuem mesma corrente, o que implica, pela Lei de Ohm,
+
+\begin{equation*}
+    \dfr{E_1}{0.4} = 2.5E_1 = I_2.
+\end{equation*}
+
+\noindent O que permite reescrever a expressão \eqref{eq:equad_eq1} como
+
+\begin{equation*}
+    E_1 = \dfr{E_2}{626},
+\end{equation*}
+
+\noindent e também
+
+\begin{equation*}
+    I_2 = \dfr{E_2}{250.4}= \dfr{5}{1252}E_2.
+\end{equation*}
+
+\noindent Por isso, pelas definições dos parâmetros,
+
+\begin{equation}
+    h_{12}=\l.\dfr{E_{1}}{E_{2}}\r|_{I_{1}=0} = \dfr{1}{626}
+    \qquad
+    h_{22}=\l.\dfr{I_{2}}{E_{2}}\r|_{I_{1}=0} = \dfr{5}{1252}.
+    \label{eq:equad_param1}
+\end{equation}
+
+\noindent Matando, agora, a fonte de tensão $E_2$, o circuito resultante é
+
+\begin{center}
+    \begin{tikzpicture}
+        \draw
+        (0,5) to[V,l=$E_1$] (0,0)
+        (0,5) to[short,f=$I_1$,*-] (2,5)
+        (2,5) to[R,l=$10$,f_=$I_1$] (2,2.5)
+        (2,2.5) -- (6,2.5)
+        (3,2.5) to[R,l=$0.4$,f=$I_1+I_2$] (3,0)
+        (4,5) to[I,l_=$25I_1$] (4,2.5)
+        (4,5) -- (6,5)
+        (6,5) to[R,l=$250$,f=$I_2-25I_1$] (6,2.5)
+        (6,5) to[short,f<=$I_2$,-*] (8,5)
+        (8,5) to[short,*-*] (8,0)
+        (0,0) to[short, *-*] (8,0)
+        ;
+    \end{tikzpicture}
+\end{center}
+
+\noindent A corrente no resistor de $0.4\Omega$ é, pelo nó abaixo deste mesmo resistor, $I_1+I_2$. No caso do resistor de $250\Omega$, pelo nó com a fonte controlada, a sua corrente vale $I_2- 25I_1$. Assim, é possível equacionar ambas as malhas do circuito, de modo que
+
+\begin{equation*}
+    \begin{cases}
+        E_1 = 10I_1 + 0.4(I_1+I_2)
+        \\
+        0.4(I_1+I_2) + 250(I_2-25I_1) = 0
+    \end{cases}
+    .
+\end{equation*}
+
+\noindent Portanto, ao resolver o sistema de equações, descobre-se que
+
+\begin{equation*}
+    I_2 = \dfr{7812}{313}I_1 \qquad E_1 = \dfr{6380}{313}I_1.
+\end{equation*}
+
+\noindent Pelas definições dos parâmetros,
+
+\begin{equation}
+    h_{11}=\l.\dfr{E_{1}}{I_{1}}\r|_{E_{2}=0} = \dfr{6380}{313}
+    \qquad
+    h_{21}=\l.\dfr{I_{2}}{I_{1}}\r|_{E_{2}=0} = \dfr{7812}{313}.
+    \label{eq:equad_param2}
+\end{equation}
+
+\noindent Logo, de \eqref{eq:equad_param1} e \eqref{eq:equad_param2},
+
+\begin{equation}
+    \textbf{B:}
+    \begin{bmatrix}
+        \dfr{6380}{313} & \dfr{1}{626} \\
+        & \\
+        \dfr{7812}{313} & \dfr{5}{1252}
+    \end{bmatrix}
+\end{equation}
+
+\noindent O próximo passo é encontrar a matriz $M$ que representa o sistema de equações algébricas $M\mathbf{X}=\mathbf{U}$, sendo o vetor de incógnitas $\mathbf{X}^T=[E_1 \quad I_1 \quad E_2 \quad I_2 \quad E_3 \quad I_3 \quad E_4 \quad I_4]$ e $\mathbf{U}$ o vetor de termos independentes. Como existem 8 incógnitas, devemos encontrar 8 equações. Note que, porém, metade das equações já são conhecidas e dadas pelos parâmetros de cada quadripolo. Para o restante, considera-se o circuito com os quadripolos genéricos, como se não fosse conhecido seu circuito original.
+
+\begin{center}
+    \begin{tikzpicture}[scale=1.1,transform shape]
+        \draw
+        (0,0) node[fourport,t=$\textbf{A}$](btt1){}
+        (btt1.1) to[short] (-2,-0.45)
+        (btt1.2) to[short] (2,-0.45)
+        (btt1.3) to[short,f<=$I_2$] (2,0.45)
+        (btt1.4) to[short,f<_=$I_1$] (-2,0.45)
+        (-1.5,0.45) to[open,v=$E_1$] (-1.5,-0.45)
+        (2.5,0.45) to[open,v_=$E_2$] (2.5,-0.45)
+
+        (0,-3) node[fourport,t=$\textbf{B}$](btt2){}
+        (btt2.1) to[short] (-2,-3.45)
+        (btt2.2) to[short] (2,-3.45)
+        (btt2.3) to[short,f<=$I_3$] (2,-2.55)
+        (btt2.4) to[short,f<_=$I_4$] (-2,-2.55)
+        (-1.5,-2.55) to[open,v=$E_4$] (-1.5,-3.45)
+        (2.5,-2.55) to[open,v_=$E_3$] (2.5,-3.45)
+
+        (-2,-2.55) -- (-3.2,-2.55)
+        (-3.2,-2.55) -- (-3.2,0.45)
+
+        (2,-0.45) -- (2.9,-0.45)
+        (2.9,-0.45) -- (2.9,-1.65)
+        (2.9,-1.65) to[crossing] (2.9,-3.45)
+
+        (2,-2.55) -- (3.2,-2.55)
+        (3.2,-2.55) -- (3.2,0.45)
+
+        (-4.5,0.45) -- (-3.5,0.45)
+        (-3.5,0.45) -- (-2,0.45)
+        (-4.5,-3.45) -- (-3.5,-3.45)
+        (-3.5,-3.45) -- (-2,-3.45)
+        (-4.5,0.45) to[R,l=$10$,v<=$ $,f<=$ $] (-4.5,-1.95)
+        (-4.5,-1.95) to[V,l=$e_i$] (-4.5,-3.45)
+
+        (4.5,0.45) -- (3.5,0.45)
+        (3.5,0.45) -- (2,0.45)
+        (4.5,0.45) to[R,l=$60$,v=$E_2$] (4.5,-3.45)
+        (4.5,-3.45) -- (3.5,-3.45)
+        (3.5,-3.45) -- (2,-3.45)
+        ;
+
+        \ctikzset{bipoles/length = 1cm}
+        \draw
+        (-3.2,-2.55) to[R,l=$20$] (-3.2,-3.45)
+        ;
+
+        \draw[dashed]
+        (btt1.1) -- (btt1.2)
+        (btt2.1) -- (btt2.2)
+        ;
+    \end{tikzpicture}
+\end{center}
+
+Observa-se que os quadripolos estão associados em paralelo à direita, o que implica
+
+\begin{equation}
+    E_2-E_3=0. \label{eq:equad_fora1}
+\end{equation}
+
+\noindent Além disso, o resistor de $60\Omega$ também possui tensão $E_2$, o que implica, pela Lei de Ohm, sua corrente ser $\frac{E_2}{60}$. Então, pelo nó,
+
+\begin{equation}
+    I_2+I_3+\dfr{E_2}{60}=0. \label{eq:equad_fora2}
+\end{equation}
+
+\noindent Em seguida, como foi informado que as referências estão conectadas (isto é, os quadripolos são, na verdade, tripolos), é possível equacionar a malha que passa por $E_1$ e $E_4$, ou seja,
+
+\begin{equation}
+    E_1-E_4=0. \label{eq:equad_fora3}
+\end{equation}
+
+\noindent Pode-se, então, encontrar a corrente no resistor de $10\Omega$, que, pelo nó, equivale a $I_1+I_4+\frac{E_4}{20}$. Por isso, fazendo a malha que contém a fonte, tem-se que
+
+\begin{equation}
+    e_i = 10I_1+10I_4+\dfr{3}{2}E_4 \label{eq:equad_fora4}.
+\end{equation}
+
+\noindent Finalmente, das expressões \eqref{eq:equad_param1}, \eqref{eq:equad_param2}, \eqref{eq:equad_fora1}, \eqref{eq:equad_fora2}, \eqref{eq:equad_fora3} e \eqref{eq:equad_fora4} escreve-se o sistema em forma matricial:
+
+\begin{equation*}
+    \begin{bmatrix}
+        -1 & \dfr{6380}{313} & \dfr{1}{626} & 0 & 0 & 0 & 0 & 0\\ \\
+        0 & \dfr{7812}{313} & \dfr{5}{1252} & -1 & 0 & 0 & 0 & 0\\ \\
+        0 & 0 & 0 & 0 & -1 & 13 & 1 & 0\\ \\
+        0 & 0 & 0 & 0 & 0 & 1 & 1 & 0\\ \\
+        0 & 0 & 1 & 0 & -1 & 0 & 0 & 0\\ \\
+        0 & 0 & \dfr{1}{60} & 1 & 0 & 1 & 0 & 0\\ \\
+        1 & 0 & 0 & 0 & 0 & 0 & -1 & 0\\ \\
+        0 & 10 & 0 & 0 & 0 & 0 & \dfr{3}{2} & 10
+    \end{bmatrix}
+    \begin{bmatrix}
+        E_1 \\ \\ \\
+        I_1 \\ \\ \\
+        E_2 \\ \\ \\
+        I_2 \\ \\ \\
+        E_3 \\ \\ \\
+        I_3 \\ \\ \\
+        E_4
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        0 &\\ \\ \\
+        0 &\\ \\ \\
+        0 &\\ \\ \\
+        0 &\\ \\ \\
+        0 &\\ \\ \\
+        0 &\\ \\ \\
+        e_i &
+    \end{bmatrix}
+\end{equation*}
+
+\noindent Para encontrar a tensão $e_o$, seria necessário resolver o sistema de equações e utilizar-se do fato de que $E_2=E_3=e_o$. No entanto, como esse tipo de tarefa envolve inverter uma matriz grande $M$, a questão requere apenas a montagem do sistema.
+
 \newpage
 
 \section{Circuitos Reativos}
