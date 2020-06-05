@@ -359,11 +359,11 @@ As Leis de Kirchhoff são equações formuladas a partir dos conceitos da conser
 \label{subsubsec:serie}
 Dois componentes são ditos associados em série quando estão conectados de modo que a exata mesma corrente passa por ambos. É possível substituí-los por um componente equivalente sem alterar o valor da corrente, a partir da equivalência entre a soma das tensões dos componentes em série para com a tensão do componente equivalente, resultando nas expressões abaixo.
 \begin{itemize}
-    \item \textbf{Resistores:} $R_{eq}= R_{1} + R_{2}$\\
+    \item \textbf{Resistores:} $R_{eq}= R_{1} + R_{2}$ \hspace{3.35cm}
     ou, generalizando $R_{eq}= \displaystyle{\sum_{i=1}^{N} R_{i}}$
-    \item \textbf{Indutores:} $L_{eq}= L_{1} + L_{2}$\\
+    \item \textbf{Indutores:} $L_{eq}= L_{1} + L_{2}$ \hspace{3.5cm}
     ou, generalizando $L_{eq}= \displaystyle{\sum_{i=1}^{N} L_{i}}$
-    \item \textbf{Capacitores:} $C_{eq}= \left(\displaystyle{\frac{1}{C_{1}}} + \displaystyle{\frac{1}{C_{2}}}\right)^{-1}$\\
+    \item \textbf{Capacitores:} $C_{eq}= \left(\displaystyle{\frac{1}{C_{1}}} + \displaystyle{\frac{1}{C_{2}}}\right)^{-1}$ \hspace{2cm}
     ou, generalizando $C_{eq}= \left(\displaystyle{\sum_{i=1}^{N} \frac{1}{C_{i}}}\right)^{-1}$
 \end{itemize}
 
@@ -3366,28 +3366,101 @@ Generalizando, a contribuição de uma fonte genérica $V_n$ é
 \noindent tornando evidente que a soma de todas as contribuições resulta na expressão \eqref{eq:ampop_somador}.
 
 \subsubsection{Configuração Amplificador de Diferenças}
-Trabalha como amplificador da tensão diferencial $V_{d}=V_{+}-V_{-}$ entre os terminais de entrada.
+Trabalha como amplificador da tensão diferencial $V_{d}=V_{2}-V_{1}$ entre os terminais de entrada.
 
 \begin{center}
     \begin{tikzpicture}\draw
         (0,0) node[op amp] (opamp) {}
-        (-1.5,-0.49) to [R,l=$R_3$,-*] (-3.5,-0.49) node[left] {$V_2$}
+        (-1.5,-0.49) to [R,l_=$R_3$,-*] (-3.5,-0.49) node[left] {$V_2$}
         (opamp.+) -- (-1.5,-0.49) to [R,l=$R_4$] (-1.5,-2.0) node[ground] {}
-        (opamp.-) -- (-1.5,0.49) to [R,l=$R_1$,-*] (-3.5,0.49) node[left] {$V_1$}
+        (opamp.-) -- (-1.5,0.49) to [R,l_=$R_1$,-*] (-3.5,0.49) node[left] {$V_1$}
         (opamp.out) -- (1.2,1.5) to [R,l_=$R_2$] (-1.5,1.5) -- (-1.5,0.49)
         (opamp.out) to [short,-*] (1.8,0) node[right] {$V_o$}
         ;
     \end{tikzpicture}
 \end{center}
 
-Usando o Princípio da Superposição,
 \begin{equation*}
     V_{o}=\frac{1+\dfr{R_{2}}{R_{1}}}{1+\dfr{R_{3}}{R_{4}}}V_{2} - \dfr{R_{2}}{R_{1}}V_{1}
 \end{equation*}
 No caso particular em que $R_{1}=R_{3}$ e $R_{2}=R_{4}$
 \begin{equation}
-    V_{o}=\frac{R_{2}}{R_{1}}V_{2}-\frac{R_{2}}{R_{1}}V_{1}=\frac{R_{2}}{R_{1}}V_{d}
+    V_{o}=\frac{R_{2}}{R_{1}}V_{2}-\frac{R_{2}}{R_{1}}V_{1}=\frac{R_{2}}{R_{1}}V_{d} \label{eq:ampop_diferencas}
 \end{equation}
+
+\textbf{Dedução:} Usando o Princípio da Superposição, a tensão $V_o$ pode ser calculada como a soma das contribuições de $V_1$ e $V_2$. Dito isso, escreve-se os circuitos relacionados a cada fonte.
+
+\noindent\begin{minipage}{\textwidth}
+\centering
+\begin{minipage}[c][5cm][c]{\dimexpr0.5\textwidth-0.5\Colsep\relax}
+    \begin{center}
+        \begin{tikzpicture}
+            \draw
+            (0,0) node[op amp] (opamp) {}
+            (-1.5,-0.49) to [R,l_=$R_3$] (-3.5,-0.49) node[tlground,rotate=-90] {}
+            (opamp.+) -- (-1.5,-0.49) to [R,l=$R_4$] (-1.5,-2.0) node[ground] {}
+            (opamp.-) -- (-1.5,0.49) to [R,l_=$R_1$,-*] (-3.5,0.49) node[left] {$V_1$}
+            (opamp.out) -- (1.2,1.5) to [R,l_=$R_2$] (-1.5,1.5) -- (-1.5,0.49)
+            (opamp.out) to [short,-*] (1.8,0) node[right] {$V_{o_1}$}
+            ;
+        \end{tikzpicture}
+    \end{center}
+\end{minipage} \hfill
+\begin{minipage}[c][5cm][c]{\dimexpr0.5\textwidth-0.5\Colsep\relax}
+    \begin{center}
+        \begin{tikzpicture}
+            \draw
+            (0,0) node[op amp] (opamp) {}
+            (-1.5,-0.49) to [R,l_=$R_3$,-*] (-3.5,-0.49) node[left] {$V_2$}
+            (opamp.+) -- (-1.5,-0.49) to [R,l=$R_4$] (-1.5,-2.0) node[ground] {}
+            (opamp.-) -- (-1.5,0.49) to [R,l_=$R_1$] (-3.5,0.49) node[tlground,rotate=-90] {}
+            (opamp.out) -- (1.2,1.5) to [R,l_=$R_2$] (-1.5,1.5) -- (-1.5,0.49)
+            (opamp.out) to [short,-*] (1.8,0) node[right] {$V_{o_2}$}
+            ;
+        \end{tikzpicture}
+    \end{center}
+\end{minipage}
+\end{minipage}
+
+\noindent Note que no primeiro circuito os resistores $R_3$ e $R_4$ possuem tensão (e, portanto, corrente) nula. Por isso, a porta não inversora efetivamente enxerga um potencial nulo, como se estivesse diretamente aterrada. Logo, a contribuição de $V_1$ para $V_o$ é exatamente um amplificador inversor, isto é,
+
+\begin{equation}
+    V_{o_1} = -\dfr{R_2}{R_1} V_1.
+\end{equation}
+
+\noindent Quanto ao segundo circuito, como a impedância de entrada do amplificador é infinita, a corrente dos resistores $R_3$ e $R_4$ é exatamente a mesma, que é a definição de associação em série. Por isso, a tensão equivalente de Thévenin que a entrada não inversora enxerga é dada por um divisor de tensão de $V_2$ em relação a $R_4$. Logo,
+
+\begin{center}
+    \begin{tikzpicture}
+        \draw
+        (0,0) node[op amp] (opamp) {}
+        (opamp.+) to [short,-*] (-2.5,-0.49) node[left] {$\dfr{R_4}{R_3+R_4}V_2$}
+        (opamp.-) -- (-1.5,0.49) to [R,l_=$R_1$] (-3.5,0.49) node[tlground,rotate=-90] {}
+        (opamp.out) -- (1.2,1.5) to [R,l_=$R_2$] (-1.5,1.5) -- (-1.5,0.49)
+        (opamp.out) to [short,-*] (1.8,0) node[right] {$V_{o_2}$}
+        ;
+    \end{tikzpicture}
+\end{center}
+
+\noindent O resistor de Thévenin é a associação em paralelo de $R_3$ e $R_4$. No entanto, como as correntes nas entradas do amplificador operacional são nulas, o resistor foi substituído por um curto circuito. Com o circuito neste formato, fica claro que a contribuição de $V_2$ para $V_o$ é um amplificador não inversor cuja entrada é $E_{th}$. Por isso,
+
+\begin{equation}
+    V_{o_2} = \l(1+\dfr{R_2}{R_1}\r) \l(\dfr{R_4}{R_3+R_4}\r) V_2.
+\end{equation}
+
+\noindent Manipulando um pouco a expressão acima,
+
+\begin{equation}
+    V_{o_2} = \l(1+\dfr{R_2}{R_1}\r) \l(\dfr{R_3+R_4}{R_4}\r)^{-1} V_2 = \l(1+\dfr{R_2}{R_1}\r) \l(1+\dfr{R_3}{R_4}\r)^{-1} V_2.
+\end{equation}
+
+\noindent Finalmente, a tensão de saída pode ser calculada, de forma que
+
+\begin{equation}
+    V_o = \dfr{1+\dfr{R_2}{R_1}}{1+\dfr{R_3}{R_4}}V_2 - \dfr{R_2}{R_1}V_1.
+\end{equation}
+
+\noindent É comum utilizar uma configuração em que $R_1=R_3$ e que $R_2=R_4$, pois o circuito resultante amplifica diretamente a diferença de tensão entre $V_2$ e $V_1$, como evidencia a expressão \eqref{eq:ampop_diferencas}.
 
 \subsubsection{Ganho finito em malha aberta}
 \label{subsubsec:ganho finito}
@@ -4043,6 +4116,333 @@ Neste caso a melhor escolha é parâmetros de transmissão $ABCD$, possibilitand
     ;\end{tikzpicture}
     \end{center}
 
+\subsubsection{Exemplos}
+\label{subsubsec:exemplosquadripolos}
+
+\noindent \textbf{Exemplo 1:} Determine os parâmetros híbridos do quadripolo $A$ abaixo
+
+\begin{equation*}
+    \textbf{A:}
+    \begin{cases}
+        E_1 = h_{11}I_1 + h_{12}E_2
+        \\ \\
+        I_2 = h_{21}I_1 + h_{22}E_2
+    \end{cases}
+\end{equation*}
+
+\begin{center}
+    \begin{tikzpicture}
+        \draw
+        (0.5,5) to[open,v_=$E_1$] (0.5,0)
+        (0,5) to[short,f=$I_1$,*-] (2,5)
+        (2,5) to[R,l=$10$,f_=$i$] (2,2.5)
+        (2,2.5) -- (6,2.5)
+        (3,2.5) to[R,l=$0.4$] (3,0)
+        (4,5) to[I,l_=$25i$] (4,2.5)
+        (4,5) -- (6,5)
+        (6,5) to[R,l=$250$] (6,2.5)
+        (6,5) to[short,f<=$I_2$,-*] (8,5)
+        (8.5,5) to[open,v=$E_2$] (8.5,0)
+        (0,0) to[short, *-*] (8,0)
+        ;
+    \end{tikzpicture}
+\end{center}
+
+\noindent Em seguida, dado o quadripolo $B$, escreva o sistema de equações que modela e resolve o circuito do quadripolo $A$ realimentado pelo quadripolo $B$.
+
+\begin{equation*}
+    \textbf{B:}
+    \begin{cases}
+        E_3 = 13I_3 + E_4
+        \\ \\
+        I_4 = -I_3
+    \end{cases}
+\end{equation*}
+
+\begin{center}
+    \begin{tikzpicture}[scale=1.1,transform shape]
+        \draw
+        (0,0) node[fourport,t=$\textbf{A}$](btt1){}
+        (btt1.1) to[short] (-2,-0.45)
+        (btt1.2) to[short] (2,-0.45)
+        (btt1.3) to[short,f<=$I_2$] (2,0.45)
+        (btt1.4) to[short,f<_=$I_1$] (-2,0.45)
+        (-1.5,0.45) to[open,v=$E_1$] (-1.5,-0.45)
+        (2.5,0.45) to[open,v_=$E_2$] (2.5,-0.45)
+
+        (0,-3) node[fourport,t=$\textbf{B}$](btt2){}
+        (btt2.1) to[short] (-2,-3.45)
+        (btt2.2) to[short] (2,-3.45)
+        (btt2.3) to[short,f<=$I_3$] (2,-2.55)
+        (btt2.4) to[short,f<_=$I_4$] (-2,-2.55)
+        (-1.5,-2.55) to[open,v=$E_4$] (-1.5,-3.45)
+        (2.5,-2.55) to[open,v_=$E_3$] (2.5,-3.45)
+
+        (-2,-2.55) -- (-3.2,-2.55)
+        (-3.2,-2.55) -- (-3.2,0.45)
+
+        (2,-0.45) -- (2.9,-0.45)
+        (2.9,-0.45) -- (2.9,-1.65)
+        (2.9,-1.65) to[crossing] (2.9,-3.45)
+
+        (2,-2.55) -- (3.2,-2.55)
+        (3.2,-2.55) -- (3.2,0.45)
+
+        (-4.5,0.45) -- (-3.5,0.45)
+        (-3.5,0.45) -- (-2,0.45)
+        (-4.5,-3.45) -- (-3.5,-3.45)
+        (-3.5,-3.45) -- (-2,-3.45)
+        (-4.5,0.45) to[R,l=$10$] (-4.5,-1.95)
+        (-4.5,-1.95) to[V,l=$e_i$] (-4.5,-3.45)
+
+        (4.5,0.45) -- (3.5,0.45)
+        (3.5,0.45) -- (2,0.45)
+        (4.5,0.45) to[R,l=$60$,v=$e_o$] (4.5,-3.45)
+        (4.5,-3.45) -- (3.5,-3.45)
+        (3.5,-3.45) -- (2,-3.45)
+        ;
+
+        \ctikzset{bipoles/length = 1cm}
+        \draw
+        (-3.2,-2.55) to[R,l=$20$] (-3.2,-3.45)
+        ;
+
+        \draw[dashed]
+        (btt1.1) -- (btt1.2)
+        (btt2.1) -- (btt2.2)
+        ;
+    \end{tikzpicture}
+\end{center}
+
+\noindent O primeiro passo é aplicar a definição dos parâmetros híbridos no circuito do quadripolo $A$. Para isso, utiliza-se da superposição, matando as fontes das variáveis $I_1$ e, em seguida, $E_2$. Atribuindo $I_1=0$.
+
+\begin{center}
+    \begin{tikzpicture}
+        \draw
+        (0,5) to[V,l_=$E_1$] (0,0)
+        (0,5) to[short,f=$0$,*-] (2,5)
+        (2,5) to[R,l=$10$,f_=$0$] (2,2.5)
+        (2,2.5) -- (6,2.5)
+        (3,2.5) to[R,l=$0.4$,v=$E_1$,f=$2.5E_1$] (3,0)
+        (4,5) to[I,l_=$0$] (4,2.5)
+        (4,5) -- (6,5)
+        (6,5) to[R,l=$250$,f=$I_2$] (6,2.5)
+        (6,5) to[short,f<=$I_2$,-*] (8,5)
+        (8,5) to[V,l=$E_2$] (8,0)
+        (0,0) to[short, *-*] (8,0)
+        ;
+    \end{tikzpicture}
+\end{center}
+
+\noindent Como a variável de controle foi zerada, a tensão no resistor de $10\Omega$ é nula. Por isso, a tensão do resistor de $0.4\Omega$ é a própria tensão $E_1$. Pelo mesmo motivo, a corrente do resistor de $250\Omega$ é a própria corrente $I_2$. Assim, pela malha mais à direita,
+
+\begin{equation}
+    E_1 + 250I_2 = E_2. \label{eq:equad_eq1}
+\end{equation}
+
+\noindent Além disso, já que a fonte controlada tem corrente nula (circuito aberto), os resistores de $250\Omega$ e $0.4\Omega$ possuem mesma corrente, o que implica, pela Lei de Ohm,
+
+\begin{equation*}
+    \dfr{E_1}{0.4} = 2.5E_1 = I_2,
+\end{equation*}
+
+\noindent o que permite reescrever a expressão \eqref{eq:equad_eq1} como
+
+\begin{equation*}
+    E_1 = \dfr{E_2}{626},
+\end{equation*}
+
+\noindent e também
+
+\begin{equation*}
+    I_2 = \dfr{E_2}{250.4}= \dfr{5}{1252}E_2.
+\end{equation*}
+
+\noindent Por isso, pelas definições dos parâmetros,
+
+\begin{equation}
+    h_{12}=\l.\dfr{E_{1}}{E_{2}}\r|_{I_{1}=0} = \dfr{1}{626}
+    \qquad
+    h_{22}=\l.\dfr{I_{2}}{E_{2}}\r|_{I_{1}=0} = \dfr{5}{1252}.
+    \label{eq:equad_param1}
+\end{equation}
+
+\noindent Matando, agora, a fonte de tensão $E_2$, o circuito resultante é
+
+\begin{center}
+    \begin{tikzpicture}
+        \draw
+        (0,5) to[V,l=$E_1$] (0,0)
+        (0,5) to[short,f=$I_1$,*-] (2,5)
+        (2,5) to[R,l=$10$,f_=$I_1$] (2,2.5)
+        (2,2.5) -- (6,2.5)
+        (3,2.5) to[R,l=$0.4$,f=$I_1+I_2$] (3,0)
+        (4,5) to[I,l_=$25I_1$] (4,2.5)
+        (4,5) -- (6,5)
+        (6,5) to[R,l=$250$,f=$I_2-25I_1$] (6,2.5)
+        (6,5) to[short,f<=$I_2$,-*] (8,5)
+        (8,5) to[short,*-*] (8,0)
+        (0,0) to[short, *-*] (8,0)
+        ;
+    \end{tikzpicture}
+\end{center}
+
+\noindent A corrente no resistor de $0.4\Omega$ é, pelo nó abaixo deste mesmo resistor, $I_1+I_2$. No caso do resistor de $250\Omega$, pelo nó com a fonte controlada, a sua corrente vale $I_2- 25I_1$. Assim, é possível equacionar ambas as malhas do circuito, de modo que
+
+\begin{equation*}
+    \begin{cases}
+        E_1 = 10I_1 + 0.4(I_1+I_2)
+        \\
+        0.4(I_1+I_2) + 250(I_2-25I_1) = 0
+    \end{cases}
+    .
+\end{equation*}
+
+\noindent Portanto, ao resolver o sistema de equações, descobre-se que
+
+\begin{equation*}
+    I_2 = \dfr{7812}{313}I_1 \qquad E_1 = \dfr{6380}{313}I_1.
+\end{equation*}
+
+\noindent Pelas definições dos parâmetros,
+
+\begin{equation}
+    h_{11}=\l.\dfr{E_{1}}{I_{1}}\r|_{E_{2}=0} = \dfr{6380}{313}
+    \qquad
+    h_{21}=\l.\dfr{I_{2}}{I_{1}}\r|_{E_{2}=0} = \dfr{7812}{313}.
+    \label{eq:equad_param2}
+\end{equation}
+
+\noindent Logo, de \eqref{eq:equad_param1} e \eqref{eq:equad_param2},
+
+\begin{equation}
+    \textbf{A:}
+    \begin{bmatrix}
+        \dfr{6380}{313} & \dfr{1}{626} \\
+        & \\
+        \dfr{7812}{313} & \dfr{5}{1252}
+    \end{bmatrix}
+\end{equation}
+
+\noindent O próximo passo é encontrar a matriz $M$ que representa o sistema de equações algébricas $M\mathbf{X}=\mathbf{U}$, sendo o vetor de incógnitas $\mathbf{X}^T=[E_1 \quad I_1 \quad E_2 \quad I_2 \quad E_3 \quad I_3 \quad E_4 \quad I_4]$ e $\mathbf{U}$ o vetor de termos independentes. Como existem 8 incógnitas, devemos encontrar 8 equações. Note que, porém, metade das equações já são conhecidas e dadas pelos parâmetros de cada quadripolo. Para o restante, considera-se o circuito com os quadripolos genéricos, como se não fosse conhecido seu circuito original.
+
+\begin{center}
+    \begin{tikzpicture}[scale=1.1,transform shape]
+        \draw
+        (0,0) node[fourport,t=$\textbf{A}$](btt1){}
+        (btt1.1) to[short] (-2,-0.45)
+        (btt1.2) to[short] (2,-0.45)
+        (btt1.3) to[short,f<=$I_2$] (2,0.45)
+        (btt1.4) to[short,f<_=$I_1$] (-2,0.45)
+        (-1.5,0.45) to[open,v=$E_1$] (-1.5,-0.45)
+        (2.5,0.45) to[open,v_=$E_2$] (2.5,-0.45)
+
+        (0,-3) node[fourport,t=$\textbf{B}$](btt2){}
+        (btt2.1) to[short] (-2,-3.45)
+        (btt2.2) to[short] (2,-3.45)
+        (btt2.3) to[short,f<=$I_3$] (2,-2.55)
+        (btt2.4) to[short,f<_=$I_4$] (-2,-2.55)
+        (-1.5,-2.55) to[open,v=$E_4$] (-1.5,-3.45)
+        (2.5,-2.55) to[open,v_=$E_3$] (2.5,-3.45)
+
+        (-2,-2.55) -- (-3.2,-2.55)
+        (-3.2,-2.55) -- (-3.2,0.45)
+
+        (2,-0.45) -- (2.9,-0.45)
+        (2.9,-0.45) -- (2.9,-1.65)
+        (2.9,-1.65) to[crossing] (2.9,-3.45)
+
+        (2,-2.55) -- (3.2,-2.55)
+        (3.2,-2.55) -- (3.2,0.45)
+
+        (-4.5,0.45) -- (-3.5,0.45)
+        (-3.5,0.45) -- (-2,0.45)
+        (-4.5,-3.45) -- (-3.5,-3.45)
+        (-3.5,-3.45) -- (-2,-3.45)
+        (-4.5,0.45) to[R,l=$10$,v<=$ $,f<=$ $] (-4.5,-1.95)
+        (-4.5,-1.95) to[V,l=$e_i$] (-4.5,-3.45)
+
+        (4.5,0.45) -- (3.5,0.45)
+        (3.5,0.45) -- (2,0.45)
+        (4.5,0.45) to[R,l=$60$,v=$E_2$] (4.5,-3.45)
+        (4.5,-3.45) -- (3.5,-3.45)
+        (3.5,-3.45) -- (2,-3.45)
+        ;
+
+        \ctikzset{bipoles/length = 1cm}
+        \draw
+        (-3.2,-2.55) to[R,l=$20$] (-3.2,-3.45)
+        ;
+
+        \draw[dashed]
+        (btt1.1) -- (btt1.2)
+        (btt2.1) -- (btt2.2)
+        ;
+    \end{tikzpicture}
+\end{center}
+
+\noindent Observa-se que os quadripolos estão associados em paralelo à direita, o que implica
+
+\begin{equation}
+    E_2-E_3=0. \label{eq:equad_fora1}
+\end{equation}
+
+\noindent Além disso, o resistor de $60\Omega$ também possui tensão $E_2$, o que implica, pela Lei de Ohm, sua corrente ser $\frac{E_2}{60}$. Então, pelo nó,
+
+\begin{equation}
+    I_2+I_3+\dfr{E_2}{60}=0. \label{eq:equad_fora2}
+\end{equation}
+
+\noindent Em seguida, como foi informado que as referências estão conectadas (isto é, os quadripolos são, na verdade, tripolos), é possível equacionar a malha que passa por $E_1$, atravessa a referência do quadripolo $A$, em sequência, a do quadripolo $B$ e, por fim, passa por $E_4$, ou seja,
+
+\begin{equation}
+    E_1-E_4=0. \label{eq:equad_fora3}
+\end{equation}
+
+\noindent Pode-se, então, encontrar a corrente no resistor de $10\Omega$, que, pelo nó, equivale a $I_1+I_4+\frac{E_4}{20}$. Por isso, fazendo a malha que contém a fonte, tem-se que
+
+\begin{equation}
+    e_i = 10I_1+10I_4+\dfr{3}{2}E_4 \label{eq:equad_fora4}.
+\end{equation}
+
+\noindent Finalmente, das expressões \eqref{eq:equad_param1}, \eqref{eq:equad_param2}, \eqref{eq:equad_fora1}, \eqref{eq:equad_fora2}, \eqref{eq:equad_fora3} e \eqref{eq:equad_fora4} escreve-se o sistema em forma matricial:
+
+\begin{equation*}
+    \begin{bmatrix}
+        -1 & \dfr{6380}{313} & \dfr{1}{626} & 0 & 0 & 0 & 0 & 0\\ \\
+        0 & \dfr{7812}{313} & \dfr{5}{1252} & -1 & 0 & 0 & 0 & 0\\ \\
+        0 & 0 & 0 & 0 & -1 & 13 & 1 & 0\\ \\
+        0 & 0 & 0 & 0 & 0 & 1 & 0 & 1\\ \\
+        0 & 0 & 1 & 0 & -1 & 0 & 0 & 0\\ \\
+        0 & 0 & \dfr{1}{60} & 1 & 0 & 1 & 0 & 0\\ \\
+        1 & 0 & 0 & 0 & 0 & 0 & -1 & 0\\ \\
+        0 & 10 & 0 & 0 & 0 & 0 & \dfr{3}{2} & 10
+    \end{bmatrix}
+    \begin{bmatrix}
+        E_1 \\ \\
+        I_1 \\ \\
+        E_2 \\ \\
+        I_2 \\ \\
+        E_3 \\ \\
+        I_3 \\ \\
+        E_4 \\ \\
+        I_4
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        0\\ \\
+        0\\ \\
+        0\\ \\
+        0\\ \\
+        0\\ \\
+        0\\ \\
+        0\\ \\
+        e_i
+    \end{bmatrix}
+\end{equation*}
+
+\noindent Para encontrar a tensão $e_o$, seria necessário resolver o sistema de equações e utilizar-se do fato de que $E_2=E_3=e_o$. No entanto, como esse tipo de tarefa envolve inverter uma matriz grande $M$, a questão requere apenas a montagem do sistema.
+
 \newpage
 
 \section{Circuitos Reativos}
@@ -4380,6 +4780,8 @@ Se o polinômio característico tiver ordem mais alta, a resposta natural será 
     y_n(t) = C_1e^{-3t} + C_2e^{-2t}+ C_3te^{-2t} + e^{-t}[C_4\cos(5t) + C_5\sin(5t)].
 \end{equation*}
 
+\textbf{Observação:} Fugindo um pouco da notação matemática, é comum em circuitos utilizar o símbolo $A_i$ para denotar a i-ésima constante, já que $C_i$ também pode representar um capacitor. No entanto, como essa e a próxima seção estão mais próximas de equações diferenciais do que de circuitos, decidiu-se utilizar a letra $C$. Deve-se sempre entender o contexto em que as variáveis estão inseridas. Note que o símbolo escolhido para as constantes não é tão importante quanto descobrir seus valores. Mesmo assim, é válida a observação.
+
 \subsubsection{Resposta Forçada}
 \label{subsubsec:forçada}
 A resposta forçada de um sistema equivale à contribuição da função de entrada para a saída. Para encontrá-la assume-se uma solução de acordo com a função não homogênea $x(t)$, que resolve a equação diferencial
@@ -4406,6 +4808,8 @@ Como quer-se que o lado esquerdo seja igual ao lado direito, faz sentido assumir
 \end{equation*}
 
 Então, deve-se substituir $y_{p}(t)$ na equação diferencial não homogênea para que, através da simples comparação dos dois lados da equação, sejam descobertos os valores das constantes de $y_{p}(t)$.
+
+Para um caso em que o lado direito da equação é linearmente dependente de alguma das componentes da resposta natural, pode-se multiplicar a função particular por $t$, resultando em uma resposta linearmente independente (como mostrado na seção anterior).
 
 \subsubsection{Resposta Completa}
 \label{subsubsec:completa}
@@ -4502,6 +4906,264 @@ Como o lado direto da equação é constante, $e_{o_p} = A$. Substituindo na equ
         ;
     \end{tikzpicture}
 \end{center}
+
+\noindent\textbf{Exemplo 2:} O circuito abaixo representa o modelo de um motor de corrente contínua. Encontre, literalmente, a EDOL e as CONDINIC para a corrente de armadura $i_a(t)$. Em seguida, determine o valor da velocidade angular, representada pela tensão $\omega(t)$. Considere $e_i(t)=10u(t)$, $R_a=0.45\Omega$, $L_a=10mH$, $K_a=7\frac{N \hspace{1mm} m}{A}$, $D=0.5\frac{Kg \hspace{1mm} m}{A}$, $J=0.1Kg \hspace{1mm} m^2$ e $K_{\omega} = 0.025V \hspace{1mm} s$.
+
+\begin{center}
+    \begin{tikzpicture}
+        \draw
+        (0,3) to[V,l=$e_i$] (0,0)
+        (0,3) to[R,l=$R_a$,f=$i_a$] (2,3)
+        (2,3) to[L,l=$L_a$] (4,3)
+        (4,3) to[V,l_=$K_{\omega}\omega$] (4,0)
+        (6,0) to[I,l_=$K_a i_a$] (6,3)
+        (6,3) -- (10,3)
+        (8,3) to[R,l=$\dfr{1}{D}$] (8,0)
+        (10,3) to[C,l=$J$,v=$\omega$] (10,0)
+        (0,0) -- (10,0)
+        ;
+    \end{tikzpicture}
+\end{center}
+
+\noindent A primeira coisa a ser constatada é que os componentes do lado direito do circuito representam um sistema mecânico: $K_a i_a$ representa uma força, $D$ é o coeficiente de atrito no eixo do motor, $J$ é o momento de inércia do eixo e $\omega$ sua velocidade angular. Por isso, suas unidades diferem das usualmente encontradas para esses componentes. Em nosso caso, no entanto, pouco importa o que o dito circuito modela, mas sim encontrar os valores de tensão e corrente. Deve-se, portanto, abordar o problema como um circuito qualquer, utilizando, quando necessário, os valores dos componentes mecânicos.
+
+\vspace{1cm}
+
+\noindent Note que ambos os circuitos estão mutuamente relacionados pelas fontes controladas e pelo referencial. Como existem duas incógnitas, são necessárias duas equações diferenciais. Considerando que a corrente $i_a$ define a polaridade das tensões de $R_a$ e $L_a$,
+
+\begin{center}
+    \begin{tikzpicture}
+        \draw
+        (0,3) to[V,l=$e_i$] (0,0)
+        (0,3) to[R,l=$R_a$,f=$i_a$,v=$ $] (2,3)
+        (2,3) to[L,l=$L_a$,v=$ $] (4,3)
+        (4,3) to[V,l_=$K_{\omega}\omega$] (4,0)
+        (0,0) -- (5,0) node[fill=white]{$\dots$}
+        ;
+    \end{tikzpicture}
+\end{center}
+
+\noindent Pela malha,
+
+\begin{equation*}
+    e_i = R_a i_a + L_a \dfr{di_a}{dt} + K_{\omega}\omega.
+\end{equation*}
+
+\noindent Como quer-se encontrar $i_a$, isola-se a tensão $\omega$, resultando em
+
+\begin{equation}
+    \omega = \dfr{e_i - R_a i_a - L_a \dfr{di_a}{dt}}{K_{\omega}}. \label{eq:e2_velocidade_angular}
+\end{equation}
+
+\noindent Olhando, agora, para o lado direito do circuito, é evidente que todos os componentes estão em paralelo. Considerando, também, que a direção das correntes nos passivos é definida pela tensão $\omega$,
+
+\begin{center}
+    \begin{tikzpicture}
+        \draw
+        (0,0) to[I,l_=$K_a i_a$] (0,3)
+        (2,3) to[R,l=$\dfr{1}{D}$,f=$D\omega$] (2,0)
+        (4,3) to[C,l=$J$,v=$\omega$,f=$J \dfr{d\omega}{dt}$] (4,0)
+        (-1,0) node[fill=white]{$\dots$} -- (4,0)
+        (0,3) -- (4,3)
+        ;
+    \end{tikzpicture}
+\end{center}
+
+\noindent Dessa forma, pelo nó do circuito,
+
+\begin{equation}
+    J \dfr{d\omega}{dt} + D \omega = K_a i_a. \label{eq:e2_edol_mista}
+\end{equation}
+
+\noindent Aplicando \eqref{eq:e2_velocidade_angular} em \eqref{eq:e2_edol_mista}, colocando-se a constante $K_{\omega}$ em evidência,
+
+\begin{equation*}
+    \dfr{J}{K_{\omega}} \dfr{d}{dt}\l( e_i - R_a i_a - L_a \dfr{di_a}{dt} \r) + \dfr{D}{K_{\omega}} \l( e_i - R_a i_a - L_a \dfr{di_a}{dt} \r) = K_a i_a
+\end{equation*}
+
+\begin{equation*}
+    \dfr{J}{K_{\omega}} \dei{ } - \dfr{J R_a}{K_{\omega}} \dfr{di_a}{dt} - \dfr{J L_a}{K_{\omega}} \dfr{d^2i_a}{dt^2} + \dfr{D}{K_{\omega}} e_i - \dfr{D R_a}{K_{\omega}} i_a - \dfr{D L_a}{K_{\omega}} \dfr{di_a}{dt} = K_a i_a.
+\end{equation*}
+
+\noindent Em função de facilitar escrever a forma mônica, divide-se ambos os lados da expressão por $\frac{J}{K_{\omega}}$, resultando em
+
+\begin{equation*}
+    \dei{ } - R_a\dfr{di_a}{dt} - L_a\dfr{d^2i_a}{dt^2} + \dfr{D}{J} e_i - \dfr{D R_a}{J} i_a - \dfr{D L_a}{J} \dfr{di_a}{dt} = \dfr{K_a K_{\omega}}{J} i_a.
+\end{equation*}
+
+\noindent Organizando os termos da EDOL,
+
+\begin{equation*}
+    L_a \dfr{d^2i_a}{dt^2} + \l(R_a + \dfr{D L_a}{J}\r)\dfr{di_a}{dt} + \l(\dfr{K_a K_{\omega}}{J} + \dfr{D R_a}{J}\r)i_a = \dei{ } + \dfr{D}{J} ei
+\end{equation*}
+
+\begin{equation}
+    \dfr{d^2i_a}{dt^2} + \l(\dfr{R_a}{L_a} + \dfr{D}{J}\r)\dfr{di_a}{dt} + \l(\dfr{K_a K_{\omega}}{J L_a} + \dfr{D R_a}{J L_a}\r)i_a = \dfr{1}{L_a}\dei{ } + \dfr{D}{J L_a} e_i. \label{eq:e2_edol_monica}
+\end{equation}
+
+\noindent Para verificar se há alguma inconsistência na equação, realiza-se a análise dimensional. As chaves a seguir representam operações com unidades de media (como referido na Seção \ref{subsubsec:unidades}).
+
+\begin{equation*}
+    \l[ \dfr{A}{s^2} + \l( \dfr{\Omega}{H} + \dfr{\dfr{Kg \hspace{1mm} m^2}{s}}{Kg \hspace{1mm} m^2} \r) \dfr{A}{s} + \l( \dfr{\dfr{N \hspace{1mm} m}{A} V \hspace{1mm} s}{Kg \hspace{1mm} m^2 \hspace{1mm} H} + \dfr{\dfr{Kg \hspace{1mm} m^2 \hspace{1mm} \Omega}{s}}{Kg \hspace{1mm} m^2 \hspace{1mm} H} \r)A \r] = \l[ \dfr{1}{H}\dfr{V}{s}  + \dfr{\dfr{Kg \hspace{1mm} m^2 \hspace{1mm}}{s}}{Kg \hspace{1mm} m^2 \hspace{1mm} H}V\r].
+\end{equation*}
+
+\noindent Lembrando que, pela Segunda Lei de Newton, $[N] = [m \hspace{1mm}s^{-2}]$. Simplificando, então,
+
+\begin{equation*}
+    \l[ \dfr{A}{s^2} + \l( \dfr{\Omega}{H} + \dfr{1}{s}\r)\dfr{A}{s} + \l( \dfr{\dfr{1}{A \hspace{1mm} s} V}{H} + \dfr{\Omega}{H \hspace{1mm} s} \r) A \r] = \l[ \dfr{V}{H \hspace{1mm} s}  + \dfr{V}{H \hspace{1mm} s}\r].
+\end{equation*}
+
+\noindent Reorganizando e expandindo os termos,
+
+\begin{equation*}
+    \l[ \dfr{A}{s^2} + \l( \dfr{\Omega \hspace{1mm} A}{H \hspace{1mm} s} + \dfr{A}{s^2}\r) + \l( \dfr{V}{H \hspace{1mm} s} + \dfr{\Omega \hspace{1mm} A}{H \hspace{1mm} s} \r) \r] = \l[ \dfr{V}{H \hspace{1mm} s}  + \dfr{V}{H \hspace{1mm} s}\r].
+\end{equation*}
+
+\noindent Todos os termos devem ter a mesma unidade. Para tal, deve-se ter que
+
+\begin{equation*}
+    \l[\dfr{A}{s^2} \r] = \l[ \dfr{\Omega}{H} \dfr{A}{s} \r] = \l[ \dfr{V}{H \hspace{1mm} s} \r].
+\end{equation*}
+
+\noindent Da relação VI do indutor,
+
+\begin{equation*}
+    V = L \dfr{di}{dt} \implies [V] = \l[ H \dfr{A}{s} \r] \implies [H] = \l[ \dfr{V \hspace{1mm} s}{A} \r].
+\end{equation*}
+
+\noindent Assim, sabendo que, pela Lei de Ohm, $[\Omega] = \l[\frac{V}{A}\r]$, mostra-se que
+
+\begin{equation*}
+    \l[ \dfr{\Omega}{H} \r] = \l[\dfr{\dfr{V}{A}}{\dfr{V \hspace{1mm} s}{A}}\r] = \l[\dfr{1}{s}\r],
+\end{equation*}
+
+\noindent de modo que
+
+\begin{equation*}
+    \l[\dfr{\Omega}{H} \dfr{A}{s}\r] = \l[ \dfr{A}{s^2} \r].
+\end{equation*}
+
+\noindent Ainda pelo VI do indutor, é evidente que
+
+\begin{equation*}
+    \l[\dfr{V}{H \hspace{1mm} s}\r] = \l[\dfr{A}{s^2}\r].
+\end{equation*}
+
+\noindent Portanto, existe consistência dimensional na equação. Note que a análise realizada foi demasiada verbosa em virtude de facilitar o entendimento do leitor. Em geral, é possível checar rapidamente as unidades na própria equação (muitas vezes até mentalmente). Os autores recomendam fortemente a utilização dessa técnica, pois trás certa segurança na hora da montagem da EDOL, já que indica (mas não garante) que a mesma foi feita corretamente.
+
+\vspace{1cm}
+
+\noindent Para encontrar as condições iniciais, escreve-se o circuito para tempo $t=0$. Como nada foi dito, assume-se que os capacitores e indutores estão descarregados.
+
+\begin{center}
+    \begin{tikzpicture}
+        \draw
+        (0,3) to[V,l=$e_i(0)$] (0,0)
+        (0,3) to[R,f=$i_a(0)$] (2,3)
+        (2,3) to[open,*-*,v=$e$] (3.75,3)
+        (3.75,3) -- (4,3)
+        (4,3) to[V,l_=$K_{\omega}\omega(0)$] (4,0)
+        (6,0) to[I,l_=$K_a i_a(0)$] (6,3)
+        (6,3) -- (10,3)
+        (8,3) to[R] (8,0)
+        (10,3) -- (10,2.5)
+        (10,0) -- (10,0.5)
+        (10,2.5) to[short,v=$\omega(0)$,*-*] (10,0.5)
+        (0,0) -- (10,0)
+        ;
+    \end{tikzpicture}
+\end{center}
+
+\noindent Como o indutor é um circuito aberto, a corrente $i_a(0)$ deve ser nula, o que implica a fonte controlada de corrente também ser um circuito aberto. Além disso, a tensão $\omega(0)$ também é nula, de modo que a fonte controlada de tensão é modelada por um curto. Redesenhando o circuito,
+
+\begin{center}
+    \begin{tikzpicture}
+        \draw
+        (0,3) to[V,l=$e_i(0)$] (0,0)
+        (0,3) to[R,f=$0$,v=$0$] (2,3)
+        (2,3) to[open,*-*,v=$e(0)$] (3.75,3)
+        (3.75,3) -- (4,3)
+        (4,3) -- (4,2.5)
+        (4,0) -- (4,0.5)
+        (4,2.5) to[short,*-*] (4,0.5)
+        (6,3) -- (6,2.5)
+        (6,0) -- (6,0.5)
+        (6,0.5) to[open,*-*] (6,2.5)
+        (6,3) -- (10,3)
+        (8,3) to[R] (8,0)
+        (10,3) -- (10,2.5)
+        (10,0) -- (10,0.5)
+        (10,2.5) to[short,v=$0$,*-*] (10,0.5)
+        (0,0) -- (10,0)
+        ;
+    \end{tikzpicture}
+\end{center}
+
+\noindent Para a condição da derivada, utiliza-se a relação VI do indutor, isto é,
+
+\begin{equation*}
+    e = L_a \dfr{di_a}{dt} \implies \dfr{di_a}{dt} = \dfr{e}{L_a}.
+\end{equation*}
+
+\noindent Aplicando $t=0$ e sabendo que, pela malha, $e(0)=e_i(0)$,
+
+\begin{equation*}
+    \dfr{di_a(0)}{dt} = \dfr{e(0)}{L_a} = \dfr{e_i(0)}{L_a}.
+\end{equation*}
+
+\noindent Note que é sempre mais correto encontar a expressão literal antes de aplicar $t=0$. Um exemplo clássico de erro em questões de circuitos elétricos é derivar uma expressão após aplicar $t=0$, o que sempre resultará em $0$, já que toda função aplicada em algum ponto representa algum valor constante, que possui derivada nula. Aplicando-se os valores dos componentes, então, resulta no seguinte problema a ser resolvido:
+
+\begin{equation*}
+    \begin{cases}
+        \dfr{d^2i_a}{dt^2} + 50 \dfr{di_a}{dt} + 400i_a = 5000
+        \\ \\
+        i_a(0) = 0 \qquad \dfr{di_a(0)}{dt} = 1000
+        \\
+    \end{cases}
+    .
+\end{equation*}
+
+\noindent As raízes da equação características são $\lambda_1=-10$ e $\lambda_2=-40$, o que implica a resposta natural (ou resposta transitória) de $i_a(t)$ ter o formato
+
+\begin{equation*}
+    i_{a_n}(t) = A_1e^{-10t} + A_2e^{-40t}.
+\end{equation*}
+
+\noindent Para a resposta forçada (ou resposta particular), como o lado direito da EDOL é constante, $i_{a_p}(t) = A$. Aplicando na equação,
+
+\begin{equation*}
+    \dfr{d^2A}{dt^2} + 50 \dfr{dA}{dt} + 400A = 5000,
+\end{equation*}
+
+\noindent o que implica $A = 12.5$. A resposta completa é, portanto
+
+\begin{equation*}
+    i_a(t) = 12.5 + A_1e^{-10t} + A_2e^{-40t}.
+\end{equation*}
+
+\noindent Pela primeira CONDINIC, tem-se que
+
+\begin{equation}
+    i_a(0) = 0 \implies A_1 + A_2 = -12.5. \label{eq:e2_sis1}
+\end{equation}
+
+\noindent Pela condição da derivada,
+
+\begin{equation}
+    \dfr{di_a(0)}{dt} = 1000 \implies -10A_1 - 40A_2 = 1000 \label{eq:e2_sis2}.
+\end{equation}
+
+Pelo sistema de equações definido por \eqref{eq:e2_sis1} e \eqref{eq:e2_sis2}, os valores das constantes devem ser $A_1 = \frac{50}{3}$ e $A_2 = \frac{-175}{6}$, o que resulta em
+
+\begin{equation}
+    i_a(t) = 12.5 + \dfr{50}{3}e^{-10t} - \dfr{175}{6}e^{-40t}. \label{eq:e2_ia}
+\end{equation}
+
+\noindent Finalmente, conhecendo-se $i_a(t)$, basta utilizar a expressão \eqref{eq:e2_velocidade_angular} para encontrar $\omega$, que gera a seguinte resposta.
+
+\begin{equation}
+    \omega(t) = 175 - 300e^{-10t} + 525e^{-40t}.
+\end{equation}
 
 \subsubsection{Elementos Reativos com Condições Iniciais: Resposta à Entrada Zero não nula}
 \label{subsubsec:entradazeronaonula}
