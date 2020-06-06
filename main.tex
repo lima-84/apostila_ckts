@@ -16,6 +16,7 @@
 \usepackage{float} % Posicionamento das figuras
 \usepackage{pgfplots} % Gráficos
 \usepackage{enumitem} % Setar identação nos itemizes
+\usepackage[makeroom]{cancel} % Cancel
 \setlist[itemize]{leftmargin=*}
 
 \usetikzlibrary{matrix,decorations.pathreplacing,calc,arrows,decorations.markings,shapes.misc,external}
@@ -4885,29 +4886,7 @@ Como o lado direto da equação é constante, $e_{o_p} = A$. Substituindo na equ
 \subsubsection{Exemplos}
 \label{subsubsec:exemplosreativos}
 
-\noindent\textbf{Exemplo 1: }Determine, literalmente (isto é, sem substituir nenhum valor), a EDOL para $e_o$, com as respectivas condições iniciais e, em seguida, calcule $e_o(t)$ para $e_i= 1 + 2\cos^2(t)$, $R_1 = R_2 = 2\omega$, $R_3=1\omega$, $C_1 = C_2 = 0.25F$, $C_3 = 0.5F$, $L=1H$, $K = 25 \frac{V}{V}$.
-
-\begin{center}
-    \begin{tikzpicture}
-        \draw
-        (0,3) to[V,l=$e_i$] (0,0)
-        (0,3) to[R,l=$R_1$] (3,3)
-        (3,3) to[L,l=$L$] (3,0)
-        (3,3) -- (5,3)
-        (5,3) to[C,l=$C_1$,v=$e$] (5,0)
-        (7,3) to[V,l=$ke$] (7,0)
-        (7,3) to[R,l=$R_2$] (9,3)
-        (9,3) to[C,l=$C_2$] (11,3)
-        (11,3) to[R,l=$R_3$] (11,0)
-        (11,3) -- (13,3)
-        (13,3) to[C,l=$C_3$,v=$e_o$] (13,0)
-        (0,0) -- (13,0)
-
-        ;
-    \end{tikzpicture}
-\end{center}
-
-\noindent\textbf{Exemplo 2:} O circuito abaixo representa o modelo de um motor de corrente contínua. Encontre, literalmente, a EDOL e as CONDINIC para a corrente de armadura $i_a(t)$. Em seguida, determine o valor da velocidade angular, representada pela tensão $\omega(t)$. Considere $e_i(t)=10u(t)$, $R_a=0.45\Omega$, $L_a=10mH$, $K_a=7\frac{N \hspace{1mm} m}{A}$, $D=0.5\frac{Kg \hspace{1mm} m}{A}$, $J=0.1Kg \hspace{1mm} m^2$ e $K_{\omega} = 0.025V \hspace{1mm} s$.
+\noindent\textbf{Exemplo 1:} O circuito abaixo representa o modelo de um motor de corrente contínua. Encontre, literalmente, a EDOL e as CONDINIC para a corrente de armadura $i_a(t)$. Em seguida, determine o valor da velocidade angular, representada pela tensão $\omega(t)$. Considere $e_i(t)=10u(t)$, $R_a=0.45\Omega$, $L_a=10mH$, $K_a=7\frac{N \hspace{1mm} m}{A}$, $D=0.5\frac{Kg \hspace{1mm} m}{A}$, $J=0.1Kg \hspace{1mm} m^2$ e $K_{\omega} = 0.025V \hspace{1mm} s$.
 
 \begin{center}
     \begin{tikzpicture}
@@ -4952,7 +4931,7 @@ Como o lado direto da equação é constante, $e_{o_p} = A$. Substituindo na equ
 \noindent Como quer-se encontrar $i_a$, isola-se a tensão $\omega$, resultando em
 
 \begin{equation}
-    \omega = \dfr{e_i - R_a i_a - L_a \dfr{di_a}{dt}}{K_{\omega}}. \label{eq:e2_velocidade_angular}
+    \omega = \dfr{e_i - R_a i_a - L_a \dfr{di_a}{dt}}{K_{\omega}}. \label{eq:e1_velocidade_angular}
 \end{equation}
 
 \noindent Olhando, agora, para o lado direito do circuito, é evidente que todos os componentes estão em paralelo. Considerando, também, que a direção das correntes nos passivos é definida pela tensão $\omega$,
@@ -4972,10 +4951,10 @@ Como o lado direto da equação é constante, $e_{o_p} = A$. Substituindo na equ
 \noindent Dessa forma, pelo nó do circuito,
 
 \begin{equation}
-    J \dfr{d\omega}{dt} + D \omega = K_a i_a. \label{eq:e2_edol_mista}
+    J \dfr{d\omega}{dt} + D \omega = K_a i_a. \label{eq:e1_edol_mista}
 \end{equation}
 
-\noindent Aplicando \eqref{eq:e2_velocidade_angular} em \eqref{eq:e2_edol_mista}, colocando-se a constante $K_{\omega}$ em evidência,
+\noindent Aplicando \eqref{eq:e1_velocidade_angular} em \eqref{eq:e1_edol_mista}, colocando-se a constante $K_{\omega}$ em evidência,
 
 \begin{equation*}
     \dfr{J}{K_{\omega}} \dfr{d}{dt}\l( e_i - R_a i_a - L_a \dfr{di_a}{dt} \r) + \dfr{D}{K_{\omega}} \l( e_i - R_a i_a - L_a \dfr{di_a}{dt} \r) = K_a i_a
@@ -4998,7 +4977,7 @@ Como o lado direto da equação é constante, $e_{o_p} = A$. Substituindo na equ
 \end{equation*}
 
 \begin{equation}
-    \dfr{d^2i_a}{dt^2} + \l(\dfr{R_a}{L_a} + \dfr{D}{J}\r)\dfr{di_a}{dt} + \l(\dfr{K_a K_{\omega}}{J L_a} + \dfr{D R_a}{J L_a}\r)i_a = \dfr{1}{L_a}\dei{ } + \dfr{D}{J L_a} e_i. \label{eq:e2_edol_monica}
+    \dfr{d^2i_a}{dt^2} + \l(\dfr{R_a}{L_a} + \dfr{D}{J}\r)\dfr{di_a}{dt} + \l(\dfr{K_a K_{\omega}}{J L_a} + \dfr{D R_a}{J L_a}\r)i_a = \dfr{1}{L_a}\dei{ } + \dfr{D}{J L_a} e_i. \label{eq:e1_edol_monica}
 \end{equation}
 
 \noindent Para verificar se há alguma inconsistência na equação, realiza-se a análise dimensional. As chaves a seguir representam operações com unidades de media (como referido na Seção \ref{subsubsec:unidades}).
@@ -5144,32 +5123,538 @@ Como o lado direto da equação é constante, $e_{o_p} = A$. Substituindo na equ
 \noindent Pela primeira CONDINIC, tem-se que
 
 \begin{equation}
-    i_a(0) = 0 \implies A_1 + A_2 = -12.5. \label{eq:e2_sis1}
+    i_a(0) = 0 \implies A_1 + A_2 = -12.5. \label{eq:e1_sis1}
 \end{equation}
 
 \noindent Pela condição da derivada,
 
 \begin{equation}
-    \dfr{di_a(0)}{dt} = 1000 \implies -10A_1 - 40A_2 = 1000 \label{eq:e2_sis2}.
+    \dfr{di_a(0)}{dt} = 1000 \implies -10A_1 - 40A_2 = 1000 \label{eq:e1_sis2}.
 \end{equation}
 
-Pelo sistema de equações definido por \eqref{eq:e2_sis1} e \eqref{eq:e2_sis2}, os valores das constantes devem ser $A_1 = \frac{50}{3}$ e $A_2 = \frac{-175}{6}$, o que resulta em
+Pelo sistema de equações definido por \eqref{eq:e1_sis1} e \eqref{eq:e1_sis2}, os valores das constantes devem ser $A_1 = \frac{50}{3}$ e $A_2 = \frac{-175}{6}$, o que resulta em
 
 \begin{equation}
-    i_a(t) = 12.5 + \dfr{50}{3}e^{-10t} - \dfr{175}{6}e^{-40t}. \label{eq:e2_ia}
+    i_a(t) = 12.5 + \dfr{50}{3}e^{-10t} - \dfr{175}{6}e^{-40t}. \label{eq:e1_ia}
 \end{equation}
 
-\noindent Finalmente, conhecendo-se $i_a(t)$, basta utilizar a expressão \eqref{eq:e2_velocidade_angular} para encontrar $\omega$, que gera a seguinte resposta.
+\noindent Finalmente, conhecendo-se $i_a(t)$, basta utilizar a expressão \eqref{eq:e1_velocidade_angular} para encontrar $\omega$, que gera a seguinte resposta.
 
 \begin{equation}
     \omega(t) = 175 - 300e^{-10t} + 525e^{-40t}.
 \end{equation}
 
-\subsubsection{Elementos Reativos com Condições Iniciais: Resposta à Entrada Zero não nula}
-\label{subsubsec:entradazeronaonula}
+\noindent\textbf{Exemplo 2: }Determine, literalmente (isto é, sem substituir nenhum valor), a EDOL para $e_o$, com as respectivas condições iniciais e, em seguida, calcule $e_o(t)$ para $e_i= 1 + 2\cos^2(t)$, $R_1 = R_2 = 2\Omega$, $R_3=1\Omega$, $C_1 = C_2 = 0.25F$, $C_3 = 0.5F$, $L=1H$, $K = 25 \frac{V}{V}$.
 
-\subsubsection{Métodos clássicos de resolução, utilizando unicamente lei das malhas ou unicamente lei dos nós}
-\label{subsubsec:classicos}
+\begin{center}
+    \begin{tikzpicture}
+        \draw
+        (0,3) to[V,l=$e_i$] (0,0)
+        (0,3) to[R,l=$R_1$] (3,3)
+        (3,3) to[L,l=$L$] (3,0)
+        (3,3) -- (5,3)
+        (5,3) to[C,l=$C_1$,v=$e$] (5,0)
+        (7,3) to[V,l=$Ke$] (7,0)
+        (7,3) to[R,l=$R_2$] (9,3)
+        (9,3) to[C,l=$C_2$] (11,3)
+        (11,3) to[R,l=$R_3$] (11,0)
+        (11,3) -- (13,3)
+        (13,3) to[C,l=$C_3$,v=$e_o$] (13,0)
+        (0,0) -- (13,0)
+        ;
+    \end{tikzpicture}
+\end{center}
+
+
+\textbf{Observação:} Existem duas principais abordagem para resolução desse problema. A primeira delas consiste em se aproveitar do fato de que esse é um circuito em dois estágios em que não há nenhuma conexão , \textit{feedback}, que interconecte o segundo estágio com o primeiro, o que significa que o primeiro estágio, contendo $e_i$, $R_1$, $L$ e $C_1$, não sofre absoluta nenhuma influência do segundo estágio, em que, neste caso, o mesmo só recebe informação do primeiro a partir da fonte controlada $Ke$. Ou seja, em termos práticos, é possível resolver inteiramente o primeiro estágio usando $e(t)$ como incógnita e usá-lo como entrada, multiplicada por $K$, para o segundo estágio e o resolver separadamente. A segunda abordagem é resolver o circuito inteiro de uma vez só, usando substituições das equações entre os estágios. Ainda que a primeira abordagem possa ser ligeiramente mais fácil, pois consiste em resolver duas equações diferencias de segunda ordem ao invés de uma equação diferencial de quarta ordem, será escolhida a segunda abordagem para resolver este problema, com justificativa de, primeiro, mostrar como é possível fazer algo do gênero, uma vez que é menos intuitivo de entender sem ver um exemplo, segundo, para mostrar a resolução de um circuito de ordem tão alta e, terceiro, pois a questão não solicita descobrir a tensão $e(t)$, caso contrário, o outro método é estritamente recomendado.
+
+\vspace{2mm}
+
+\noindent Antes de mais nada, reescrevemos a entrada $e_i$ a partir da identidade trigonométrica dada por $\cos^2(t) = \frac{1}{2}[1+\cos(2t)]$.
+
+
+\begin{equation*}
+    e_i =  1 + 2\cos^2(t) = 1 + 2\left[\dfrac{1 + \cos(2t)}{2}\right] = 2 + \cos(2t)
+\end{equation*}
+
+\begin{center}
+    \textbf{Equacionamento}
+\end{center}
+
+Como \textit{modus operandi}, ou ``paradigma'' para equacionamento de circuitos, principalmente em circuitos complexos em que o leitor talvez possa se encontrar sem saber como proceder, é útil ter em mente algumas coisas. Primeiro, identificar quais são as variáveis disponíveis que podem ser manipuladas, tensões ou correntes, e, segundo, quais novas manipulações podem ser feitas com essas variáveis, relações de tensão e corrente para elementos individuais ou nós e malhas entre os elementos. Ou seja, sempre se perguntar ``qual a manipulação disponível para esse conjunto de variáveis que tenho em mãos que ainda não fiz?'', fazendo com que o equacionamento tenha uma característica procedural. É muito comum começar utilizando a variável de saída, incógnita, e ir ``transportando'' a informação até a entrada do circuito através dessas manipulações, uma vez que, inicialmente, é comum que a única variável disponível para manipulação seja, de fato, a saída. Além disso, é conveniente utilizar a variável de saída, pois a equação diferencial deverá ser escrita unicamente em função de tal variável. Outras vezes, manipular inicialmente uma variável de controle também pode ser útil.
+
+\vspace{2mm}
+
+
+Então, no circuito a seguir, começando pelo segundo estágio, utiliza-se a tensão $e_o$ para descobrir a corrente do capacitor $C_3$ e, dado que $R_3$ está em paralelo com $C_3$, também descobrir a corrente de $R_3$, e, então, pelo nó acima de $R_3$, descobre-se que a corrente que percorre $R_2$ e $C_2$ é o somatório das duas anteriores.
+
+
+\begin{center}
+    \begin{tikzpicture}
+        \draw
+        (0,3) to[V,l=$e_i$] (0,0)
+        (0,3) to[R,l=$R_1$] (3,3)
+        (3,3) to[L,l=$L$] (3,0)
+        (3,3) -- (5,3)
+        (5,3) to[C,l=$C_1$,v=$e$] (5,0)
+        (7,3) to[V,l=$Ke$] (7,0)
+        (7,3) to[R,l=$R_2$,f_=$C_3\dfrac{de_o}{dt} + \dfrac{e_o}{R_3}$] (9,3)
+        (9,3) to[C,l=$C_2$] (11,3)
+        (11,3) to[R,l=$R_3$,f=$\dfrac{e_o}{R_3}$] (11,0)
+        (11,3) -- (13,3)
+        (13,3) to[C,l=$C_3$,v=$e_o$, f=$C_3\dfrac{de_o}{dt}$] (13,0)
+        (0,0) -- (13,0)
+
+        ;
+    \end{tikzpicture}
+\end{center}
+
+
+\noindent Sabendo a corrente que percorre $R_2$ e $C_2$, é possível determinar a tensão em cada desses dois elementos e, agora que se tem uma equação para as tensões e correntes de cada um dos elementos do segundo estágio do circuito, resta apenas fazer uma malha ou nó para obter a equação que relaciona essas variáveis entre si. No caso, faz-se a malha que percorre $Ke$, $R_2$, $C_2$ e $C_3$ (ou, alternativamente, $Ke$, $R_2$, $C_2$ e $R_3$). Obtém-se:
+
+\begin{equation*}
+    Ke = R_2\left(C_3\dfrac{de_o}{dt} + \dfrac{e_o}{R_3}\right) + \dfrac{1}{C_2}\int\left(C_3\dfrac{de_o}{dt} + \dfrac{e_o}{R_3}\right)dt + e_o.
+\end{equation*}
+
+\noindent Dessa forma
+
+\begin{equation}
+    \label{eq:ex2_01}
+    e = \dfrac{R_2\left(C_3\dfrac{de_o}{dt} + \dfrac{e_o}{R_3}\right) + \dfrac{1}{C_2}\displaystyle\int\left(C_3\dfrac{de_o}{dt} + \dfrac{e_o}{R_3}\right)dt + e_o}{K}.
+\end{equation}
+
+\vspace{1mm}
+
+\noindent Agora, voltando-se para o primeiro estágio, podemos fazer o mesmo processo para $e$, já que essa é a variável que relaciona ambos estágios do circuito. Descobre-se a corrente no capacitor $C_1$ e no indutor $L$ a partir da tensão $e$, então a soma dessas correntes é justamente a corrente que percorre $R_1$, nos possibilitando assim descobrir a tensão nesse componente. Por fim, faz-se a malha contendo $e_i$, $R_1$ e $C_1$ para obter a Equação \eqref{eq:ex2_02}.
+
+\begin{center}
+    \begin{tikzpicture}
+        \draw
+        (0,3) to[V,l=$e_i$] (0,0)
+        (0,3) to[R,l_=$R_1$,f=$C_1\dfrac{de}{dt} + \dfrac{1}{L}\displaystyle\int edt$] (3,3)
+        (3,3) to[L,l=$L$,f_=$\dfrac{1}{L}\displaystyle\int edt$] (3,0)
+        (3,3) -- (5,3)
+        (5,3) to[C,l=$C_1$,v=$e$,f=$C_1\dfrac{de_o}{dt}$] (5,0)
+        (7,3) to[V,l=$ke$] (7,0)
+        (7,3) to[R,l=$R_2$] (9,3)
+        (9,3) to[C,l=$C_2$] (11,3)
+        (11,3) to[R,l=$R_3$] (11,0)
+        (11,3) -- (13,3)
+        (13,3) to[C,l=$C_3$,v=$e_o$] (13,0)
+        (0,0) -- (13,0)
+
+        ;
+    \end{tikzpicture}
+\end{center}
+
+\begin{equation}
+    \label{eq:ex2_02}
+    e_i = R_1\left[C_1\dfrac{de}{dt} + \dfrac{1}{L}\int edt\right] + e
+\end{equation}
+
+\noindent Substituindo a Equação \eqref{eq:ex2_01} na Equação \eqref{eq:ex2_02} obtemos
+
+\begin{equation}
+    \label{eq:ex2_03}
+   \begin{split}
+       e_i = R_1\left[C_1\dfrac{d}{dt}\left[\dfrac{R_2\left(C_3\dfrac{de_o}{dt} + \dfrac{e_o}{R_3}\right) + \dfrac{1}{C_2}\displaystyle\int\left(C_3\dfrac{de_o}{dt} + \dfrac{e_o}{R_3}\right)dt + e_o}{K}\right]\right.+ \cdots\\
+       \cdots\left. + \dfrac{1}{L}\int \left[\dfrac{R_2\left(C_3\dfrac{de_o}{dt} + \dfrac{e_o}{R_3}\right) + \dfrac{1}{C_2}\displaystyle\int\left(C_3\dfrac{de_o}{dt} + \dfrac{e_o}{R_3}\right)dt + e_o}{K}\right]dt\right] +\cdots\\
+       \cdots+\dfrac{R_2\left(C_3\dfrac{de_o}{dt} + \dfrac{e_o}{R_3}\right) + \dfrac{1}{C_2}\displaystyle\int\left(C_3\dfrac{de_o}{dt} + \dfrac{e_o}{R_3}\right)dt + e_o}{K}
+   \end{split}
+\end{equation}
+
+Dado que deseja-se resolver uma EDOL, e existem um máximo de duas integrais encadeadas na Equação \eqref{eq:ex2_03}, deriva-se duas vezes com respeito ao tempo, também multiplica-se ambos lados da equação por $K$, a fim de facilitar a notação
+
+\begin{equation*}
+    \begin{split}
+        K\dei{2} = R_1 \left[C_1\left[R_2\left(C_3\deo{4}+\dfr{1}{R_3}\deo{3}\right) +\dfr{1}{C_2}\left(C_3\deo{3}+\dfr{1}{R_3}\deo{2}\right) + \deo{3} \right]+\right.\cdots\\
+        \cdots\left.+\dfr{1}{L}\left[R_2\left(C_3\deo{2}+\dfr{1}{R_3}\dfr{de_o}{dt}\right)+\dfr{1}{C_2}\left(C_3\dfr{de_o}{dt}+\dfr{e_o}{R_3}\right)+\dfr{de_o}{dt}\right] \right] +\cdots\\
+        \cdots + R_2\left(C_3\deo{3}+\dfr{1}{R_3}\deo{2}\right)+\dfr{1}{C_2}\left(C_3\deo{2}+\dfr{1}{R_3}\dfr{de_o}{dt}\right) + \deo{2}
+    \end{split}
+\end{equation*}
+
+\noindent manipulando
+
+
+\begin{equation*}
+    \begin{split}
+        K\dei{2} = R_1R_2C_1C_3\deo{4} + \left(\dfr{R_1R_2C_1}{R_3}+\dfr{R_1C_1C_3}{C_2}+R_1C_1+R_2C_3\right)\deo{3}+\left(\dfr{R_1C_1}{R_3C_2}+\right.\cdots\\
+        \left.\cdots+\dfr{R_1R_2C_3}{L}+\dfr{R_2}{R_3}+\dfr{C_3}{C_2}+1\right)\deo{2} + \left(\dfr{R_1R_2}{R_3L}+\dfr{R_1C_3}{LC_2}+\dfr{R_1}{L}+\dfr{1}{R_3C_2}\right)\dfr{de_o}{dt}+\dfr{R_1}{R_3LC_2}e_o.
+    \end{split}
+\end{equation*}
+
+
+\begin{equation*}
+    \begin{split}
+        \dfr{K}{R_1R_2C_1C_3}\dei{2} = \deo{4} + \left(\dfr{1}{R_3C_3}+\dfr{1}{R_2C_2}+\dfr{1}{R_2C_3}+\dfr{1}{R_1C_1}\right)\deo{3}+\left(\dfr{1}{R_2R_3C_2C_3}+\dfr{1}{LC_1}+\right.\cdots\\
+        \left.\cdots+\dfr{1}{R_1R_3C_1C_3}+        \dfr{1}{R_1R_2C_1C_2}+\dfr{1}{R_1R_2C_1C_3}\right)\deo{2} + \left(\dfr{1}{R_3LC_1C_3}+\dfr{1}{R_2LC_1C_2}+\right.\cdots\\
+        \left.\cdots+\dfr{1}{R_2LC_1C_3}+\dfr{1}{R_1R_2R_3C_1C_2C_3}\right)\dfr{de_o}{dt}+\dfr{1}{R_2R_3LC_1C_2C_3}e_o
+    \end{split}
+\end{equation*}
+
+\noindent É recomendado, nessa etapa, que se realize a análise dimensional descrita no exemplo anterior. Porém aqui será omitida. Substituindo os valores da questão obtemos a Equação \eqref{eq:ex2_04}.
+
+\begin{equation}
+    \label{eq:ex2_04}
+    \deo{4} + 7\deo{3} + 18\deo{2} + 28\dfr{de_o}{dt} + 16e_o = 50\dei{2}
+\end{equation}
+
+
+\begin{center}
+    \textbf{CONDINIC}
+\end{center}
+
+\noindent Primeiro, a partir do circuito equivalente para o instante $t=0$, mostrado a seguir, podemos diretamente determinar o valor de $e_o$ e sua primeira derivada no tempo nesse instante, bem como outros valores úteis que serão explicitados quando convirem.
+
+\begin{center}
+    \begin{tikzpicture}
+        \draw
+        (0,3) to[V,l=$e_i$] (0,0)
+        (0,3) to[R,l=$R_1$,f=$\dfr{e_i(0)}{R_1}$] (3,3)
+        (3,3) to[short,-*] (3,2.25)
+        (3,0) to[short,-*] (3,0.75)
+        (3,3) -- (5,3)
+        (5,3) to[short,-*] (5,2.25)
+        (5,2.25) -- (5,0.75)
+        (5,0.75) to[short,*-] (5,0)
+        (5,3) to[open,v=$e(0)$,,f=$\dfr{e_i(0)}{R_1}$] (5,0)
+        (7,3) to[V,l=$Ke(0)$] (7,0)
+        (7,3) to[R,l=$R_2$,f=$\dfr{Ke(0)}{R_2}$] (9,3)
+        (9,3) to[short,-*] (9.5,3)
+        (9.5,3) -- (10.5,3)
+        (10.5,3) to[short,*-] (11,3)
+        (11,3) to[R,l=$R_3$,f=$0A$] (11,0)
+        (11,3) -- (13,3)
+        (13,3) to[short,-*] (13,2.25)
+        (13,2.25) -- (13,0.75)
+        (13,0.75) to[short,*-] (13,0)
+        (13.2,3) to[open,v=$e_o(0)$] (13.2,0)
+        (0,0) -- (13,0)
+
+        ;
+    \end{tikzpicture}
+\end{center}
+
+\begin{equation}
+    e_o(0) = 0, \left.\dfr{de_o}{dt}\right|_{t=0} = \dfr{i{C_3}(0)}{C_3} = \dfr{Ke(0)}{R_2C_3} = 0
+\end{equation}
+
+\noindent Entretanto o valor para a segunda e terceira deriva em $t=0$ não pode ser obtido tão facilmente, é preciso olhar o circuito em sua forma original. Ainda assim, estando o interesse focado em descobrir uma expressão para a segunda e terceira derivada de $e_o$ e então aplicar em $t=0$, é muito conveniente reescrever o circuito, e consequentemente também escrever as equações, em termos de variáveis que são facilmente deriváveis, isto é, a tensões dos capacitores e correntes dos indutores, uma vez que derivando se obtém diretamente a variável análoga (corrente/tensão).
+
+\begin{center}
+    \begin{tikzpicture}
+        \draw
+        (0,3) to[V,l=$e_i$] (0,0)
+        (0,3) to[R,l=$R_1$] (3,3)
+        (3,3) to[L,l=$L$,f=$i_L$] (3,0)
+        (3,3) -- (5,3)
+        (5,3) to[C,l=$C_1$,v=$V_{C_1}$] (5,0)
+        (7,3) to[V,l=$KV_{C_1}$] (7,0)
+        (7,3) to[R,l=$R_2$] (9,3)
+        (9,3) to[C,l=$C_2$,v=$V_{C_2}$] (11,3)
+        (11,3) to[R,l=$R_3$] (11,0)
+        (11,3) -- (13,3)
+        (13,3) to[C,l=$C_3$,v=$V_{C_3}$] (13,0)
+        (0,0) -- (13,0)
+
+        ;
+    \end{tikzpicture}
+\end{center}
+
+\noindent Dessa forma as equações para, respectivamente, o segundo e primeiro estágios ficam
+
+\begin{equation}
+    \label{eq:ex2_06}
+    KV_{C_1} = R_2\left(\dfr{V_{C_3}}{R_3}+C_3\dfr{dV_{C_3}}{dt}\right)+V_{C_2}+V_{C_3}
+\end{equation}
+
+\begin{equation}
+    \label{eq:ex2_07}
+    e_i = R_1\left[C_1\dfr{dV_{C_1}}{dt}+i_L\right] + V_{C_1}
+\end{equation}
+
+\noindent Substituindo \eqref{eq:ex2_06} em \eqref{eq:ex2_07} obtemos
+
+\begin{equation}
+    \label{eq:ex2_08}
+    \begin{split}
+        e_i =  R_1\left[\dfr{C_1}{K}\left[R_2\left(\dfr{1}{R_3}\dfr{dV_{C_3}}{dt}+C_3\dfr{d^2V_{C_3}}{dt^2}\right)+\dfr{dV_{C_2}}{dt}+\dfr{dV_{C_3}}{dt}\right]+i_L\right] +\cdots\\
+        \cdots+\dfr{1}{K}\left[R_2\left(\dfr{V_{C_3}}{R_3}+C_3\dfr{dV_{C_3}}{dt}\right)+V_{C_2}+V_{C_3}\right]
+    \end{split}
+\end{equation}
+
+\noindent Também, olhando para o circuito em $t=0$, retiramos outras informações úteis, a fim de aplicar a Equação \eqref{eq:ex2_08} em $t=0$ e descobrir $\left.\deo{2}\right|_{t=0} = \left.\dfr{d^2V_{C_3}}{dt^2}\right|_{t=0}$.
+
+\vspace{1.5mm}
+
+\begin{equation*}
+    i_L(0) = 0, V_{C_2}(0) = 0,  \left.\dfr{dV_{C_2}}{dt}\right|_{t=0} = \dfr{i{C_2}(0)}{C_2} = \dfr{Ke(0)}{R_2C_2} = 0
+\end{equation*}
+
+\noindent Utilizando essas informações e as condições iniciais já conhecidas ao aplicar a Equação \eqref{eq:ex2_08} em $t=0$ temos:
+
+\begin{equation}
+    \begin{split}
+        e_i(0) =  R_1\left[\dfr{C_1}{K}\left[R_2\left(\dfr{1}{R_3}\cancel{\dfr{dV_{C_3}}{dt}}+C_3\dfr{d^2V_{C_3}}{dt^2}\right)+\cancel{\dfr{dV_{C_2}}{dt}}+\cancel{\dfr{dV_{C_3}}{dt}}\right]+\cancel{i_L}\right] +\cdots\\
+        \cdots+\dfr{1}{K}\left[R_2\left(\cancel{\dfr{V_{C_3}}{R_3}}+C_3\cancel{\dfr{dV_{C_3}}{dt}}\right)+\cancel{V_{C_2}}+\cancel{V_{C_3}}\right]
+    \end{split}
+\end{equation}
+
+\noindent manipulando
+
+\begin{equation}
+    \left.\dfr{R_1CR_2C_1C_3}{k}\dfr{d^2V_{C_3}}{dt^2}\right|_{t=0} = e_i(0) \implies \left.\dfr{d^2V_{C_3}}{dt^2}\right|_{t=0} = \dfr{k}{R_1CR_2C_1C_3}e_i(0)
+\end{equation}
+
+\begin{equation}
+    \dfr{k}{R_1R_2C_1C_3}e_i(0) = 150.
+\end{equation}
+
+\noindent Agora, uma vez que desejamos derivar a Equação \eqref{eq:ex2_08} para que apareça uma derivada de terceira ordem de $V_{C_3}$, nos deparamos com o problema de que não sabemos o valor da segunda derivada de $V_{C_2}$ em $t=0$. Portanto, torna-se necessário fazer a substituição $V_{C_2} = \dfr{1}{C_2}\displaystyle\int\left(\dfr{V_{C_3}}{R_3} +C_3\dfr{dV_{C_3}}{dt}\right)dt$.
+
+
+\begin{equation}
+    \label{eq:ex2_09}
+    \begin{split}
+        \dfr{de_i}{dt} =  R_1\left[\dfr{C_1}{K}\left[R_2\left(\dfr{1}{R_3}\dfr{d^2V_{C_3}}{dt^2}+C_3\dfr{d^3V_{C_3}}{dt^3}\right)+\dfr{1}{C_2}\left(\dfr{1}{R_3}\dfr{dV_{C_3}}{dt}+C_3\dfr{d^2V_{C_3}}{dt^2}\right)+\right.\right.\cdots\\
+        \left.\left.\cdots+\dfr{d^2V_{C_3}}{dt^2}\right]+        \dfr{di_L}{dt}\right]+\dfr{1}{K}\left[R_2\left(\dfr{1}{R_3}\dfr{dV_{C_3}}{dt}+C_3\dfr{d^2V_{C_3}}{dt^2}\right)+\dfr{dV_{C_2}}{dt}+\dfr{dV_{C_3}}{dt}\right]
+    \end{split}
+\end{equation}
+
+\noindent Voltando para o circuito em $t=0$, retiramos outras informações úteis, a fim de aplicar a Equação \eqref{eq:ex2_09} em $t=0$ e descobrir $\left.\deo{3}\right|_{t=0} = \left.\dfr{d^3V_{C_3}}{dt^3}\right|_{t=0}$.
+
+\vspace{1.5mm}
+
+\begin{equation*}
+    V_L = L\dfr{di_L}{dt} \implies \left.\dfr{di_L}{dt}\right|_{t=0} = \dfr{V_L(0)}{L} = \dfr{V_{C_1}(0)}{L} = 0
+\end{equation*}
+
+\noindent Utilizando essas informações e as condições iniciais já conhecidas ao aplicar a Equação \eqref{eq:ex2_09} em $t=0$ temos:
+
+
+\begin{equation}
+    \begin{split}
+        \left.\dfr{de_i}{dt}\right|_{t=0} =  R_1\left[\dfr{C_1}{K}\left[R_2\left(\dfr{1}{R_3}\dfr{d^2V_{C_3}}{dt^2}+C_3\dfr{d^3V_{C_3}}{dt^3}\right)+\dfr{1}{C_2}\left(\dfr{1}{R_3}\cancel{\dfr{dV_{C_3}}{dt}}+C_3\dfr{d^2V_{C_3}}{dt^2}\right)+\right.\right.\cdots\\
+        \left.\left.\cdots+\dfr{d^2V_{C_3}}{dt^2}\right]+        \cancel{\dfr{di_L}{dt}}\right]+\dfr{1}{K}\left[R_2\left(\dfr{1}{R_3}\cancel{\dfr{dV_{C_3}}{dt}}+C_3\dfr{d^2V_{C_3}}{dt^2}\right)+\cancel{\dfr{dV_{C_2}}{dt}}+\cancel{\dfr{dV_{C_3}}{dt}}\right]
+    \end{split}
+\end{equation}
+
+\noindent manipulando
+
+\begin{equation}
+    \left.\dfr{de_i}{dt}\right|_{t=0} = \left(\dfr{R_1R_2C_1}{KR_3}+\dfr{R_1C_1C_3}{KC_2}+\dfr{R_1C_1}{K}+\dfr{R_2C_3}{K}\right)\dfr{d^2V_{C_3}}{dt^2}+ \dfr{R_1R_2C_1C_3}{K}\dfr{d^3V_{C_3}}{dt^3}
+\end{equation}
+
+\begin{equation}
+    \left.\dfr{de_i}{dt}\right|_{t=0} = \left(\dfr{R_1R_2C_1}{KR_3}+\dfr{R_1C_1C_3}{KC_2}+\dfr{R_1C_1}{K}+\dfr{R_2C_3}{K}\right)\dfr{K}{R_1R_2C_1C_3}e_i(0)+ \dfr{R_1R_2C_1C_3}{K}\dfr{d^3V_{C_3}}{dt^3}
+\end{equation}
+
+\begin{equation}
+    \left.\dfr{d^3V_{C_3}}{dt^3}\right|_{t=0} = \dfr{K}{R_1R_2C_1C_3}\left[\left.\dfr{de_i}{dt}\right|_{t=0}-\left(\dfr{R_1R_2C_1}{R_3}+\dfr{R_1C_1C_3}{C_2}+R_1C_1+R_2C_3\right)\dfr{e_i(0)}{R_1R_2C_1C_3}\right]
+\end{equation}
+
+\begin{equation}
+    \left.\dfr{d^3V_{C_3}}{dt^3}\right|_{t=0} = -1050.
+\end{equation}
+
+\begin{center}
+    \textbf{Resposta Natural}
+\end{center}
+
+\noindent A partir da Equação \eqref{eq:ex2_04} temos
+
+
+\begin{gather*}
+    \deo{4} + 7\deo{3} + 18\deo{2} + 28\dfr{de_o}{dt} + 16e_o = 0
+    \\
+    \lambda^{4} + 7\lambda^{3} + 18\lambda^{2} + 28\lambda + 16 = 0
+    \\
+    (\lambda+1)(\lambda + 4)(\lambda^{2}+2\lambda+4) = 0
+    \\
+    \lambda_{1}=-1, \quad \lambda_{2}=-4, \quad \lambda_{3,4}=-1\pm j\sqrt{3}.
+\end{gather*}
+
+\noindent Logo, o formato da solução natural de $e_o$ é
+
+\begin{equation*}
+    e_{on}(t) = A_1e^{-t} + A_2e^{-4t} + e^{-1}\left[A_3\cos\left(\sqrt{3}t\right)+A_4\sin\left(\sqrt{3}t\right)\right]
+\end{equation*}
+
+\begin{center}
+    \textbf{Resposta Forçada}
+\end{center}
+
+\noindent Uma vez que temos $e_i = 2 + \cos(2t)$, $e_{op}$ é da forma $e_{op}(t) = A + B\cos(2t) + C\sin(2t)$. Então, aplicando na Equação \eqref{eq:ex2_04}
+
+\begin{equation*}
+    \begin{split}
+        \dfr{d^4}{dt^4}\left(A + B\cos(2t) + C\sin(2t)\right) + 7\dfr{d^3}{dt^3}\left(A + B\cos(2t) + C\sin(2t)\right) + 18\dfr{d^2}{dt^2}\left(A + B\cos(2t) +\right.\cdots\\
+        \left.\cdots+C\sin(2t)\right) + 28\dfr{d}{dt}\left(A + B\cos(2t) + C\sin(2t)\right) + 16\left(A + B\cos(2t) + C\sin(2t)\right) = -200\cos(2t)
+    \end{split}
+\end{equation*}
+
+\begin{equation*}
+    \begin{split}
+        \left(16B\cos(2t) + 16C\sin(2t)\right) + \left(-\cancel{56C\cos(2t)}+ \cancel{56B\sin(2t)})\right) + \left(-72B\cos(2t) -72C\sin(2t)\right) +\\
+        +\left(\cancel{56C\cos(2t)} -\cancel{56B\sin(2t)}\right)+\left(16A + 16B\cos(2t) + 16C\sin(2t)\right)= -200\cos(2t)
+    \end{split}
+\end{equation*}
+
+\vspace{1mm}
+
+\noindent Separando os termos linearmente independentes
+
+\begin{equation*}
+    \begin{split}
+        -40B\cos(2t) &= -200\cos(2t)\\
+        -40C\sin(2t) &= 0\sin(2t)\\
+        16A &= 0
+    \end{split}
+\end{equation*}
+
+\begin{equation*}
+    \begin{split}
+        B &= 5\\
+        C &= 0\\
+        A &= 0
+    \end{split}
+\end{equation*}
+
+\noindent Então
+
+\begin{equation*}
+    e_{op}(t) = 5\cos(2t)
+\end{equation*}
+
+\begin{center}
+    \textbf{Resposta Completa}
+\end{center}
+
+\noindent A resposta completa é do formato
+
+\begin{equation}
+    \label{eq:ex2_10}
+    e_{o}(t) = e_{on}(t) + e_{op}(t) = A_1e^{-t} + A_2e^{-4t} + e^{-t}\left[A_3\cos\left(\sqrt{3}t\right)+A_4\sin\left(\sqrt{3}t\right)\right] + 5\cos\left(2t\right)
+\end{equation}
+
+\noindent Basta apenas que se utilize as condições iniciais previamente descobertas para que as constantes sejam determinadas. Para tal, primeiro derivamos a Equação \eqref{eq:ex2_10} três vezes.
+
+\begin{equation}
+    \begin{split}
+        \label{eq:ex2_11}
+        \dfr{de_o}{dt} = -A_1e^{-t} -4A_2e^{-4t} + e^{-t}\left[\left(-A_3+\sqrt{3}A_4\right)\cos\left(\sqrt{3}t\right)+\right.\cdots\\
+        \left.\cdots+\left(-\sqrt{3}A_3-A_4\right)\sin\left(\sqrt{3}t\right)\right] +10\cos\left(2t\right)
+    \end{split}
+\end{equation}
+
+\begin{equation}
+    \begin{split}
+        \label{eq:ex2_12}
+        \deo{2} = -A_1e^{-t} +16A_2e^{-4t} + e^{-t}\left[\left(-2A_3-2\sqrt{3}A_4\right)\cos\left(\sqrt{3}t\right)+\right.\cdots\\
+        \left.\cdots+\left(2\sqrt{3}A_3-2A_4\right)\sin\left(\sqrt{3}t\right)\right]-20\cos\left(2t\right)
+    \end{split}
+\end{equation}
+
+\begin{equation}
+    \begin{split}
+        \label{eq:ex2_13}
+        \deo{3} = A_1e^{-t} -64A_2e^{-4t} + e^{-t}\left[8A_3\cos\left(\sqrt{3}t\right)+8A_4\sin\left(\sqrt{3}t\right)\right] + 40\cos\left(2t\right)
+    \end{split}
+\end{equation}
+
+\noindent Aplicando as expressões \eqref{eq:ex2_11}, \eqref{eq:ex2_12} e \eqref{eq:ex2_13} em $t=0$ e igualando com os valores das condições iniciais, chegamos no sistemas de equações a seguir, escrito na forma matricial
+
+\begin{equation*}
+    \begin{bmatrix}
+        e(0)\\[2mm]
+        \left.\dfr{de_o}{dt}\right|_{t=0}\\[4mm]
+        \left.\deo{2}\right|_{t=0}\\[4mm]
+        \left.\deo{3}\right|_{t=0}
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        1 & 1 & 1 & 0\\[6.5mm]
+        -1 & -4 & -1 & \sqrt{3}\\[6.5mm]
+        1 & 16 & -2 & -2\sqrt{3}\\[6.5mm]
+        -11 & -64 & +8 & 0
+    \end{bmatrix}
+    \begin{bmatrix}
+        A_1\\[6.5mm]
+        A_2\\[6.5mm]
+        A_3\\[6.5mm]
+        A_4
+    \end{bmatrix}
+    +
+    \begin{bmatrix}
+        5\\[6.5mm]
+        0\\[6.5mm]
+        -20\\[6.5mm]
+        0
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        0\\[6.5mm]
+        0\\[6.5mm]
+        150\\[6.5mm]
+        -1050
+    \end{bmatrix}
+\end{equation*}
+
+\noindent Resolvendo
+
+\begin{equation*}
+    \begin{bmatrix}
+        A_1\\[6.5mm]
+        A_2\\[6.5mm]
+        A_3\\[6.5mm]
+        A_4
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        1 & 1 & 1 & 0\\[6.5mm]
+        -1 & -4 & -1 & \sqrt{3}\\[6.5mm]
+        1 & 16 & -2 & -2\sqrt{3}\\[6.5mm]
+        -11 & -64 & +8 & 0
+    \end{bmatrix}^{-1}
+    \left(
+    \begin{bmatrix}
+        0\\[6.5mm]
+        0\\[6.5mm]
+        150\\[6.5mm]
+        -1050
+    \end{bmatrix}
+    -
+    \begin{bmatrix}
+        5\\[6.5mm]
+        0\\[6.5mm]
+        -20\\[6.5mm]
+        0
+    \end{bmatrix}
+    \right)
+    =
+    \begin{bmatrix}
+        \dfr{-110}{9}\\[3.5mm]
+        \dfr{140}{9}\\[3.5mm]
+        \dfr{-25}{3}\\[3.5mm]
+        \dfr{125\sqrt{3}}{9}
+    \end{bmatrix}
+\end{equation*}
+
+\noindent Então, finalmente, a resposta completa é
+
+
+\begin{equation*}
+    \begin{split}
+        e_{o}(t) = \dfr{-110}{9}e^{-t} + \dfr{140}{9}e^{-4t} + e^{-t}\left[\dfr{-25}{3}\cos\left(\sqrt{3}t\right)+\dfr{125\sqrt{3}}{9}\sin\left(\sqrt{3}t\right)\right] + 5\cos\left(2t\right)
+    \end{split}
+\end{equation*}
+
+
+%\subsubsection{Elementos Reativos com Condições Iniciais: Resposta à Entrada Zero não nula}
+%\label{subsubsec:entradazeronaonula}
+
+%\subsubsection{Métodos clássicos de resolução, utilizando unicamente lei das malhas ou unicamente lei dos nós}
+%\label{subsubsec:classicos}
 
 \subsection{Elementos Reativos no domínio Frequência}
 \label{subesc:frequencia}
