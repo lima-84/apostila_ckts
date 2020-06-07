@@ -3159,7 +3159,7 @@ Uma alternativa de abordagem para resolução desse problema é a de considerar 
 
 \subsection{Amplificador Operacional Ideal}
 \label{subsec:ampop}
-Um amplificador operacional (AmpOp) é um componente que, na sua utilização mais usual, tem como saída uma combinação linear de sinais de entrada, ou seja, pode amplificar ou atenuar esses sinais e realizar operações de soma e subtração entre eles, contanto que tenha o que é chamado de \textbf{Realimentação Negativa}. O amplificador operacional também pode ser usado de tal forma que tenha uma saída binária, apenas indicando qual entre dois sinais é maior ou versões mais complexas dessa mesma ideia, mas, de qualquer forma, o amplificador operacional precisa estar em \textbf{Malha Aberta} ou ter \textbf{Realimentação Positiva} para ter esse tipo de comportamento.
+Um amplificador operacional (AmpOp) é um componente que, na sua utilização mais usual, tem como saída uma combinação linear de sinais de entrada, ou seja, pode amplificar ou atenuar esses sinais e realizar operações de soma e subtração entre eles, contanto que tenha o que é chamado de \textbf{Realimentação Negativa}. O amplificador operacional também pode ser usado de forma a ter uma saída ``binária'', apenas indicando qual entre dois sinais é maior ou versões mais complexas dessa mesma ideia, mas, de qualquer forma, o amplificador operacional precisa estar em \textbf{Malha Aberta} ou ter \textbf{Realimentação Positiva} para ter esse tipo de comportamento.
 
 \begin{center}
     \begin{tikzpicture} \draw
@@ -3173,9 +3173,9 @@ Um amplificador operacional (AmpOp) é um componente que, na sua utilização ma
     \end{tikzpicture}
 \end{center}
 
-Este componente contém em si dois terminais de entrada (não confundir com os sinais de entrada, que, por sua vez, podem ser conectados diretamente, ou por intermédio de elementos passivos, nos terminais de entrada), que são as portas inversora $(-)$ e não inversora $(+)$ e um terminal de saída cuja tensão é denotada por $V_o$, enquanto as tensões das portas inversora e não inversora são denotadas, respectivamente, por $V_-$ e $V_+$. Além disso, o amplificador operacional também possui dois terminais de alimentação $(V_{CC+}$ e $V_{CC-})$, onde, na maioria dos casos, o amplificador é utilizado com alimentação simétrica, ou seja, $V_{CC+} = +V_{CC}>0$ e $V_{CC-} = -V_{CC}<0$. Idealmente, o AmpOp possui uma impedância de entrada infinita (correntes nulas em seus terminais de entrada), uma impedância de saída zero (não há perda alguma de tensão), ou seja, um sinal de tensão pode ser perfeitamente amplificado ou atenuado para a saída, sem nenhum tipo de perda, bem como também possui um ganho em malha aberta $A=V_o/(V_+-V_-)$ infinito. O AmpOp deve ser assumido como ideal a não ser que dito o contrário.
+Este componente contém dois terminais de entrada (não confundir com os sinais de entrada de um circuito, que, por sua vez, podem ser conectados diretamente, ou por intermédio de elementos passivos, nos terminais de entrada do AmpOp), que são as portas inversora $(-)$ e não inversora $(+)$ e um terminal de saída cuja tensão é denotada por $V_o$, enquanto as tensões das portas inversora e não inversora são denotadas, respectivamente, por $V_-$ e $V_+$. Além disso, o amplificador operacional também possui dois terminais de alimentação $(V_{CC+}$ e $V_{CC-})$, sendo que, na maioria dos casos, o amplificador é utilizado com alimentação simétrica, ou seja, $V_{CC+} = +V_{CC}>0$ e $V_{CC-} = -V_{CC}<0$. Idealmente, o AmpOp possui uma impedância de entrada infinita (correntes nulas em seus terminais de entrada), uma impedância de saída zero (não há perda alguma de tensão), ou seja, um sinal de tensão pode ser perfeitamente amplificado ou atenuado para a saída, sem nenhum tipo de perda, bem como também possui um ganho em malha aberta $A=V_o/(V_+-V_-)$ infinito. O AmpOp deve ser assumido como ideal a não ser que dito o contrário.
 
-A fim de esclarecer a terminologia, pode-se dizer que o amplificar operacional tem realimentação (\textit{feedback}) quando existe uma rede de componentes que conecta a saída com o porta inversora e/ou com a porta não inversora, caso contrário se diz que o amplificador está em malha aberta, como no caso anterior em que há um amplificador isolado. Diz-se que o amplificador operacional tem realimentação negativa (está negativamente realimentado) quando existe uma rede de componentes que conecta a saída à porta inversora, mas não à porta não inversora, enquanto, em um um AmpOp que tem realimentação positiva (positivamente realimentado), existe uma rede de componentes que conecta a saída à porta não inversora, mas não à porta inversora. Note que os pinos de alimentação serão omitidos daqui em diante e apenas explicitados quando convirem para alguma explicação em especial, também deve-se assumir alimentação simétrica a não ser que o contrário seja explicitado.
+A fim de esclarecer a terminologia, pode-se dizer que o amplificar operacional tem realimentação (\textit{feedback}) quando existe uma rede de componentes que conecta a saída com a porta inversora e/ou com a porta não inversora. Caso contrário o amplificador está em malha aberta, como na figura anterior, em que há um amplificador isolado. Diz-se que o amplificador operacional tem realimentação negativa (está negativamente realimentado) quando existe uma rede de componentes que conecta a saída à porta inversora, mas não à porta não inversora. De forma análoga, em um AmpOp que possui realimentação positiva (positivamente realimentado), existe uma rede de componentes que conecta a saída à porta não inversora, mas não à porta inversora. Note que os pinos de alimentação serão omitidos daqui em diante e apenas explicitados quando convirem para alguma explicação em especial. Também deve-se assumir alimentação simétrica a não ser que o contrário seja explicitado.
 
 \vspace{5mm}
 \noindent\textbf{Malha Aberta:}
@@ -3196,30 +3196,29 @@ Como dito anteriormente, o amplificador operacional idealmente possui ganho em m
         \[V_o =
         \begin{cases}
 
-            \rightarrow +\infty,& \text{ se }  V_+>V_-\\ 
+            \rightarrow +\infty,& \text{ se }  V_+>V_-\\
 
              \rightarrow -\infty,& \text{ se }  V_+<V_-
 
         \end{cases}
-        \]
+        \].
     \end{center}
-    
-Entretanto, é evidente que na prática não é possível obter uma tensão infinita de saída. O que ocorre de fato é que a saída satura por conta do quanto as fontes conectadas aos pinos de alimentação podem fornecer e o máximo de corrente que pode passar pelo circuito real do amplificador. Reescrevemos:
+
+\noindent Entretanto, é evidente que na prática não é possível obter uma tensão infinita de saída. O que ocorre de fato é que a saída satura (atinge um valor limite) por conta do quanto as fontes conectadas aos pinos de alimentação podem fornecer e do máximo de corrente que pode passar pelo circuito real do amplificador. Reescrevemos:
 
     \begin{center}
         \[V_o =
         \begin{cases}
 
-            L_+,& \text{ se }  V_+>V_-\\ 
+            L_+,& \text{ se }  V_+>V_-\\
 
             L_-,& \text{ se }  V_+<V_-
 
         \end{cases}
-        \]
+        \],
     \end{center}
 
-Onde $L_+$ e $L_-$ são, respectivamente, os limites superior e inferior de saturação e, dado que esses limites estão relacionados com a alimentação do amplificador operacional, tem-se que $L_+\lessapprox V_{CC+}$ e $L_-\gtrapprox V_{CC-}$. Nessa configuração, o amplificador pode funcionar como comparador.
-
+\noindent onde $L_+$ e $L_-$ são, respectivamente, os limites superior e inferior de saturação. Idealmente, os limites são iguais às tensões de alimentação, isto é, $L_+=V_{CC+}$ e $L_-=V_{CC-}$. Na prática, entretanto, por questões não ideais e devido ao circuito interno do amplificador, os ditos limites são ligeiramente menores do que a alimentação. Nessa configuração, o amplificador pode funcionar como comparador, já que uma tensão vagamente maior em alguma das portas de entrada resulta em uma tensão saturada na saída.
 
 \vspace{5mm}
 \noindent\textbf{Realimentação Negativa:}
@@ -3240,7 +3239,7 @@ Onde $L_+$ e $L_-$ são, respectivamente, os limites superior e inferior de satu
     \end{tikzpicture}
 \end{center}
 
-Esta ligação, tendo como premissa que o ganho em malha aberta seja infinito, tem como característica a criação do chamado \textbf{curto circuito virtual} entre seus terminais. Em outras palavras, a tensão entre as portas inversora e não inversora é igual a zero. Lembrando que, como a impedância de entrada é muito alta, considera-se a corrente de entrada igual a zero. Esta é o modo em que o amplificador operacional é mais amplamente utilizado, pois nele é possível fazer manipulação matemática (combinações lineares, no caso) de sinais.
+Esta ligação, tendo como premissa que o ganho em malha aberta seja infinito, tem como característica a criação do chamado \textbf{curto circuito virtual} entre seus terminais. Em outras palavras, a tensão entre as portas inversora e não inversora é igual a zero. Lembrando que, como a impedância de entrada é muito alta, considera-se a corrente de entrada igual a zero. Este é o modo em que o amplificador operacional é mais utilizado, pois é possível fazer manipulação matemática de sinais.
 
 \vspace{5mm}
 
@@ -3248,14 +3247,14 @@ Esta ligação, tendo como premissa que o ganho em malha aberta seja infinito, t
 
 \begin{center}
     \begin{tikzpicture}\draw
-        (0,0) node[op amp,noinv input up] (opamp) {}
-        (opamp.-) to [short, -*] (-2.5,-0.5) node[left] {$V_-$}
-        (opamp.+) -- (-1.5,0.49)
-        (opamp.out) -- (1.2,1.5)
-        (1.2,1.5) -- (-0.1,1.5)node[scale=2,fill=white]{$\cdots$}
-        (-0.8,1.5) -- (-1.5,1.5)
-        (-1.5,1.5) -- (-1.5,0.49)
-        (-1.5,0.49) to [short,-*] (-2.5,0.5) node[left] {$V_+$}
+        (0,0) node[op amp] (opamp) {}
+        (opamp.-) to [short, -*] (-2.5,0.5) node[left] {$V_-$}
+        (opamp.+) -- (-1.5,-0.49)
+        (opamp.out) -- (1.2,-1.5)
+        (1.2,-1.5) -- (-0.1,-1.5)node[scale=2,fill=white]{$\cdots$}
+        (-0.8,-1.5) -- (-1.5,-1.5)
+        (-1.5,-1.5) -- (-1.5,-0.49)
+        (-1.5,-0.49) to [short,-*] (-2.5,-0.5) node[left] {$V_+$}
         (opamp.out) to [short,-*] (1.8,0) node[right] {$V_o$}
         ;
     \end{tikzpicture}
@@ -3265,21 +3264,15 @@ Esta ligação, tendo como premissa que o ganho em malha aberta seja infinito, t
         \[V_o =
         \begin{cases}
 
-            L_+,& \text{ se }  V_+>V_-\\ 
+            L_+,& \text{ se }  V_+>V_-\\
 
             L_-,& \text{ se }  V_+<V_-
 
         \end{cases}
         \]
     \end{center}
-    
-O funcionamento de um AmpOp com realimentação positiva é essencialmente o mesmo que para um AmpOp em malha aberta, entretanto algumas sutilezas começam a aparecer nesse caso, pois a realimentação implica que $V_+$ possa ser influenciado pela saída $V_o$. A análise de amplificadores positivamente realimentados está fora do escopo deste material.
 
-
-%É evidente que no mundo real não é possível obter ganho infinito ou impedâncias infinitas ou zero. O que realmente acontece é que, a partir de um certo ponto, a tensão de saída do amplificador operacional é saturada de acordo com as tensões de alimentação. A impedância de entrada é muito alta e a impedância de saída é muito baixa. Neste material, considerar-se-á apenas a característica \textbf{ideal} dos amplificadores operacionais.
-
-
-
+O funcionamento de um AmpOp com realimentação positiva é essencialmente o mesmo que para um AmpOp em malha aberta. Entretanto, algumas sutilezas começam a aparecer nesse caso, pois a realimentação implica que $V_+$ possa ser influenciado pela saída $V_o$. A análise de amplificadores positivamente realimentados está fora do escopo deste material.
 
 \subsubsection{Configuração Inversora}
 A aplicação de tensão na porta inversora causa um ganho proporcional e com sinal oposto em relação à entrada. Para um caso genérico:
@@ -3337,7 +3330,7 @@ A aplicação de tensão na porta inversora causa um ganho proporcional e com si
     V_o = -\dfr{R_f}{R_i} V_i \implies \dfr{V_o}{V_i} = -\dfr{R_f}{R_i}.
 \end{equation*}
 
-\textbf{Observação:} Ao relacionar os potenciais com a tensão, foi feita implicitamente a malha que passa por $V_i$, pelo curto virtual, por $V_{R_f}$ e, finalmente, por $V_o$. Caso o leitor não esteja acostumado com a notação potencial, em que as fontes de tensão são omitidas, uma breve explicação foi dada na Seção \ref{subsec:notpot}. O ganho $G_n = V_o(x_n)/x_n$ (ou apenas $G$ quando há uma única entrada) é dito o ganho em malha fechada para entrada $x_n$ (tensão ou corrente) e não se trata da mesma coisa que o ganho em malha aberta $A$.
+\textbf{Observação:} Ao relacionar os potenciais com a tensão, foi feita implicitamente a malha que passa por $V_i$, pelo curto virtual, por $V_{R_f}$ e, finalmente, por $V_o$. Caso o leitor não esteja acostumado com a notação potencial, em que as fontes de tensão são omitidas, uma breve explicação foi dada na Seção \ref{subsec:notpot}. O ganho $G$ é definido como a razão entre as tensões de saída e de entrada do circuito, podendo variar de acordo com os componentes. Por isso, não deve ser confundido com o ganho em malha aberta $A$, que é uma propriedade intrínseca do AmpOp (lembrando que foi assumido que $A$ é infinito). Além disso, caso o circuito possua mais fontes de entrada, $V_1$, $V_2$, $\dots$, $V_n$, existirá um ganho relacioando a cada entrada, $G_1$, $G_2$, $\dots$, $G_n$. Na literatura, o significado dos símbolos $G$ e $A$ varia. Por isso, a definição do ganho a ser calculado sempre deve ser informada no enunciado do problema.
 
 \subsubsection{Configuração Não Inversora}
 A aplicação de tensão na porta não inversora causa um ganho proporcional à entrada, sem mudança de sinal.
@@ -3556,42 +3549,42 @@ No caso particular em que $R_{1}=R_{3}$ e $R_{2}=R_{4}$
 
 \subsubsection{Considerações sobre ganho finito e curto circuito virtual}
 
-Outra maneira em que amplificadores operacionais podem ser apresentados, embora pouco utilizada na prática, é na forma de seu circuito equivalente, utilizando apenas os elementos previamente trabalhados nesse material. Assim como em seu formato usual, o circuito equivalente do AmpOp pode ser observado sob diversos níveis de idealidade diferentes. A fim de generalizar, consideraremos inicialmente o amplificador com impedância de entrada finita $R_{in}$ (puramente resistiva), impedância de saída não nula $R_o$ (puramente resistiva), alimentação não necessariamente simétrica e ganho em malha aberta $A$ finito.
+Outra maneira em que amplificadores operacionais podem ser apresentados, embora pouco utilizada na prática, é na forma de seu circuito equivalente, utilizando apenas os elementos previamente trabalhados nesse material. Assim como em seu formato usual, o circuito equivalente do AmpOp pode ser observado sob diversos níveis de idealidade diferentes. A fim de generalizar, consideraremos inicialmente o amplificador com impedância de entrada finita $R_{in}$ (puramente resistiva), impedância de saída não nula $R_o$ (puramente resistiva) e ganho em malha aberta $A$ finito. Então, o modelo do AmpOp é dado por
 
-\begin{center}
-    \begin{tikzpicture}\draw
-        (0,2)node[left]{$V_-$} to[short,*-] (1,2)
-        (1,0) to[R,l=$R_{in}$,v=$v$] (1,2)
-        (0,0)node[left]{$V_+$} to[short,*-] (1,0)
-        (2.5,2)node[above]{$V_{CC+}$} to[R,l=$R$,*-] (2.5,0) to[short,-*] (4,0)node[right]{$V_{Ref}$}
-        (2.5,0) to[R,l=$R$,-*] (2.5,-2)node[below]{$V_{CC-}$}
-        (4,2) to[V,l=$Av$] (4,0)
-        (4,2) to[R,l=$R_o$,-*] (6,2)node[right]{$V_o$}
-        ;
-    \end{tikzpicture}
-\end{center}
+\noindent\begin{minipage}{\textwidth}
+\centering
+\begin{minipage}[c][5cm][c]{\dimexpr0.45\textwidth-0.5\Colsep\relax}
+    \begin{center}
+        \begin{tikzpicture}
+            \draw
+            (0,0) node[op amp] (opamp) {}
+            (opamp.+) to [short,-*] (-1.5,-0.49) node[left] {$V_+$}
+            (opamp.-) to [short,-*] (-1.5,0.49) node[left] {$V_-$}
+            (opamp.out) to [short,-*] (1.6,0) node[right] {$V_o$}
+            ;
+        \end{tikzpicture}
+    \end{center}
+\end{minipage} \hfill
+\begin{minipage}[c][5cm][c]{\dimexpr0.1\textwidth-0.5\Colsep\relax}
+    $$\iff$$
+\end{minipage} \hfill
+\begin{minipage}[c][5cm][c]{\dimexpr0.45\textwidth-0.5\Colsep\relax}
+    \begin{center}
+        \begin{tikzpicture}
+            \draw
+            (0,2)node[left]{$V_-$} to[short,*-] (1,2)
+            (1,0) to[R,l=$R_{in}$,v=$v$] (1,2)
+            (0,0)node[left]{$V_+$} to[short,*-] (1,0)
+            (3,2) to[V,l=$Av$] (3,0)node[ground]{}
+            (3,2) to[R,l=$R_o$,-*] (5,2)node[right]{$V_o$}
+            ;
+            ;
+        \end{tikzpicture}
+    \end{center}
+\end{minipage}
+\end{minipage}
 
-\noindent Por superposição de $V_{CC+}$ e $V_{CC-}$, o potencial $V_{ref}$ é igual a
-
-\begin{equation*}
-    V_{ref} = \dfr{R}{R+R}V_{CC+} + \dfr{R}{R+R}V_{CC-} = \dfr{V_{CC+}+V_{CC-}}{2}
-\end{equation*}
-
-\noindent o que significa que a referência da tensão saída é a média entra as tensões de alimentação do amplificador. Portanto, alimentar simetricamente o amplificador implica que essa média seja nula e que a referência da tensão de saída seja $0V$, o terra. Considera-se alimentação simétrica a partir de agora.
-
-\begin{center}
-    \begin{tikzpicture}\draw
-        (0,2)node[left]{$V_-$} to[short,*-] (1,2)
-        (1,0) to[R,l=$R_{in}$,v=$v$] (1,2)
-        (0,0)node[left]{$V_+$} to[short,*-] (1,0)
-        (3,2) to[V,l=$Av$] (3,0)node[ground]{}
-        (3,2) to[R,l=$R_o$,-*] (5,2)node[right]{$V_o$}
-        ;
-    \end{tikzpicture}
-\end{center}
-
-Devido ao fato de que deduzir que $v=0$, ou seja, tem-se um curto virtual entre as portas inversora e não inversora, para todo circuito negativamente realimentado com ganho em malha aberta infinito vir a ser uma tarefa complexa demais para o escopo atual, veremos o exemplo com circuito a seguir, negativamente realimentado, apenas para ilustrar a ideia.
-
+\noindent Devido ao fato de que deduzir que $v=0$, ou seja, tem-se um curto virtual entre as portas inversora e não inversora, para todo circuito negativamente realimentado com ganho em malha aberta infinito vir a ser uma tarefa complexa demais para o este material, veremos o exemplo com circuito a seguir, negativamente realimentado, apenas para ilustrar a ideia.
 
 \begin{center}
     \begin{tikzpicture}
@@ -3637,51 +3630,51 @@ Devido ao fato de que deduzir que $v=0$, ou seja, tem-se um curto virtual entre 
 \noindent faz-se a malha que percorre $V_1$, $R_1$, $R_{in}$ e $V_2$ para descobrir a tensão em $R_1$ e, consequentemente, sua corrente
 
 \begin{equation*}
-    i_{R_1} = \dfr{V_1-V_2+v}{R_1}
+    i_{R_1} = \dfr{V_1-V_2+v}{R_1}.
 \end{equation*}
 
 \noindent fazendo o nó em $V_-$ é possível descobrir a corrente que percorre $R_2$ e, por conseguinte, sua tensão
 
 \begin{equation*}
-   V_{R_2} = R_2\left(\dfr{V_1-V_2+v}{R_1}+\dfr{v}{R_{in}}\right)
+   V_{R_2} = R_2\left(\dfr{V_1-V_2+v}{R_1}+\dfr{v}{R_{in}}\right).
 \end{equation*}
 
-\noindent sabe-se também que
+\noindent sabe-se, também, que
 
 \begin{equation*}
-    V_o = Av + V_{R_o}
+    V_o = Av + V_{R_o}.
 \end{equation*}
 
 \noindent utilizando a idealidade da impedância de saída nula temos
 
 \begin{equation*}
-    R_o \to 0 \implies V_{R_o} \to 0
+    R_o \to 0 \implies V_{R_o} \to 0.
 \end{equation*}
 
-\noindent em seguida podemos equacionar $V_o$ pela malha que percorre $V_o$, $R_2$, $R_{in}$ e $V_2$
+\noindent Em seguida podemos equacionar $V_o$ pela malha que percorre $V_o$, $R_2$, $R_{in}$ e $V_2$
 
 \begin{equation*}
-    V_o = Av - 0 = V_2 - R_2\left(\dfr{V_1-V_2+v}{R_1}+\dfr{v}{R_{in}}\right) - v
+    V_o = Av - 0 = V_2 - R_2\left(\dfr{V_1-V_2+v}{R_1}+\dfr{v}{R_{in}}\right) - v.
 \end{equation*}
 
-\noindent manipulando
+\noindent Manipulando,
 
 \begin{equation*}
-    v\left(A+\dfr{R_2}{R_{in}}+\dfr{R_2}{R_{1}}+1\right) = V_2 -\dfr{R_2}{R_1}\left(V_1-V_2\right) 
+    v\left(A+\dfr{R_2}{R_{in}}+\dfr{R_2}{R_{1}}+1\right) = V_2 -\dfr{R_2}{R_1}\left(V_1-V_2\right)
 \end{equation*}
 
 \begin{equation*}
-    v = \dfr{V_2-\dfr{R_2}{R_1}\left(V_1-V_2\right)}{A+\dfr{R_2}{R_{in}}+\dfr{R_2}{R_1}+1}
+    v = \dfr{V_2-\dfr{R_2}{R_1}\left(V_1-V_2\right)}{A+\dfr{R_2}{R_{in}}+\dfr{R_2}{R_1}+1}.
 \end{equation*}
 
-\noindent agora utilizando a idealidade da impedância de entrada infinita ao fazer o limite temos
+\noindent Agora, utilizando a idealidade da impedância de entrada infinita ao fazer o limite, temos
 
 \begin{equation}
     \label{eq:curtocircuito}
-    \lim_{R_{in}\to+\infty}v = \lim_{R_{in}\to+\infty} \dfr{V_2-\dfr{R_2}{R_1}\left(V_1-V_2\right)}{A+\cancel{\dfr{R_2}{R_{in}}}+\dfr{R_2}{R_1}+1} = \dfr{V_2-\dfr{R_2}{R_1}\left(V_1-V_2\right)}{A+\dfr{R_2}{R_1}+1}
+    \lim_{R_{in}\to+\infty}v = \lim_{R_{in}\to+\infty} \dfr{V_2-\dfr{R_2}{R_1}\left(V_1-V_2\right)}{A+\cancel{\dfr{R_2}{R_{in}}}+\dfr{R_2}{R_1}+1} = \dfr{V_2-\dfr{R_2}{R_1}\left(V_1-V_2\right)}{A+\dfr{R_2}{R_1}+1}.
 \end{equation}
 
-\noindent vale salientar que a impedância de entrada nula, por si só, já garante corrente nula entre as portas de entrada do AmpOp. Multiplicando por $A$ obtemos a equação para tensão de saída para ganho finito (vale salientar que não é necessário que se trabalhe com o circuito equivalente para obter essa equação, é possível obter diretamente o AmpOp, apenas é necessário não aplicar o curto virtual e utilizar a relação $V_o = A(V_+-V_-)$)
+\noindent Vale salientar que a impedância de entrada nula, por si só, já garante corrente nula entre as portas de entrada do AmpOp. Multiplicando por $A$ obtemos a equação para tensão de saída para ganho finito (vale salientar que não é necessário que se trabalhe com o circuito equivalente para obter essa equação: é possível obter diretamente do AmpOp, apenas é necessário não aplicar o curto virtual e utilizar a relação $V_o = A(V_+-V_-)$).
 
 \begin{equation}
     \label{eq:ganhofinito}
@@ -3697,20 +3690,20 @@ Devido ao fato de que deduzir que $v=0$, ou seja, tem-se um curto virtual entre 
 \noindent o mesmo pode ser feito na Equação \eqref{eq:ganhofinito} para obter a tensão de saída para ganho infinito. Observe que, então, a tensão de saída depende cada vez menos do ganho conforme o quão grande ele for
 
 \begin{equation}
-    \lim_{A\to+\infty}\lim_{R_{in}\to+\infty}Av = \lim_{A\to+\infty} \dfr{A\left(V_2-\dfr{R_2}{R_1}\left(V_1-V_2\right)\right)}{A+\dfr{R_2}{R_1}+1} = V_2-\dfr{R_2}{R_1}\left(V_1-V_2\right)
+    \lim_{A\to+\infty}\lim_{R_{in}\to+\infty}Av = \lim_{A\to+\infty} \dfr{A\left(V_2-\dfr{R_2}{R_1}\left(V_1-V_2\right)\right)}{A+\dfr{R_2}{R_1}+1} = V_2-\dfr{R_2}{R_1}\left(V_1-V_2\right).
 \end{equation}
 
-\noindent é possível observar então que esse foi exatamente o resultado para a configuração inversora na Equação \eqref{eq:ampop_inversor}, ao considerarmos $V_2 = 0$.
+\noindent É possível observar, então, que esse foi exatamente o resultado para a configuração inversora na Equação \eqref{eq:ampop_inversor}, ao considerarmos $V_2 = 0$.
 
 \vspace{5mm}
 
-No entanto, caso se tentasse fazer o mesmo processo utilizando o circuito com realimentação positiva, chegaria-se em resultados ligeiramente diferentes para as equações com ganho em malha aberta finito, porém os mesmos resultados quando o ganho em malha aberta é infinito. Isso parece contraditório, e com certeza seria terminantemente um erro considerar que o AmpOp com realimentação positiva se comporta da mesma forma que o AmpOp com realimentação negativa, pois isso não se dá na prática, porém o que ocorre, na realidade, é que o escopo da abordagem que estamos realizando não é amplo o suficiente para captar a diferença que há entre esses dois casos, pois essa diferença é de natureza dinâmica, enquanto todas considerações feitas até então sobre amplificadores foram estáticas. Isto é, consideramos apenas um modelo de circuito equivalente contendo resistores e fontes, porém nenhum elemento reativo, o que é uma aproximação muito válida para o AmpOp em realimentação negativa enquanto não se utilizar sinais de entrada com frequência absurdamente alta. O que acontece, na realidade, é que um amplificador operacional tem um equação diferencial associada a ele (uma leitura da Seção \ref{sec:reativos} é necessária para compreensão da situação sendo descrita), mas, como queremos utilizar amplificadores operacionais ideias, simplesmente separamos em diferentes casos (malha aberta, realimentação negativa e positiva) e tratamos cada um dos casos com uma regra geral específica.
+Caso se tentasse fazer o mesmo processo utilizando o circuito com realimentação positiva, chegaria-se em resultados ligeiramente diferentes para as equações com ganho em malha aberta finito, porém os mesmos resultados quando o ganho em malha aberta é infinito. Isso parece contraditório, e com certeza seria terminantemente um erro considerar que o AmpOp com realimentação positiva se comporta da mesma form que o AmpOp com realimentação negativa, pois isso não se dá na prática. Porém o que ocorre, na realidade, é que o escopo da abordagem que estamos realizando não é amplo o suficiente para captar a diferença que há entre esses dois casos, pois essa diferença é de natureza dinâmica, enquanto todas considerações feitas até então sobre amplificadores foram estáticas. Isto é, consideramos apenas um modelo de circuito equivalente contendo resistores e fontes, porém nenhum elemento reativo, o que é uma aproximação muito válida para o AmpOp em realimentação negativa enquanto não se utilizar sinais de entrada com frequência alta. O que acontece, na realidade, é que um amplificador operacional tem um equação diferencial associada a ele (uma leitura da Seção \ref{sec:reativos} é necessária para compreensão da situação sendo descrita), mas, como queremos utilizar amplificadores operacionais ideias, simplesmente separamos em diferentes casos (malha aberta, realimentação negativa e positiva) e tratamos cada um dos casos com uma regra geral específica.
 
 Com o intuito de demostrar por qual motivo a realimentação positiva tem um comportamento completamente diferente da realimentação negativa, porém sem impor a complexidade indesejada de um modelo dinâmico, segue um raciocínio que pode esclarecer as coisas.
 
 \vspace{5mm}
 
-Considere o circuito equivalente a seguir, com impedância de entrada infinita, impedância de saída nula e ganho em malha aberta finito
+Considere o circuito equivalente a seguir, agora realimentado positivamente, com impedância de entrada infinita, impedância de saída nula e ganho em malha aberta finito
 
 \begin{center}
     \begin{tikzpicture}
@@ -3738,7 +3731,7 @@ Considere o circuito equivalente a seguir, com impedância de entrada infinita, 
 
 \noindent No entanto, a única informação que nos importa para essa análise é que $V_o(V_1) \propto -V_1$, juntamente com $V_o = Av$, com $A$ grande.
 
-Com o objetivo de analisar esse circuito de forma dinâmica, simplesmente consideraremos que nada acontece instantaneamente no circuito, mas demora um tempo de resposta. Isto é, uma vez aplicado um valor de tensão em $V_1$, existe um \textit{delay} até que a saída $V_o$ saia de sua condição inicial e incremente/decremente até chegar em seu valor final. Dito isso, considere a seguinte situação: as tensões $V_1$ e $V_o$ são inicialmente nulas e aplica-se uma tensão positiva em $V_1$; como $V_o(V_1) < 0$, a tensão $V_o$ vai ficando mais negativa a fim de alcançar seu valor requerido; por conta de $V_o$ estar conectado com $V_+$, um decréscimo em $V_o$ também significará um decréscimo em $V_+$ (considere o divisor de tensão para $V_+(V_o)$); como $V_+$ ficou mais negativo, $v = (V_+-V_-)$ também ficou; portanto, como $V_o = Av$, $V_o$ fica ainda mais negativo; isso ocorre sucessivamente até a saturação de $V_o$. O mesmo raciocínio é válido para $V_o(V_1) > 0$. A diferença em relação para a realimentação negativa é que, ao $V_o$ se alterar (digamos, negativamente), a alteração subsequente é em $V_-$ e não em $V_+$, e isso faz toda diferença uma vez que, se $V_-$ tornar-se mais negativo $v$ torna-se mais positivo, então as influências se anulam e não há uma reação em cadeira gerada.
+Com o objetivo de analisar esse circuito de forma dinâmica, simplesmente consideraremos que nada acontece instantaneamente no circuito. Isto é, uma vez aplicado um valor de tensão em $V_1$, existe um \textit{delay} até que a saída $V_o$ saia de sua condição inicial e incremente/decremente até chegar em seu valor final. Dito isso, considere a seguinte situação: as tensões $V_1$ e $V_o$ são inicialmente nulas e aplica-se uma tensão positiva em $V_1$; como $V_o(V_1) < 0$, a tensão $V_o$ vai ficando mais negativa a fim de alcançar seu valor requerido; por conta de $V_o$ estar conectado com $V_+$, um decréscimo em $V_o$ também significará um decréscimo em $V_+$ (considere o divisor de tensão para $V_+(V_o)$); como $V_+$ ficou mais negativo, $v = (V_+-V_-)$ também ficou; portanto, como $V_o = Av$, $V_o$ fica ainda mais negativo; isso ocorre sucessivamente até a saturação de $V_o$. O mesmo raciocínio é válido para $V_o(V_1) > 0$. A diferença em relação à realimentação negativa é que, ao passo que $V_o$ se altera (digamos, negativamente), a alteração subsequente é em $V_-$ e não em $V_+$, e isso faz toda diferença uma vez que, se $V_-$ tornar-se mais negativo $v$ torna-se mais positivo, então as influências se anulam e não há uma reação em cadeira gerada.
 
 \vspace{5mm}
 
@@ -3747,7 +3740,7 @@ Com o objetivo de analisar esse circuito de forma dinâmica, simplesmente consid
 \subsubsection{Realimentação dupla}
 \label{subsubsec:ganho finito}
 
-Também existe o caso, como anteriormente citado, de o amplificador operacional estar alimentado negativamente e positivamente de forma simultânea e, nesse caso, diz-se que está duplamente realimentado. Ainda assim, o AmpOp tem uma realimentação dominante, ou seja, um AmpOp duplamente realimentado pode ter realimentação negativa dominante ou realimentação positiva dominante. Informalmente pode-se dizer que a realimentação negativa dominante significa que existe um caminho preferencial, com uma resistência equivalente menor, da saída para porta inversora em comparação com o caminho da saída para a porta não inversora, ou o análogo para realimentação positiva dominante. Para ser ligeiramente mais criterioso com as terminologias, pode-se dizer que a realimentação negativa é um caso particular da realimentação negativa dominante, em que não há rede de componentes que conecte a saída com a porta não inversora, bem como o análogo para realimentação positiva.
+Também existe o caso de o amplificador operacional estar alimentado negativamente e positivamente de forma simultânea e, nesse caso, diz-se que está duplamente realimentado. Ainda assim, o AmpOp tem uma realimentação dominante, ou seja, um AmpOp duplamente realimentado pode ter realimentação negativa dominante ou realimentação positiva dominante. Informalmente pode-se dizer que a realimentação negativa dominante significa que existe um caminho preferencial, com uma resistência equivalente menor, da saída para porta inversora em comparação com o caminho da saída para a porta não inversora, ou o análogo para realimentação positiva dominante. Para ser ligeiramente mais criterioso com as terminologias, pode-se dizer que a realimentação negativa é um caso particular da realimentação negativa dominante, em que não há rede de componentes que conecte a saída com a porta não inversora, bem como o análogo para realimentação positiva.
 
 \begin{center}
     \begin{tikzpicture}\draw
@@ -3760,7 +3753,7 @@ Também existe o caso, como anteriormente citado, de o amplificador operacional 
         (-1.5,1.5) -- (-1.5,0.49)
         (-1.5,0.49) to [short,-*] (-2.5,0.5) node[left] {$V_-$}
         (opamp.out) to [short,-*] (1.8,0) node[right] {$V_o$}
-        
+
         (opamp.out) -- (1.2,-1.5)
         (1.2,-1.5) -- (-0.1,-1.5)node[scale=2,fill=white]{$\cdots$}
         (-0.8,-1.5) -- (-1.5,-1.5)
@@ -3773,10 +3766,10 @@ Para resolução de amplificadores duplamente realimentados, basta determinar qu
 
 \begin{equation}
     \label{eq:negdominante}
-    V_o = AV_+ - BV_- \hspace{2mm} \text{, onde}\hspace{1mm} A,B \in {\rm I\!R}_+
+    V_o = AV_+ - BV_- \hspace{2mm} \text{, onde}\hspace{1mm} A,B \in {\rm I\!R}_+.
 \end{equation}
 
-Ou seja, se, ao assumir a hipótese de que a realimentação negativa é a dominante e, então, usar o curto virtual, a saída puder ser escrita conforme a Equação \eqref{eq:negdominante}, conclui-se que a realimentação negativa é de fato dominante, caso contrário, a realimentação positiva é dominante. Com esse método é possível até mesmo determinar a relação entre os resistores tais que o amplificador tenha a dominância que se queira.
+\noindent Ou seja, se, ao assumir a hipótese de que a realimentação negativa é a dominante e, então, usar o curto virtual, a saída puder ser escrita conforme a Equação \eqref{eq:negdominante}, conclui-se que a realimentação negativa é de fato dominante, caso contrário, a realimentação positiva é dominante. Com esse método é possível até mesmo determinar a relação entre os resistores tais que o amplificador tenha a dominância desejada.
 
 \subsection{Quadripolos}
 \label{subsec:quadripolos}
