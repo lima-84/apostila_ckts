@@ -3918,13 +3918,13 @@ Neste caso, o circuito equivalente é:
         (0,0) to[short,f=$I_1$,*-] (1,0)
         (1,0) to[R,l_=$\dfr{1}{y_{11}}$] (1,-2)
         (1,0) -- (3,0)
-        (3,-2) to[I,l=$y_{12}E_2$] (3,0)
+        (3,-2) to[I,l=$y_{12}V_2$] (3,0)
         (0.5,0) to[open,v=$V_1$] (0.5,-2)
 
         (8,0) to[short,f_=$I_2$,*-] (7,0)
         (7,0) to[R,l=$\dfr{1}{y_{22}}$] (7,-2)
         (7,0) -- (5,0)
-        (5,-2) to[I,l_=$y_{21}E_1$] (5,0)
+        (5,-2) to[I,l_=$y_{21}V_1$] (5,0)
         (8.8,0) to[open,v=$V_2$] (8.8,-2)
 
         (0,-2) to[short,*-*] (8,-2)
@@ -3983,7 +3983,7 @@ Neste caso, o circuito equivalente é:
         (8,0) to[short,f_=$I_2$,*-] (7,0)
         (7,0) to[R,l=$\dfr{1}{h_{22}}$] (7,-2)
         (7,0) -- (5,0)
-        (5,-2) to[I,l_=$h_{21}E_1$] (5,0)
+        (5,-2) to[I,l_=$h_{21}V_1$] (5,0)
         (8.8,0) to[open,v=$V_2$] (8.8,-2)
 
         (0,-2) to[short,*-*] (8,-2)
@@ -4035,7 +4035,7 @@ Neste caso, o circuito equivalente é:
         (0,0) to[short,f=$I_1$,*-] (1,0)
         (1,0) to[R,l_=$\dfr{1}{g_{11}}$] (1,-2)
         (1,0) -- (3,0)
-        (3,-2) to[I,l=$g_{12}E_2$] (3,0)
+        (3,-2) to[I,l=$g_{12}V_2$] (3,0)
         (0.5,0) to[open,v=$V_1$] (0.5,-2)
 
         (8,0) to[short,f_=$I_2$,*-] (7,0)
@@ -5285,7 +5285,7 @@ Como o lado direto da equação é constante, $e_{o_p} = A$. Substituindo na equ
     \dfr{d^2i_a}{dt^2} + \l(\dfr{R_a}{L_a} + \dfr{D}{J}\r)\dfr{di_a}{dt} + \l(\dfr{K_a K_{\omega}}{J L_a} + \dfr{D R_a}{J L_a}\r)i_a = \dfr{1}{L_a}\dei{ } + \dfr{D}{J L_a} e_i. \label{eq:e1_edol_monica}
 \end{equation}
 
-\noindent Para verificar se há alguma inconsistência na equação, realiza-se a análise dimensional. As chaves a seguir representam operações com unidades de media (como referido na Seção \ref{subsubsec:unidades}).
+\noindent Para verificar se há alguma inconsistência na equação, realiza-se a análise dimensional. As chaves a seguir representam operações com unidades de medida (como referido na Seção \ref{subsubsec:unidades}).
 
 \begin{equation*}
     \l[ \dfr{A}{s^2} + \l( \dfr{\Omega}{H} + \dfr{\dfr{Kg \hspace{1mm} m^2}{s}}{Kg \hspace{1mm} m^2} \r) \dfr{A}{s} + \l( \dfr{\dfr{N \hspace{1mm} m}{A} V \hspace{1mm} s}{Kg \hspace{1mm} m^2 \hspace{1mm} H} + \dfr{\dfr{Kg \hspace{1mm} m^2 \hspace{1mm} \Omega}{s}}{Kg \hspace{1mm} m^2 \hspace{1mm} H} \r)A \r] = \l[ \dfr{1}{H}\dfr{V}{s}  + \dfr{\dfr{Kg \hspace{1mm} m^2 \hspace{1mm}}{s}}{Kg \hspace{1mm} m^2 \hspace{1mm} H}V\r].
